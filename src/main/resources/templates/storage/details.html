@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main">
+
+        <h1 class="text-center text-white">Storage</h1>
+        <hr class="hr-2 bg-white w-25">
+
+        <div class="container" th:if="${#session.getAttribute('cart').isEmpty()}">
+            <h2 class="text-white">No items added to the invoice storage yet!</h2>
+        </div>
+
+        <div class="container text-center text-white w-50" th:unless="${#session.getAttribute('cart').isEmpty()}">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h4><u>name</u></h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4><u>quantity</u></h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4><u>price</u></h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4><u>image</u></h4>
+                </div>
+                <div class="col-sm-3">
+                    <h4><u>action</u></h4>
+                </div>
+            </div>
+            <div class="row align-items-center" th:each="item, iter : ${cart}">
+                <div class="col-sm-3">
+                    <h4 th:text="${item.name}">name</h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4 th:text="${item.quantity}">quantity</h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4 th:text="${item.price}">price</h4>
+                </div>
+                <div class="col-sm-2">
+                    <img th:src="${item.imageUrl}" width="60" height="60" alt="Item">
+                </div>
+                <div class="col-sm-3">
+                    <form th:action="@{/storage/remove-item/{id}(id=${item.id})}" method="post">
+                        <button type="submit" class="btn btn-danger btn-block border-white font-weight-bold text-white">
+                            Remove
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <hr class="hr-2 bg-white">
+
+            <div class="row mt-2">
+                <div class="col-sm-7">
+                    <h3 class="text-white text-right">Total price:</h3>
+                </div>
+                <div class="col-sm-2">
+                    <h3 th:text="${totalPrice}" class="text-white text-center"></h3>
+                </div>
+                <div class="col-sm-3">
+                    <form th:action="@{/invoice/add}" method="get">
+                        <button class="btn btn-info btn-block border-white low-button font-weight-bold text-white"
+                                type="submit">
+                            Create invoice
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+</body>
+</html>

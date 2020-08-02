@@ -1,0 +1,36 @@
+body {
+    background-image: url("/images/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.form-control {
+    text-align: center;
+    width: auto;
+    margin: auto;
+}
+
+.logout-button {
+    background: transparent;
+    border: none;
+    padding: 8px 0;
+    width: 100%;
+    text-align: left;
+}
+
+.app-main {
+    margin-bottom: 1.75rem;
+    text-align: center;
+}
+
+.card {
+    background-color: rgba(245, 245, 245, 0.2);
+}
+
+.card-body, .card-footer {
+    opacity: 1;
+    padding: 1.25rem;
+}
+

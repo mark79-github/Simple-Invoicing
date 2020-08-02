@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main">
+
+        <h1 class="text-center text-white">Company - details</h1>
+        <hr class="hr-2 bg-white w-25">
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="card-group col-sm-6">
+                    <div class="card border-white mb-2">
+                        <div class="card-header text-white">
+                            <h4>name: <strong th:text="${companyViewModel.name}"></strong></h4>
+                        </div>
+                        <div class="card-body text-white">
+                            <h4 class="card-text">address: <strong th:text="${companyViewModel.address}"></strong></h4>
+                            <h4 class="card-text">identifier: <strong
+                                    th:text="${companyViewModel.uniqueIdentifier}"></strong></h4>
+                            <h4 class="card-text">supplier: <strong
+                                    th:text="${companyViewModel.supplier}? 'yes' : 'no'"></strong></h4>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm"
+                                         sec:authorize="hasRole(T(bg.softuni.invoice.model.enumerated.RoleType).ADMIN)">
+                                        <a th:href="@{/company/edit/{id}(id=${companyViewModel.id})}"
+                                           class="btn btn-danger btn-block border-white font-weight-bold text-white mb-1">Edit</a>
+                                    </div>
+                                    <div class="col-sm">
+                                        <a th:href="@{/company/all}"
+                                           class="btn btn-secondary btn-block border-white font-weight-bold text-white mb-1">All</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>

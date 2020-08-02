@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main">
+
+        <h1 class="text-center text-white">Companies</h1>
+        <hr class="hr-2 bg-white w-25">
+
+        <div class="container-fluid" th:if="${companies.isEmpty()}">
+            <h2 class="text-white text-center">No companies added to the project yet!</h2>
+        </div>
+
+        <div class="container-fluid text-center text-white w-75" th:unless="${companies.isEmpty()}">
+            <div class="row">
+                <div class="col-sm">
+                    <h4><u>name</u></h4>
+                </div>
+                <div class="col-sm">
+                    <h4><u>address</u></h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4><u>identifier</u></h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4><u>action</u></h4>
+                </div>
+            </div>
+            <div class="row align-items-center" th:each="company, iter : ${#lists.sort(companies, comparator)}">
+                <div class="col-sm">
+                    <h5 th:text="${company.name}">name</h5>
+                </div>
+                <div class="col-sm">
+                    <h5 th:text="${company.address}">price</h5>
+                </div>
+                <div class="col-sm-2">
+                    <h5 th:text="${company.uniqueIdentifier}">price</h5>
+                </div>
+                <div class="col-sm-2">
+                    <a th:href="@{/company/details/{id}(id=${company.id})}"
+                       class="btn btn-secondary btn-block border-white font-weight-bold text-white mb-2 mt-2 ml-2 mr-2">Details</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main">
+
+        <h1 class="text-center text-white">Item - details</h1>
+        <hr class="hr-2 bg-white w-25">
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="card-group col-sm-6">
+                    <div class="card border-white mb-2">
+                        <div class="card-header text-white">
+                            <h4>name: <strong th:text="${itemViewModel.name}"></strong></h4>
+                        </div>
+                        <div class="card-body text-white">
+                            <h4 class="card-text">price: <strong th:text="${itemViewModel.price}"></strong></h4>
+
+                            <div class="text-center">
+                                <img class="img-fluid mx-auto d-block" th:src="${itemViewModel.imageUrl}" height="240"
+                                     width="240" alt="No image found">
+                            </div>
+
+                            <div class="text-center">
+                                <form class="mx-auto" th:action="@{/storage/add-item/{id}(id=${itemViewModel.id})}"
+                                      method="post">
+                                    <div class="form-group">
+                                        <label for="quantity"
+                                               class="text-white d-flex justify-content-center font-italic mt-2">quantity</label>
+                                        <input type="number" step="1" min="1" value="1"
+                                               class="form-control w-50" id="quantity" placeholder="quantity ..."
+                                               name="quantity" required="required">
+                                    </div>
+
+                                    <button class="btn warning btn-info border-white font-weight-bold text-white mt-2 mb-2 w-50"
+                                            type="submit">Add to storage
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="text-center"
+                                 sec:authorize="hasRole(T(bg.softuni.invoice.model.enumerated.RoleType).ADMIN)">
+                                <a class="btn btn-danger border-white font-weight-bold text-white mt-2 mb-2 w-50"
+                                   th:href="@{/item/edit/{id}(id=${itemViewModel.id})}">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>

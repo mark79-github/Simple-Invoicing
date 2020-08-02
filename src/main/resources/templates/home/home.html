@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main" th:object="${user}">
+
+        <h1 class="text-white">Welcome, <span th:text="|${user.firstName} ${user.lastName}|"></span></h1>
+        <hr class="hr-2 bg-white w-25">
+
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>

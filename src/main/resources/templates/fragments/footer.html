@@ -1,0 +1,8 @@
+<footer th:fragment="footer" xmlns:th="http://www.thymeleaf.org">
+    <div class="footer fixed-bottom">
+        <div class="footer-background text-white h5 text-center">
+            <strong> © All rights reserved. <span
+                    th:text="${#temporals.format(#temporals.createNow(), 'dd-MMM-yyyy HH:mm')}"></span></strong>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main">
+
+        <h1 class="text-center text-white">Change profile</h1>
+        <hr class="hr-2 bg-white w-25">
+        <form th:object="${userProfileBindingModel}" class="form w-25 mx-auto"
+              th:method="post" th:action="@{/user/profile/{id}(id = *{id})}">
+            <div class="form-group">
+                <label for="username" class="text-white d-flex justify-content-end font-italic">username</label>
+                <input th:value="*{username}" type="text" class="form-control w-100"
+                       id="username" placeholder="username ..." name="username" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="firstName" class="text-white d-flex justify-content-end font-italic">first name</label>
+                <input th:value="*{firstName}" th:errorclass="bg-warning" type="text" class="form-control w-100"
+                       id="firstName" placeholder="first name ..." name="firstName" required="required"
+                       data-toggle="popover" data-content="must be at least 3 characters">
+                <small th:each="error:${#fields.errors('firstName')}" th:text="${error}" class="text-white"></small>
+            </div>
+            <div class="form-group">
+                <label for="lastName" class="text-white d-flex justify-content-end font-italic">last name</label>
+                <input th:value="*{lastName}" th:errorclass="bg-warning" type="text" class="form-control w-100"
+                       id="lastName" placeholder="last name ..." name="lastName" required="required"
+                       data-toggle="popover" data-content="must be at least 3 characters">
+                <small th:each="error:${#fields.errors('lastName')}" th:text="${error}" class="text-white"></small>
+            </div>
+
+            <hr class="hr-2 bg-white">
+
+            <div class="button-holder d-flex justify-content-center ">
+                <button class="btn btn-info border-white text-white mb-3 w-100 font-weight-bolder font-italic" type="submit">Update
+                </button>
+            </div>
+        </form>
+
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>

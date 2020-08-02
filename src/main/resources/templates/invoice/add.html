@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main">
+
+        <h1 class="text-center text-white">Create invoice</h1>
+        <hr class="hr-2 bg-white w-25">
+
+        <form class="form w-25 mx-auto" th:action="@{/invoice/add}" th:method="post"
+              th:object="${invoiceAddBindingModel}">
+
+            <div class="form-group">
+                <label for="sender" class="text-white d-flex justify-content-end font-italic">sender</label>
+                <select th:field="*{sender}" class="custom-select" id="sender" name="sender">
+                    <option value="">Select sender</option>
+                    <option th:each="s : ${senderCompany}" th:text="${s.name}" th:value="${s.id}">Sender</option>
+                </select>
+                <ul class="list-unstyled">
+                    <li class="text-white" th:each="error:${#fields.errors('sender')}">
+                        <small th:text="${error}"></small>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="receiver" class="text-white d-flex justify-content-end font-italic">receiver</label>
+                <select th:field="*{receiver}" class="custom-select" id="receiver" name="receiver">
+                    <option value="">Select receiver</option>
+                    <option th:each="r : ${receiverCompanies}" th:text="${r.name}" th:value="${r.id}">Receiver</option>
+                </select>
+                <ul class="list-unstyled">
+                    <li class="text-white" th:each="error:${#fields.errors('receiver')}">
+                        <small th:text="${error}"></small>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentType" class="text-white d-flex justify-content-end font-italic">payment type</label>
+                <select th:field="*{paymentType}" class="custom-select" id="paymentType" name="paymentType">
+                    <option value="">Select payment</option>
+                    <option th:each="paymentType : ${T(bg.softuni.invoice.model.enumerated.PaymentType).values()}"
+                            th:text="${paymentType}" th:value="${paymentType}">
+                    </option>
+                </select>
+                <ul class="list-unstyled">
+                    <li class="text-white" th:each="error:${#fields.errors('paymentType')}">
+                        <small th:text="${error}"></small>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="totalValue" class="text-white d-flex justify-content-end font-italic">total value</label>
+                <input th:field="*{totalValue}" th:errorclass="bg-warning" type="number" step="0.1" readonly="readonly"
+                       class="form-control w-100" id="totalValue" placeholder="total value ..." name="totalValue">
+                <ul class="list-unstyled">
+                    <li class="text-white" th:each="error:${#fields.errors('totalValue')}">
+                        <small th:text="${error}"></small>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="date" class="text-white d-flex justify-content-end font-italic">date</label>
+                <input th:field="*{date}" th:errorclass="bg-warning" type="date" class="form-control w-100"
+                       id="date" name="date"/>
+                <ul class="list-unstyled">
+                    <li class="text-white" th:each="error:${#fields.errors('date')}">
+                        <small th:text="${error}"></small>
+                    </li>
+                </ul>
+            </div>
+
+            <hr class="hr-2 bg-white">
+
+            <div class="button-holder d-flex justify-content-center">
+                <button class="btn btn-info border-white text-white mb-3 btn-block font-weight-bolder font-italic" type="submit">
+                    Create
+                </button>
+            </div>
+        </form>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main">
+
+        <h1 class="text-center text-white">Invoices</h1>
+        <hr class="hr-2 bg-white w-25">
+
+        <div class="container-fluid" th:if="${invoices.isEmpty()}">
+            <h2 class="text-white text-center">No invoices found!</h2>
+        </div>
+
+        <div class="container-fluid text-center text-white w-75" th:unless="${invoices.isEmpty()}">
+            <div class="row">
+                <div class="col-sm-2">
+                    <h4><u>number</u></h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4><u>date</u></h4>
+                </div>
+                <div class="col-sm-1">
+                    <h4><u>value</u></h4>
+                </div>
+                <div class="col-sm-4">
+                    <h4><u>receiver</u></h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4><u>status</u></h4>
+                </div>
+                <div class="col-sm-1">
+                    <h4><u>action</u></h4>
+                </div>
+            </div>
+            <div class="row align-items-center" th:each="invoice, iter : ${#lists.sort(invoices, comparator)}">
+                <div class="col-sm-2 mb-2 mt-2">
+                    <h5 th:text="${#strings.prepend(invoice.invoiceNumber, #strings.substring('0000000000',0, 10 - #strings.length(invoice.invoiceNumber)))}">
+                        number</h5>
+                </div>
+                <div class="col-sm-2">
+                    <h5 th:text="${#temporals.format(invoice.date, 'dd-MM-yyyy')}">date</h5>
+                </div>
+                <div class="col-sm-1">
+                    <h5 th:text="${invoice.totalValue}">value</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 th:text="${invoice.receiver.name}">name</h5>
+                </div>
+                <div class="col-sm-2">
+                    <div th:if="${invoice.statusType == T(bg.softuni.invoice.model.enumerated.StatusType).AWAIT}">
+                        <form method="post" th:action="@{/invoice/set-status/{id}(id=${invoice.id})}">
+                            <button th:disabled="!${#authentication.authorities.size() > 1}"
+                                    class="btn btn-danger btn-block border-white font-weight-bold text-white">
+                                change
+                            </button>
+                        </form>
+                    </div>
+                    <div th:unless="${invoice.statusType == T(bg.softuni.invoice.model.enumerated.StatusType).AWAIT}">
+                        <h5 th:text="${invoice.statusType.getType()}">name</h5>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-1">
+                    <!-- Button trigger modal -->
+                    <button class="btn btn-secondary btn-block border-white" data-toggle="modal"
+                            th:attr="data-target='#'+${invoice.id}">
+                        view
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" th:id="${invoice.id}" tabindex="-1" role="dialog"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-dark">Invoice details</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-dark text-left">
+                                    <h5>Invoice number: <strong
+                                            th:text="${#strings.prepend(invoice.invoiceNumber, #strings.substring('0000000000',0, 10 - #strings.length(invoice.invoiceNumber)))}"></strong>
+                                    </h5>
+                                    <h5>Invoice date: <strong
+                                            th:text="${#temporals.format(invoice.date, 'dd-MM-yyyy')}"></strong></h5>
+                                    <h5>Invoice total value: <strong th:text="${invoice.totalValue}"></strong></h5>
+                                    <h5>Invoice receiver: <strong th:text="${invoice.receiver.name}"></strong></h5>
+                                    <h5>Invoice payment: <strong
+                                            th:text="${#strings.capitalize(#strings.toLowerCase(invoice.paymentType))}"></strong>
+                                    </h5>
+                                    <h5>Invoice status:
+                                        <strong th:classappend="${invoice.statusType == T(bg.softuni.invoice.model.enumerated.StatusType).AWAIT} ? 'text-danger'"
+                                                th:text="${#strings.capitalize(#strings.toLowerCase(invoice.statusType))}"></strong>
+                                    </h5>
+                                    <h5>Invoice created on: <strong
+                                            th:text="${#temporals.format(invoice.createdOn, 'dd-MM-yyyy HH:mm')}"></strong>
+                                    </h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>

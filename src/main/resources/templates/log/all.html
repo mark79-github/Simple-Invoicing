@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+
+    <main class="app-main">
+
+        <h1 class="text-center text-white">Invoices</h1>
+        <hr class="hr-2 bg-white w-25">
+
+        <div class="container-fluid" th:if="${logs.isEmpty()}">
+            <h2 class="text-white text-center">No invoices found!</h2>
+        </div>
+
+        <div class="container-fluid text-center text-white w-75" th:unless="${logs.isEmpty()}">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h4><u>request URI</u></h4>
+                </div>
+                <div class="col-sm-2">
+                    <h4><u>method</u></h4>
+                </div>
+                <div class="col-sm-3">
+                    <h4><u>date time</u></h4>
+                </div>
+                <div class="col-sm-4">
+                    <h4><u>user</u></h4>
+                </div>
+            </div>
+            <div class="row align-items-center" th:each="log, iter : ${#lists.sort(logs, comparator)}">
+                <div class="col-sm-3 mb-2 mt-2">
+                    <h5 th:text="${log.requestURI}">request URI</h5>
+                </div>
+                <div class="col-sm-2">
+                    <h5 th:text="${log.method}">method</h5>
+                </div>
+                <div class="col-sm-3">
+                    <h5 th:text="${#temporals.format(log.dateTime, 'dd-MM-yyyy HH:mm:ss')}">date time</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h5 th:text="${log.username}">username</h5>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>

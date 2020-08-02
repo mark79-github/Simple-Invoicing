@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main v-50">
+
+        <div class="col-md-12 d-flex flex-column justify-content-center align-items-center vh-50 h-50">
+            <h3 th:text="${message}" class="text-white"></h3>
+        </div>
+
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>

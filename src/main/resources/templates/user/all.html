@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+
+<div class="container-fluid">
+    <header th:replace="fragments/header :: header"></header>
+    <main class="app-main">
+
+        <h1 class="text-center text-white">Users</h1>
+        <hr class="hr-2 bg-white w-25">
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="card-group col-sm-6" th:each="user : ${#lists.sort(users, comparator)}">
+                    <div class="card border-white mb-2">
+                        <div class="card-header text-white">
+                            <h3 th:text="${user.username}"></h3>
+                        </div>
+                        <div class="card-body text-white">
+                            <h5 class="card-text font-weight-bold" th:text="${user.firstName}"></h5>
+                            <h5 class="card-text font-weight-bold" th:text="${user.lastName}"></h5>
+                        </div>
+                        <div class="card-body text-white"
+                             th:if="${#authentication.name == user.username}">
+                            <button class="btn btn-dark btn-block border-white font-weight-bold mb-1 disabled "
+                                    th:text="|current user|">
+                            </button>
+                        </div>
+                        <div class="card-body text-white"
+                             th:unless="${#authentication.name == user.username}">
+                            <div th:if="!${user.enabled}">
+                                <form method="post" th:action="@{/user/set-enabled/{id}(id=${user.id})}">
+                                    <button class="btn btn-info btn-block border-white font-weight-bold mb-1"
+                                            th:text="|make active|"></button>
+                                </form>
+                            </div>
+                            <div th:unless="!${user.enabled}">
+                                <div class="container" th:if="${#lists.contains(user.authorities, 'ROLE_ADMIN')}">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <form class="d-inline" method="post"
+                                                  th:action="@{/user/set-disabled/{id}(id=${user.id})}">
+                                                <button class="btn btn-danger btn-block border-white font-weight-bold mb-1"
+                                                        th:text="|set inactive|"></button>
+                                            </form>
+                                        </div>
+                                        <div class="col-sm">
+                                            <form class="d-inline" method="post"
+                                                  th:action="@{/user/set-user/{id}(id=${user.id})}">
+                                                <button class="btn btn-info btn-block border-white font-weight-bold mb-1"
+                                                        th:text="|make user|">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container" th:unless="${#lists.contains(user.authorities, 'ROLE_ADMIN')}">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <form class="d-inline" method="post"
+                                                  th:action="@{/user/set-disabled/{id}(id=${user.id})}">
+                                                <button class="btn btn-danger btn-block border-white font-weight-bold mb-1"
+                                                        th:text="|set inactive|">
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-sm">
+                                            <form class="d-inline" method="post"
+                                                  th:action="@{/user/set-admin/{id}(id=${user.id})}">
+                                                <button class="btn btn-info btn-block border-white font-weight-bold mb-1"
+                                                        th:text="|made admin|">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+</body>
+</html>
