@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface LogService {
-    void createLog(LogServiceModel model);
+    void createLog(LogServiceModel logServiceModel);
 
     void deleteAllLogsByDateTimeIsBefore(LocalDateTime localDateTime);
 

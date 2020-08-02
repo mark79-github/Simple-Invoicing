@@ -13,7 +13,7 @@ import static bg.softuni.invoice.constant.ErrorMsg.*;
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     @Pattern(regexp = EMAIL_REGEX,
             message = EMAIL_NOT_CORRECT)
     private String username;
