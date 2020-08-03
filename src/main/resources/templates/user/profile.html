@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="fragment/head :: head"></head>
 <body>
 
 <div class="container-fluid">
-    <header th:replace="fragments/header :: header"></header>
+    <header th:replace="fragment/header :: header"></header>
     <main class="app-main">
 
         <h1 class="text-center text-white">Change profile</h1>
         <hr class="hr-2 bg-white w-25">
+
         <form th:object="${userProfileBindingModel}" class="form w-25 mx-auto"
               th:method="post" th:action="@{/user/profile/{id}(id = *{id})}">
             <div class="form-group">
@@ -16,7 +17,6 @@
                 <input th:value="*{username}" type="text" class="form-control w-100"
                        id="username" placeholder="username ..." name="username" readonly>
             </div>
-
             <div class="form-group">
                 <label for="firstName" class="text-white d-flex justify-content-end font-italic">first name</label>
                 <input th:value="*{firstName}" th:errorclass="bg-warning" type="text" class="form-control w-100"
@@ -41,7 +41,7 @@
         </form>
 
     </main>
-    <footer th:replace="fragments/footer :: footer"></footer>
+    <footer th:replace="fragment/footer :: footer"></footer>
 </div>
 
 </body>

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="fragment/head :: head"></head>
 <body>
 
 <div class="container-fluid">
-    <header th:replace="fragments/header :: header"></header>
+    <header th:replace="fragment/header :: header"></header>
     <main class="app-main">
 
         <h1 class="text-center text-white">Login</h1>
+        <hr class="hr-2 bg-white">
 
         <form class="form w-25 mx-auto" th:method="post" th:action="@{/user/login}">
-            <hr class="hr-2 bg-white">
             <div class="form-group">
                 <label for="username" class="text-white d-flex justify-content-end font-italic">email</label>
                 <input type="text" class="form-control w-100" id="username" placeholder="email ..." name="username">
@@ -26,7 +26,6 @@
                     <label class="custom-control-label font-italic text-white" for="remember-me">Remember me</label>
                 </div>
             </div>
-
             <div class="alert alert-info" role="alert" th:if="${param.error != null}" id="error">
                 <strong>Oh!</strong>
                 <span th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
@@ -38,13 +37,14 @@
             <hr class="hr-2 bg-white">
 
             <div class="button-holder d-flex justify-content-center">
-                <button class="btn btn-info text-white border-white mb-3 w-100 font-weight-bolder font-italic" type="submit">Login
+                <button class="btn btn-info text-white border-white mb-3 w-100 font-weight-bolder font-italic"
+                        type="submit">Login
                 </button>
             </div>
         </form>
 
     </main>
-    <footer th:replace="fragments/footer :: footer"></footer>
+    <footer th:replace="fragment/footer :: footer"></footer>
 </div>
 
 </body>

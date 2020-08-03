@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
->
-<head th:replace="fragments/head :: head"></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment/head :: head"></head>
 <body>
 
 <div class="container-fluid">
-    <header th:replace="fragments/header :: header"></header>
+    <header th:replace="fragment/header :: header"></header>
     <main class="app-main">
 
         <h1 class="text-center text-white">Invoices</h1>
@@ -64,7 +63,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-sm-1">
                     <!-- Button trigger modal -->
                     <button class="btn btn-secondary btn-block border-white" data-toggle="modal"
@@ -111,8 +109,9 @@
                 </div>
             </div>
         </div>
+
     </main>
-    <footer th:replace="fragments/footer :: footer"></footer>
+    <footer th:replace="fragment/footer :: footer"></footer>
 </div>
 
 </body>

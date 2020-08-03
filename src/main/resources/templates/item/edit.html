@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="fragment/head :: head"></head>
 <body>
 
 <div class="container-fluid">
-    <header th:replace="fragments/header :: header"></header>
+    <header th:replace="fragment/header :: header"></header>
     <main class="app-main">
 
         <h1 class="text-center text-white">Edit item</h1>
@@ -20,7 +20,6 @@
                        data-toggle="popover" data-content="must be at least 3 characters">
                 <small th:each="error:${#fields.errors('name')}" th:text="${error}" class="text-white"></small>
             </div>
-
             <div class="form-group">
                 <label for="price" class="text-white d-flex justify-content-end font-italic">price</label>
                 <input th:field="*{price}" th:errorclass="bg-warning" type="number" step="0.1"
@@ -32,7 +31,6 @@
                     </li>
                 </ul>
             </div>
-
             <div class="form-group container">
                 <label for="imageUrl" class="text-white d-flex justify-content-end font-italic">image</label>
                 <img class="img-fluid mx-auto d-block" th:src="*{imageUrl}" alt="No image found">
@@ -44,7 +42,6 @@
                     </li>
                 </ul>
             </div>
-
             <div class="form-group">
                 <label for="newImageUrl" class="text-white d-flex justify-content-end font-italic">new image</label>
                 <input th:field="*{newImageUrl}" th:errorclass="bg-warning" type="file"
@@ -65,8 +62,9 @@
                 </button>
             </div>
         </form>
+
     </main>
-    <footer th:replace="fragments/footer :: footer"></footer>
+    <footer th:replace="fragment/footer :: footer"></footer>
 </div>
 
 </body>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head"></head>
+<head th:replace="fragment/head :: head"></head>
 <body>
 
 <div class="container-fluid">
-    <header th:replace="fragments/header :: header"></header>
+    <header th:replace="fragment/header :: header"></header>
     <main class="app-main">
 
         <h1 class="text-center text-white">Add company</h1>
@@ -23,7 +23,6 @@
                     </li>
                 </ul>
             </div>
-
             <div class="form-group">
                 <label for="address" class="text-white d-flex justify-content-end font-italic">address</label>
                 <input th:field="*{address}" th:errorclass="bg-warning" type="text"
@@ -35,7 +34,6 @@
                     </li>
                 </ul>
             </div>
-
             <div class="form-group">
                 <label for="uniqueIdentifier" class="text-white d-flex justify-content-end font-italic">unique
                     identifier</label>
@@ -53,13 +51,13 @@
             <hr class="hr-2 bg-white">
 
             <div class="button-holder d-flex justify-content-center">
-                <button class="btn btn-info text-white border-white mb-3 btn-block font-weight-bolder font-italic" type="submit">
-                    Add
+                <button class="btn btn-info text-white border-white mb-3 btn-block font-weight-bolder font-italic"
+                        type="submit">Add
                 </button>
             </div>
         </form>
     </main>
-    <footer th:replace="fragments/footer :: footer"></footer>
+    <footer th:replace="fragment/footer :: footer"></footer>
 </div>
 
 </body>

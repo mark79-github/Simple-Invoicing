@@ -2,11 +2,11 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top app-color">
         <h5 sec:authorize="isAuthenticated()" class="text-white">
-            <form th:action="@{/invoice/all}" th:method="get">
-                <button class="logout-button nav-link active h5 text-white" type="submit"
-                        th:text="|Welcome, ${#authentication.name}|">Invoice
-                </button>
-            </form>
+<!--            <form th:action="@{/invoice/all}" th:method="get">-->
+                <a class="logout-button h5 text-white" type="submit"
+                        th:text="|Welcome, ${#authentication.name}|" href="/invoice/all">Invoice
+                </a>
+<!--            </form>-->
         </h5>
         <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
                 data-target="#navbarNav" data-toggle="collapse" type="button">
