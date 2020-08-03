@@ -33,7 +33,7 @@ public class LoggingInterceptor extends HandlerInterceptorAdapter {
                 : request.getUserPrincipal().getName();
 
         if (!PathRequest.toStaticResources().atCommonLocations().matches(request)) {
-            logService.createLog(
+            this.logService.createLog(
                     new LogServiceModel(requestURI, method, LocalDateTime.now(), username));
         }
 

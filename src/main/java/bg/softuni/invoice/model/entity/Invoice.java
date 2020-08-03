@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static bg.softuni.invoice.constant.ErrorMsg.DATE_FORMAT_PATTERN;
 import static bg.softuni.invoice.constant.ErrorMsg.VALUE_POSITIVE;
@@ -49,6 +53,12 @@ public class Invoice extends BaseEntity implements Serializable {
     @Column(name = "created_on", nullable = false)
     @DateTimeFormat(pattern = DATE_FORMAT_PATTERN)
     private LocalDateTime createdOn;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "invoices_sales",
+            joinColumns = @JoinColumn(name = "invoice_id"),
+            inverseJoinColumns = @JoinColumn(name = "sale_id"))
+    private Set<Sale> sales = new HashSet<>();
 
     public Invoice() {
     }
@@ -123,5 +133,13 @@ public class Invoice extends BaseEntity implements Serializable {
 
     public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public Set<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(Set<Sale> sales) {
+        this.sales = sales;
     }
 }

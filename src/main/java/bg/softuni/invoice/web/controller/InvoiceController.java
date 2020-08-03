@@ -3,10 +3,13 @@ package bg.softuni.invoice.web.controller;
 import bg.softuni.invoice.model.bind.InvoiceAddBindingModel;
 import bg.softuni.invoice.model.entity.User;
 import bg.softuni.invoice.model.service.InvoiceServiceModel;
+import bg.softuni.invoice.model.service.ItemServiceModel;
+import bg.softuni.invoice.model.service.SaleServiceModel;
 import bg.softuni.invoice.model.view.CompanyViewSelectModel;
 import bg.softuni.invoice.model.view.InvoiceViewModel;
 import bg.softuni.invoice.service.CompanyService;
 import bg.softuni.invoice.service.InvoiceService;
+import bg.softuni.invoice.service.ItemService;
 import bg.softuni.invoice.web.annotation.PageTitle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +25,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -35,12 +35,14 @@ public class InvoiceController {
     private final CompanyService companyService;
     private final ModelMapper modelMapper;
     private final InvoiceService invoiceService;
+    private final ItemService itemService;
 
     @Autowired
-    public InvoiceController(CompanyService companyService, ModelMapper modelMapper, InvoiceService invoiceService) {
+    public InvoiceController(CompanyService companyService, ModelMapper modelMapper, InvoiceService invoiceService, ItemService itemService) {
         this.companyService = companyService;
         this.modelMapper = modelMapper;
         this.invoiceService = invoiceService;
+        this.itemService = itemService;
     }
 
     @GetMapping("/add")
@@ -107,7 +109,22 @@ public class InvoiceController {
         InvoiceServiceModel invoiceServiceModel = this.modelMapper.map(invoiceAddBindingModel, InvoiceServiceModel.class);
         invoiceServiceModel.setSender(this.companyService.getCompanyById(invoiceAddBindingModel.getSender()));
         invoiceServiceModel.setReceiver(this.companyService.getCompanyById(invoiceAddBindingModel.getReceiver()));
-        this.invoiceService.addInvoice(invoiceServiceModel, principal.getId());
+        Map<String, Integer> cart = (LinkedHashMap<String, Integer>) httpSession.getAttribute("cart");
+        if (!cart.isEmpty()) {
+            Set<SaleServiceModel> saleServiceModels = cart.entrySet()
+                    .stream()
+                    .map(stringIntegerEntry -> {
+                        SaleServiceModel saleServiceModel = new SaleServiceModel();
+                        ItemServiceModel itemServiceModel = this.itemService.getItemById(stringIntegerEntry.getKey());
+                        saleServiceModel.setName(itemServiceModel.getName());
+                        saleServiceModel.setPrice(itemServiceModel.getPrice());
+                        saleServiceModel.setQuantity(stringIntegerEntry.getValue());
+                        return saleServiceModel;
+                    }).collect(Collectors.toSet());
+            invoiceServiceModel.setSales(saleServiceModels);
+        }
+
+        this.invoiceService.addInvoice(invoiceServiceModel, principal.getUsername());
 
         httpSession.removeAttribute("cart");
 

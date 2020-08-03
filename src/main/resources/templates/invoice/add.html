@@ -42,7 +42,7 @@
                 <select th:field="*{paymentType}" class="custom-select" id="paymentType" name="paymentType">
                     <option value="">Select payment</option>
                     <option th:each="paymentType : ${T(bg.softuni.invoice.model.enumerated.PaymentType).values()}"
-                            th:text="${paymentType}" th:value="${paymentType}">
+                            th:text="${paymentType.getType()}" th:value="${paymentType}">
                     </option>
                 </select>
                 <ul class="list-unstyled">

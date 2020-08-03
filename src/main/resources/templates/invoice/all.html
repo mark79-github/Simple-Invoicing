@@ -35,7 +35,8 @@
                     <h4><u>action</u></h4>
                 </div>
             </div>
-            <div class="row align-items-center" th:each="invoice, iter : ${#lists.sort(invoices, comparator)}">
+            <div class="row align-items-center" th:each="invoice, iter : ${invoices}">
+                <!--            <div class="row align-items-center" th:each="invoice, iter : ${#lists.sort(invoices, comparator)}">-->
                 <div class="col-sm-2 mb-2 mt-2">
                     <h5 th:text="${#strings.prepend(invoice.invoiceNumber, #strings.substring('0000000000',0, 10 - #strings.length(invoice.invoiceNumber)))}">
                         number</h5>
@@ -49,6 +50,7 @@
                 <div class="col-sm-4">
                     <h5 th:text="${invoice.receiver.name}">name</h5>
                 </div>
+
                 <div class="col-sm-2">
                     <div th:if="${invoice.statusType == T(bg.softuni.invoice.model.enumerated.StatusType).AWAIT}">
                         <form method="post" th:action="@{/invoice/set-status/{id}(id=${invoice.id})}">
@@ -99,6 +101,17 @@
                                     <h5>Invoice created on: <strong
                                             th:text="${#temporals.format(invoice.createdOn, 'dd-MM-yyyy HH:mm')}"></strong>
                                     </h5>
+                                    <h5>Invoice content:</h5><br>
+                                    <table class="table table-active">
+                                        <th class="font-weight-bold col-8">name</th>
+                                        <th class="font-weight-bold col-2">quantity</th>
+                                        <th class="font-weight-bold col-2">price</th>
+                                        <tr th:each="sale: ${invoice.sales}">
+                                            <td class="col-8" th:text="${sale.name}">name</td>
+                                            <td class="col-2 text-center" th:text="${sale.quantity}">name</td>
+                                            <td class="col-2" th:text="${sale.price}">name</td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

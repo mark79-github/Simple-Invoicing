@@ -6,6 +6,7 @@ import bg.softuni.invoice.model.enumerated.StatusType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class InvoiceViewModel {
 
@@ -19,6 +20,7 @@ public class InvoiceViewModel {
     private StatusType statusType;
     private long invoiceNumber;
     private LocalDateTime createdOn;
+    private Set<SaleViewModel> sales;
 
     public InvoiceViewModel() {
     }
@@ -101,5 +103,13 @@ public class InvoiceViewModel {
 
     public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public Set<SaleViewModel> getSales() {
+        return sales;
+    }
+
+    public void setSales(Set<SaleViewModel> sales) {
+        this.sales = sales;
     }
 }

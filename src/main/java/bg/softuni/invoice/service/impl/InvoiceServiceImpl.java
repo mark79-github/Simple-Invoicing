@@ -3,43 +3,45 @@ package bg.softuni.invoice.service.impl;
 import bg.softuni.invoice.exception.InvoiceNotFoundException;
 import bg.softuni.invoice.model.entity.Company;
 import bg.softuni.invoice.model.entity.Invoice;
+import bg.softuni.invoice.model.entity.Sale;
 import bg.softuni.invoice.model.entity.User;
 import bg.softuni.invoice.model.enumerated.StatusType;
-import bg.softuni.invoice.model.service.CompanyServiceModel;
-import bg.softuni.invoice.model.service.InvoiceServiceModel;
-import bg.softuni.invoice.model.service.UserServiceModel;
+import bg.softuni.invoice.model.service.*;
 import bg.softuni.invoice.repository.InvoiceRepository;
-import bg.softuni.invoice.service.CompanyService;
 import bg.softuni.invoice.service.InvoiceService;
+import bg.softuni.invoice.service.ItemService;
 import bg.softuni.invoice.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static bg.softuni.invoice.constant.ErrorMsg.INVOICE_NOT_FOUND;
+import static bg.softuni.invoice.constant.ErrorMsg.USERNAME_NOT_FOUND;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
     private final ModelMapper modelMapper;
-    private final CompanyService companyService;
     private final UserService userService;
+    private final ItemService itemService;
 
     @Autowired
-    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, ModelMapper modelMapper, CompanyService companyService, UserService userService) {
+    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, ModelMapper modelMapper, UserService userService, ItemService itemService) {
         this.invoiceRepository = invoiceRepository;
         this.modelMapper = modelMapper;
-        this.companyService = companyService;
         this.userService = userService;
+        this.itemService = itemService;
     }
 
     @Override
-    public void addInvoice(InvoiceServiceModel invoiceServiceModel, String principalId) {
+    public void addInvoice(InvoiceServiceModel invoiceServiceModel, String username) {
 
         Invoice invoice = this.modelMapper.map(invoiceServiceModel, Invoice.class);
 
@@ -58,11 +60,33 @@ public class InvoiceServiceImpl implements InvoiceService {
         long lastInvoiceNumber = this.invoiceRepository.getLastInvoiceNumber().orElse(0L) + 1;
         invoice.setInvoiceNumber(lastInvoiceNumber);
 
-        UserServiceModel userServiceModel = this.userService.getUserById(principalId);
+        UserServiceModel userServiceModel = this.userService.getUserByName(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(USERNAME_NOT_FOUND, username)));
+//        UserServiceModel userServiceModel = this.userService.getUserById(principalId);
         User user = this.modelMapper.map(userServiceModel, User.class);
         invoice.setUser(user);
 
         invoice.setCreatedOn(LocalDateTime.now());
+
+        Set<Sale> sales = invoiceServiceModel.getSales()
+                .stream()
+                .map(saleServiceModel -> this.modelMapper.map(saleServiceModel, Sale.class))
+                .collect(Collectors.toSet());
+
+//        Set<SaleServiceModel> saleServiceModelSet = invoiceServiceModel.getSales()
+//                .stream()
+//                .map(saleServiceModel -> {
+//                    saleServiceModel.setQuantity(stringIntegerEntry.getValue());
+//                    ItemServiceModel itemServiceModel = this.itemService.getItemById(stringIntegerEntry.getKey());
+//                    saleServiceModel.setName(itemServiceModel.getName());
+//                    return saleServiceModel;
+//                })
+//                .collect(Collectors.toSet());
+//        Set<Sale> sales = saleServiceModelSet.stream()
+//                .map(saleServiceModel -> this.modelMapper.map(saleServiceModel, Sale.class))
+//                .collect(Collectors.toSet());
+
+        invoice.setSales(sales);
 
         this.invoiceRepository.saveAndFlush(invoice);
     }

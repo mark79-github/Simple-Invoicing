@@ -6,7 +6,7 @@ import bg.softuni.invoice.model.service.InvoiceServiceModel;
 import java.util.List;
 
 public interface InvoiceService {
-    void addInvoice(InvoiceServiceModel invoiceServiceModel, String principalId);
+    void addInvoice(InvoiceServiceModel invoiceServiceModel, String username);
 
     List<InvoiceServiceModel> getAllInvoices();
 
