@@ -15,6 +15,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static bg.softuni.invoice.constant.GlobalConstants.ANONYMOUS_USER_USERNAME;
+
 @Controller
 @RequestMapping("/log")
 public class LogController {
@@ -35,7 +37,15 @@ public class LogController {
 
         if (!model.containsAttribute("logs")) {
             List<LogViewModel> logs = this.logService.getAllLogs().stream()
-                    .map(logServiceModel -> this.modelMapper.map(logServiceModel, LogViewModel.class))
+                    .map(logServiceModel -> {
+                        LogViewModel logViewModel = this.modelMapper.map(logServiceModel, LogViewModel.class);
+                        if (logServiceModel.getUser() != null) {
+                            logViewModel.setUser(logServiceModel.getUser().getUsername());
+                        } else {
+                            logViewModel.setUser(ANONYMOUS_USER_USERNAME);
+                        }
+                        return logViewModel;
+                    })
                     .collect(Collectors.toList());
             model.addAttribute("logs", logs);
             model.addAttribute("comparator", Comparator.comparing(LogViewModel::getDateTime));

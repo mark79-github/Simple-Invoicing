@@ -8,16 +8,16 @@ public class LogServiceModel {
     private String requestURI;
     private String method;
     private LocalDateTime dateTime;
-    private String username;
+    private UserServiceModel user;
 
     public LogServiceModel() {
     }
 
-    public LogServiceModel(String requestURI, String method, LocalDateTime dateTime, String username) {
+    public LogServiceModel(String requestURI, String method, LocalDateTime dateTime, UserServiceModel user) {
         this.requestURI = requestURI;
         this.method = method;
         this.dateTime = dateTime;
-        this.username = username;
+        this.user = user;
     }
 
     public String getId() {
@@ -52,11 +52,11 @@ public class LogServiceModel {
         this.dateTime = dateTime;
     }
 
-    public String getUsername() {
-        return username;
+    public UserServiceModel getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(UserServiceModel user) {
+        this.user = user;
     }
 }

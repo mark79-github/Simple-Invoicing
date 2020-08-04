@@ -26,7 +26,8 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public void createLog(LogServiceModel logServiceModel) {
-        this.logRepository.save(modelMapper.map(logServiceModel, Log.class));
+        Log log = this.modelMapper.map(logServiceModel, Log.class);
+        this.logRepository.save(log);
     }
 
     @Override

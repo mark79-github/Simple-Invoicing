@@ -1,18 +1,18 @@
 <header th:fragment="header" xmlns:th="http://www.thymeleaf.org"
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top app-color">
-        <h5 sec:authorize="isAuthenticated()" class="text-white">
-<!--            <form th:action="@{/invoice/all}" th:method="get">-->
-                <a class="logout-button h5 text-white" type="submit"
-                        th:text="|Welcome, ${#authentication.name}|" href="/invoice/all">Invoice
-                </a>
-<!--            </form>-->
-        </h5>
-        <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-                data-target="#navbarNav" data-toggle="collapse" type="button">
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{/invoice/all}" th:method="get" class="align-text-bottom">
+                <button class="logout-button h5 text-white" type="submit"
+                        th:text="|Welcome, ${#authentication.name}|">Home
+                </button>
+            </form>
+        </div>
+        <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-target="#navbar" data-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div sec:authorize="isAnonymous()" class="collapse navbar-collapse justify-content-end" id="navbarAnonymous">
+        <div sec:authorize="isAnonymous()" class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav navbar-brand">
                 <li class="nav-item ml-3">
                     <a class="nav-link active h5" href="/user/register">Register</a>
@@ -22,8 +22,8 @@
                 </li>
             </ul>
         </div>
-        <div sec:authorize="isAuthenticated() && #session.id != null"
-             class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <div sec:authorize="isAuthenticated() && #session.id != null" id="navbar"
+             class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav navbar-brand">
                 <li class="nav-item dropdown ml-3"
                     sec:authorize="hasRole(T(bg.softuni.invoice.model.enumerated.RoleType).ADMIN)">

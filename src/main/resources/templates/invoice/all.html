@@ -103,14 +103,20 @@
                                     </h5>
                                     <h5>Invoice content:</h5><br>
                                     <table class="table table-active">
-                                        <th class="font-weight-bold col-8">name</th>
-                                        <th class="font-weight-bold col-2">quantity</th>
-                                        <th class="font-weight-bold col-2">price</th>
+                                        <thead>
+                                        <tr>
+                                            <td class="font-weight-bold col-8">name</td>
+                                            <td class="font-weight-bold col-2">quantity</td>
+                                            <td class="font-weight-bold col-2">price</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
                                         <tr th:each="sale: ${invoice.sales}">
                                             <td class="col-8" th:text="${sale.name}">name</td>
                                             <td class="col-2 text-center" th:text="${sale.quantity}">name</td>
                                             <td class="col-2" th:text="${sale.price}">name</td>
                                         </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div class="modal-footer">

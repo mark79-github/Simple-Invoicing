@@ -8,16 +8,16 @@ public class LogViewModel {
     private String requestURI;
     private String method;
     private LocalDateTime dateTime;
-    private String username;
+    private String user;
 
     public LogViewModel() {
     }
 
-    public LogViewModel(String requestURI, String method, LocalDateTime dateTime, String username) {
+    public LogViewModel(String requestURI, String method, LocalDateTime dateTime, String user) {
         this.requestURI = requestURI;
         this.method = method;
         this.dateTime = dateTime;
-        this.username = username;
+        this.user = user;
     }
 
     public String getId() {
@@ -52,11 +52,11 @@ public class LogViewModel {
         this.dateTime = dateTime;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(String user) {
+        this.user = user;
     }
 }

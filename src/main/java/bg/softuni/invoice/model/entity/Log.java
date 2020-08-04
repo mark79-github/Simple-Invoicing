@@ -1,8 +1,6 @@
 package bg.softuni.invoice.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 
@@ -22,8 +20,8 @@ public class Log extends BaseEntity {
     @PastOrPresent(message = DATE_PAST)
     private LocalDateTime dateTime;
 
-    @Column(name = "username", nullable = false)
-    private String username;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private User user;
 
     public Log() {
     }
@@ -52,11 +50,20 @@ public class Log extends BaseEntity {
         this.dateTime = dateTime;
     }
 
-    public String getUsername() {
-        return username;
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
+
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
