@@ -36,17 +36,7 @@ public class LogController {
     public String all(Model model) {
 
         if (!model.containsAttribute("logs")) {
-            List<LogViewModel> logs = this.logService.getAllLogs().stream()
-                    .map(logServiceModel -> {
-                        LogViewModel logViewModel = this.modelMapper.map(logServiceModel, LogViewModel.class);
-                        if (logServiceModel.getUser() != null) {
-                            logViewModel.setUser(logServiceModel.getUser().getUsername());
-                        } else {
-                            logViewModel.setUser(ANONYMOUS_USER_USERNAME);
-                        }
-                        return logViewModel;
-                    })
-                    .collect(Collectors.toList());
+            List<LogViewModel> logs = this.logService.getAllLogs();
             model.addAttribute("logs", logs);
             model.addAttribute("comparator", Comparator.comparing(LogViewModel::getDateTime));
         }
