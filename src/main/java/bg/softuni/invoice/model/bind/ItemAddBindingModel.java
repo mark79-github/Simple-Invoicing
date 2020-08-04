@@ -3,6 +3,7 @@ package bg.softuni.invoice.model.bind;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -17,6 +18,9 @@ public class ItemAddBindingModel {
     @NotNull(message = PRICE_POSITIVE)
     @Positive(message = PRICE_POSITIVE)
     private BigDecimal price;
+
+    @NotBlank(message = PRICE_POSITIVE)
+    private String vatValue;
 
     private MultipartFile imageUrl;
 
@@ -45,5 +49,13 @@ public class ItemAddBindingModel {
 
     public void setImageUrl(MultipartFile imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getVatValue() {
+        return vatValue;
+    }
+
+    public void setVatValue(String vatValue) {
+        this.vatValue = vatValue;
     }
 }

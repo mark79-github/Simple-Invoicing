@@ -1,5 +1,7 @@
 package bg.softuni.invoice.model.entity;
 
+import bg.softuni.invoice.model.enumerated.VatValue;
+
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -18,6 +20,10 @@ public class Sale extends BaseEntity {
     @Column(name = "price", nullable = false, updatable = false)
     @Positive
     private BigDecimal price;
+
+    @Column(name = "vat_value", nullable = false, updatable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private VatValue vatValue;
 
     public Sale() {
     }
@@ -44,5 +50,13 @@ public class Sale extends BaseEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public VatValue getVatValue() {
+        return vatValue;
+    }
+
+    public void setVatValue(VatValue vatValue) {
+        this.vatValue = vatValue;
     }
 }

@@ -83,6 +83,7 @@ public class ItemController {
         } else {
             itemServiceModel.setImageUrl(DEFAULT_ITEM_IMAGE_FILE);
         }
+
         this.itemService.saveItem(itemServiceModel);
 
         return "redirect:all";

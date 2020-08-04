@@ -119,6 +119,7 @@ public class InvoiceController {
                         saleServiceModel.setName(itemServiceModel.getName());
                         saleServiceModel.setPrice(itemServiceModel.getPrice());
                         saleServiceModel.setQuantity(stringIntegerEntry.getValue());
+                        saleServiceModel.setVatValue(itemServiceModel.getVatValue());
                         return saleServiceModel;
                     }).collect(Collectors.toSet());
             invoiceServiceModel.setSales(saleServiceModels);

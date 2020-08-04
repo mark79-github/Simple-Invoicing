@@ -1,5 +1,7 @@
 package bg.softuni.invoice.model.service;
 
+import bg.softuni.invoice.model.enumerated.VatValue;
+
 import java.math.BigDecimal;
 
 public class SaleServiceModel {
@@ -7,6 +9,7 @@ public class SaleServiceModel {
     private String name;
     private int quantity;
     private BigDecimal price;
+    private VatValue vatValue;
 
     public SaleServiceModel() {
     }
@@ -33,5 +36,13 @@ public class SaleServiceModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public VatValue getVatValue() {
+        return vatValue;
+    }
+
+    public void setVatValue(VatValue vatValue) {
+        this.vatValue = vatValue;
     }
 }

@@ -41,9 +41,11 @@ public class Invoice extends BaseEntity implements Serializable {
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private Company receiver;
 
+    @Column(name = "payment_type", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private PaymentType paymentType;
 
+    @Column(name = "status_type", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private StatusType statusType;
 

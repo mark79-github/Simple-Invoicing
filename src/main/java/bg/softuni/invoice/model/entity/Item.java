@@ -1,10 +1,10 @@
 package bg.softuni.invoice.model.entity;
 
+import bg.softuni.invoice.model.enumerated.StatusType;
+import bg.softuni.invoice.model.enumerated.VatValue;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -26,6 +26,9 @@ public class Item extends BaseEntity {
     @Column(name = "image_url")
     @NotNull(message = IMAGE_SOURCE_NOT_EMPTY)
     private String imageUrl;
+
+    @Enumerated(EnumType.ORDINAL)
+    private VatValue vatValue;
 
     public Item() {
     }
@@ -52,5 +55,13 @@ public class Item extends BaseEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public VatValue getVatValue() {
+        return vatValue;
+    }
+
+    public void setVatValue(VatValue vatValue) {
+        this.vatValue = vatValue;
     }
 }

@@ -21,12 +21,26 @@
                 <small th:each="error:${#fields.errors('name')}" th:text="${error}" class="text-white"></small>
             </div>
             <div class="form-group">
-                <label for="price" class="text-white d-flex justify-content-end font-italic">price</label>
+                <label for="price" class="text-white d-flex justify-content-end font-italic">final price</label>
                 <input th:field="*{price}" th:errorclass="bg-warning" type="number" step="0.1"
-                       class="form-control w-100" id="price" placeholder="price ..." name="price"
+                       class="form-control w-100" id="price" placeholder="final price ..." name="price"
                        data-toggle="popover" data-content="must be positive value">
                 <ul class="list-unstyled">
                     <li class="text-white" th:each="error:${#fields.errors('price')}">
+                        <small th:text="${error}"></small>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label for="vatValue" class="text-white d-flex justify-content-end font-italic">vat value</label>
+                <select th:field="*{vatValue}" class="custom-select" id="vatValue" name="vatValue">
+                    <option value="">Select vat</option>
+                    <option th:each="vatValue : ${T(bg.softuni.invoice.model.enumerated.VatValue).values()}"
+                            th:text="${vatValue.getValue()}" th:value="${vatValue}">
+                    </option>
+                </select>
+                <ul class="list-unstyled">
+                    <li class="text-white" th:each="error:${#fields.errors('vatValue')}">
                         <small th:text="${error}"></small>
                     </li>
                 </ul>

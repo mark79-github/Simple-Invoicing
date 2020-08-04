@@ -7,6 +7,7 @@ public class ItemViewModel {
     private String id;
     private String name;
     private BigDecimal price;
+    private String vatValue;
     private String imageUrl;
     private int quantity;
 
@@ -35,6 +36,14 @@ public class ItemViewModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getVatValue() {
+        return vatValue;
+    }
+
+    public void setVatValue(String vatValue) {
+        this.vatValue = vatValue;
     }
 
     public String getImageUrl() {

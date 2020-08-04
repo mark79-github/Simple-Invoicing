@@ -8,6 +8,7 @@ public class SaleViewModel {
     private String name;
     private int quantity;
     private BigDecimal price;
+    private int vatValue;
 
     public SaleViewModel() {
     }
@@ -42,5 +43,13 @@ public class SaleViewModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public int getVatValue() {
+        return vatValue;
+    }
+
+    public void setVatValue(int vatValue) {
+        this.vatValue = vatValue;
     }
 }

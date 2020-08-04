@@ -21,6 +21,9 @@ public class ItemEditBindingModel {
     @Positive(message = PRICE_POSITIVE)
     private BigDecimal price;
 
+    @NotBlank(message = PRICE_POSITIVE)
+    private String vatValue;
+
     @NotBlank(message = IMAGE_SOURCE_NOT_EMPTY)
     private String imageUrl;
 
@@ -51,6 +54,14 @@ public class ItemEditBindingModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getVatValue() {
+        return vatValue;
+    }
+
+    public void setVatValue(String vatValue) {
+        this.vatValue = vatValue;
     }
 
     public String getImageUrl() {
