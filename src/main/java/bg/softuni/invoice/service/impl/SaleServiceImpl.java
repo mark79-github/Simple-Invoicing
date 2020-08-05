@@ -28,7 +28,6 @@ public class SaleServiceImpl implements SaleService {
                 .map(saleServiceModel -> {
                     BigDecimal price = saleServiceModel.getPrice();
                     int quantity = saleServiceModel.getQuantity();
-                    int vatValue = saleServiceModel.getVatValue();
                     return price.multiply(BigDecimal.valueOf(quantity));
                 }).reduce(BigDecimal.ZERO, BigDecimal::add);
     }

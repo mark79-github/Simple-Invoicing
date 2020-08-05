@@ -43,8 +43,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     public void deleteLogs() {
         LocalDateTime localDateTime = LocalDateTime.now().minusMinutes(5);
         this.logService.deleteAllLogsByDateTimeIsBefore(localDateTime);
-        System.out.println("delete cron");
-
     }
 
     @Override
@@ -52,6 +50,5 @@ public class ScheduleServiceImpl implements ScheduleService {
     public void changeStatus() {
         List<InvoiceServiceModel> invoices = this.invoiceService.getAllInvoicesStatus(StatusType.AWAIT);
         invoices.forEach(invoiceServiceModel -> this.invoiceService.changeStatus(invoiceServiceModel.getId()));
-        System.out.println("change cron");
     }
 }

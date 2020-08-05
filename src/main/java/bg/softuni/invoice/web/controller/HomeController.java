@@ -13,21 +13,12 @@ import java.security.Principal;
 @Controller
 public class HomeController {
 
-    private final UserService userService;
-
-    @Autowired
-    public HomeController(UserService userService) {
-        this.userService = userService;
-    }
-
     @GetMapping("/")
     @PageTitle("invoices")
-    public String index(Principal principal,
-                        Model model) {
+    public String index(Principal principal) {
 
         if (principal != null) {
-            model.addAttribute("user", this.userService.loadUserByUsername(principal.getName()));
-            return "redirect:/home";
+            return "home/home";
         }
 
         return "home/index";
@@ -36,10 +27,8 @@ public class HomeController {
     @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
     @PageTitle("Home")
-    public String home(Principal principal,
-                       Model model) {
+    public String home() {
 
-        model.addAttribute("user", this.userService.loadUserByUsername(principal.getName()));
         return "home/home";
     }
 }

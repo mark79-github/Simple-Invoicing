@@ -11,9 +11,7 @@ public class GlobalExceptionHandler {
     public String handleAllErrors(Model model,
                                   Exception exception) {
 
-//        if (!model.containsAttribute("message")) {
         model.addAttribute("message", exception.getMessage());
-//        }
 
         return "error";
     }

@@ -48,7 +48,6 @@ public class CompanyServiceImpl implements CompanyService {
                 .findByUniqueIdentifier(uniqueIdentifier)
                 .map(company -> this.modelMapper.map(company, CompanyServiceModel.class))
                 .orElse(null);
-//                .orElseThrow(() -> new CompanyNotFoundException(COMPANY_NOT_FOUND));
     }
 
     @Override

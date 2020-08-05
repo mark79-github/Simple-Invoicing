@@ -33,7 +33,6 @@ public class Invoice extends BaseEntity implements Serializable {
     @NotNull(message = VALUE_POSITIVE)
     private BigDecimal totalValue;
 
-    @JsonIgnore
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private User user;
 

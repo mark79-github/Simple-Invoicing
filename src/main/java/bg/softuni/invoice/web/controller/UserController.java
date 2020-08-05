@@ -50,7 +50,6 @@ public class UserController {
     }
 
     @PostMapping("/register")
-//    @PageTitle("Post mapping - register")
     @PreAuthorize("isAnonymous()")
     public String registerConfirm(@Valid
                                   @ModelAttribute(name = "userRegisterBindingModel") UserRegisterBindingModel userRegisterBindingModel,
@@ -112,7 +111,6 @@ public class UserController {
     }
 
     @PostMapping("/profile/{id}")
-//    @PageTitle("Post mapping - profile")
     @PreAuthorize("isAuthenticated() && #id eq principal.id")
     public String profileConfirm(@Valid
                                  @ModelAttribute(name = "userProfileBindingModel") UserProfileBindingModel userProfileBindingModel,
@@ -166,7 +164,6 @@ public class UserController {
     }
 
     @PostMapping("/set-admin/{id}")
-//    @PageTitle("Post mapping - set-admin")
     @PreAuthorize("hasRole('ROLE_ROOT')")
     public String setAdminRole(@PathVariable String id) {
         this.userService.setAdmin(id);
@@ -175,7 +172,6 @@ public class UserController {
     }
 
     @PostMapping("/set-user/{id}")
-//    @PageTitle("Post mapping - set-user")
     @PreAuthorize("hasRole('ROLE_ROOT')")
     public String setUserRole(@PathVariable String id) {
         this.userService.setUser(id);
@@ -184,7 +180,6 @@ public class UserController {
     }
 
     @PostMapping("/set-enabled/{id}")
-//    @PageTitle("Post mapping - set-enabled")
     @PreAuthorize("hasRole('ROLE_ROOT')")
     public String setEnabled(@PathVariable String id) {
         this.userService.setUserEnabled(id);
@@ -193,7 +188,6 @@ public class UserController {
     }
 
     @PostMapping("/set-disabled/{id}")
-//    @PageTitle("Post mapping - set-disabled")
     @PreAuthorize("hasRole('ROLE_ROOT')")
     public String setDisabled(@PathVariable String id) {
         this.userService.setUserDisabled(id);

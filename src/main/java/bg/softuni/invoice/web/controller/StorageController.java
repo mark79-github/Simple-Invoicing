@@ -35,7 +35,6 @@ public class StorageController {
     }
 
     @PostMapping("/add-item/{id}")
-//    @PageTitle("Get mapping - add")
     @PreAuthorize("isAuthenticated()")
     public String addItem(@PathVariable String id,
                           int quantity,
@@ -93,7 +92,6 @@ public class StorageController {
 
 
     @PostMapping("/remove-item/{id}")
-//    @PageTitle("Post mapping - remove item")
     @PreAuthorize("isAuthenticated()")
     public String removeItem(@PathVariable String id,
                              HttpSession httpSession,

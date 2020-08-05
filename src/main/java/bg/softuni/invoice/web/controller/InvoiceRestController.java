@@ -6,6 +6,7 @@ import bg.softuni.invoice.model.entity.User;
 import bg.softuni.invoice.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class InvoiceRestController {
     }
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     public List<Invoice> getInvoices(@AuthenticationPrincipal User principal) {
 
         if (principal.getAuthorities().size() == 1) {
@@ -41,14 +43,16 @@ public class InvoiceRestController {
     }
 
     @GetMapping("/{invoiceId}")
-    public ResponseEntity<Invoice> getAuthor(@PathVariable String invoiceId) {
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Invoice> getInvoice(@PathVariable String invoiceId) {
         Optional<Invoice> optionalInvoice = this.invoiceRepository.findById(invoiceId);
 
         return optionalInvoice.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{invoiceId}/sales")
-    public ResponseEntity<Set<Sale>> getAuthorBooks(@PathVariable String invoiceId) {
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Set<Sale>> getInvoiceSales(@PathVariable String invoiceId) {
         Optional<Invoice> optionalInvoice = this.invoiceRepository.findById(invoiceId);
 
         return optionalInvoice.map(Invoice::getSales)

@@ -71,19 +71,6 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .map(saleServiceModel -> this.modelMapper.map(saleServiceModel, Sale.class))
                 .collect(Collectors.toSet());
 
-//        Set<SaleServiceModel> saleServiceModelSet = invoiceServiceModel.getSales()
-//                .stream()
-//                .map(saleServiceModel -> {
-//                    saleServiceModel.setQuantity(stringIntegerEntry.getValue());
-//                    ItemServiceModel itemServiceModel = this.itemService.getItemById(stringIntegerEntry.getKey());
-//                    saleServiceModel.setName(itemServiceModel.getName());
-//                    return saleServiceModel;
-//                })
-//                .collect(Collectors.toSet());
-//        Set<Sale> sales = saleServiceModelSet.stream()
-//                .map(saleServiceModel -> this.modelMapper.map(saleServiceModel, Sale.class))
-//                .collect(Collectors.toSet());
-
         invoice.setSales(sales);
 
         this.invoiceRepository.saveAndFlush(invoice);

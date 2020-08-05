@@ -55,6 +55,5 @@ public class ItemServiceImpl implements ItemService {
                 .findByName(name)
                 .map(item -> this.modelMapper.map(item, ItemServiceModel.class))
                 .orElse(null);
-//                .orElseThrow(()-> new ItemNotFoundException(ITEM_NOT_FOUND));
     }
 }

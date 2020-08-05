@@ -53,7 +53,6 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-//    @PageTitle("Post mapping - add")
     @PreAuthorize("hasRole('ADMIN')")
     public String addConfirm(@Valid
                              @ModelAttribute(name = "itemAddBindingModel") ItemAddBindingModel itemAddBindingModel,
@@ -136,7 +135,6 @@ public class ItemController {
     }
 
     @PostMapping("/edit/{id}")
-//    @PageTitle("Post mapping - edit")
     @PreAuthorize("hasRole('ADMIN')")
     public String editConfirm(@PathVariable String id,
                               @Valid @ModelAttribute ItemEditBindingModel itemEditBindingModel,

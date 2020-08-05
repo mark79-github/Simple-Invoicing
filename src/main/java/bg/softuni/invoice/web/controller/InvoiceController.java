@@ -78,7 +78,6 @@ public class InvoiceController {
     }
 
     @PostMapping("/add")
-//    @PageTitle("Post mapping - add")
     @PreAuthorize("isAuthenticated()")
     public String addConfirm(@Valid
                              @ModelAttribute(name = "invoiceAddBindingModel") InvoiceAddBindingModel invoiceAddBindingModel,
@@ -159,7 +158,6 @@ public class InvoiceController {
     }
 
     @PostMapping("/set-status/{id}")
-//    @PageTitle("Post mapping - set-status")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String setDisabled(@PathVariable String id) {
         this.invoiceService.changeStatus(id);

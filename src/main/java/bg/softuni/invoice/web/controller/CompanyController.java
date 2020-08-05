@@ -46,7 +46,6 @@ public class CompanyController {
     }
 
     @PostMapping("/add")
-//    @PageTitle("Post mapping - add")
     @PreAuthorize("hasRole('ADMIN')")
     public String addConfirm(@Valid
                              @ModelAttribute(name = "companyAddBindingModel") CompanyAddBindingModel companyAddBindingModel,
@@ -116,7 +115,6 @@ public class CompanyController {
     }
 
     @PostMapping("/edit/{id}")
-//    @PageTitle("Post mapping - edit")
     @PreAuthorize("hasRole('ADMIN')")
     public String editConfirm(@PathVariable String id,
                               @Valid @ModelAttribute CompanyEditBindingModel companyEditBindingModel,
