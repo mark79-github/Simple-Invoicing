@@ -1,10 +1,12 @@
 package bg.softuni.invoice.model.entity;
 
 import bg.softuni.invoice.model.enumerated.VatValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "sales")

@@ -1,26 +1,26 @@
 package bg.softuni.invoice.controller;
 
+
+
 import bg.softuni.invoice.repository.UserRepository;
 import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc(addFilters = false)
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@AutoConfigureMockMvc
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+//@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class UserControllerTests {
 
     @Autowired
@@ -43,6 +43,7 @@ public class UserControllerTests {
                 .andExpect(view().name("user/register"));
     }
 
+
     @Test
     public void registerPost_registerUserCorrectly() throws Exception {
 
@@ -60,14 +61,15 @@ public class UserControllerTests {
 
     @Test
     public void register_registerSuccessfullyRedirect() throws Exception {
+
         this.mockMvc
                 .perform(post("/user/register")
-                        .param("username", "admin@admin.com")
-                        .param("password", "admin")
+                        .param("username", "admin@admin.comm")
                         .param("firstName", "Admin")
                         .param("lastName", "Admin")
+                        .param("password", "admin")
                         .param("confirmPassword", "admin")
-                ).andExpect(view().name("redirect:login"));
+                ).andExpect(view().name("user/login"));
     }
 
 }

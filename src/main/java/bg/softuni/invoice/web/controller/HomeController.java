@@ -42,5 +42,4 @@ public class HomeController {
         model.addAttribute("user", this.userService.loadUserByUsername(principal.getName()));
         return "home/home";
     }
-
 }

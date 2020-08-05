@@ -1,3 +1,22 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head th:replace="fragment/head :: head"></head>-->
+<!--<body>-->
+
+<!--<div class="container-fluid">-->
+<!--    <header th:replace="fragment/header :: header"></header>-->
+<!--    <main class="app-main" th:object="${user}">-->
+
+<!--        <h1 class="text-white">Welcome, <span th:text="|${user.firstName} ${user.lastName}|"></span></h1>-->
+<!--        <hr class="hr-2 bg-white w-25">-->
+
+<!--    </main>-->
+<!--    <footer th:replace="fragment/footer :: footer"></footer>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragment/head :: head"></head>
@@ -5,10 +24,42 @@
 
 <div class="container-fluid">
     <header th:replace="fragment/header :: header"></header>
-    <main class="app-main" th:object="${user}">
+    <main class="app-main">
 
-        <h1 class="text-white">Welcome, <span th:text="|${user.firstName} ${user.lastName}|"></span></h1>
+        <h1 class="text-center text-white">Invoices</h1>
         <hr class="hr-2 bg-white w-25">
+
+        <button id="loadInvoices">Load all invoices</button>
+        <!-- Authors -->
+        <table>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>number</th>
+                <!--    <th>Books</th>-->
+                <th>action</th>
+            </tr>
+            </thead>
+            <tbody class="invoices-container">
+            </tbody>
+        </table>
+        <br/>
+        <br/>
+        <!-- Books -->
+        <table>
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>quantity</th>
+                <th>price</th>
+                <th>vat</th>
+            </tr>
+            </thead>
+            <tbody class="sales-container">
+            </tbody>
+        </table>
+
+        <script th:src="@{/js/loader.js}" type="text/javascript"></script>
 
     </main>
     <footer th:replace="fragment/footer :: footer"></footer>
