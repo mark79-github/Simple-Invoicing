@@ -34,3 +34,64 @@ body {
     padding: 1.25rem;
 }
 
+.invoices {
+    /*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+    border-collapse: collapse;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+.invoices td, .invoices th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.invoices tr:nth-child(even) {
+    background-color: transparent;
+}
+
+.invoices tr:hover {
+    background-color: #ddd;
+}
+
+.invoices th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #17A2B8;
+    color: white;
+}
+
+table button {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 8%;
+    background: transparent;
+    color: white;
+    font-weight: bold;
+}
+
+table button:hover {
+    text-decoration: underline;
+}
+
+/*.table {*/
+/*    display: table;*/
+/*}*/
+/*.row {*/
+/*    display: table-row;*/
+/*}*/
+/*.cell {*/
+/*    display: table-cell;*/
+/*    padding: 10px;*/
+/*}*/
+
+/*.row:hover {*/
+/*    background-color: #cccccc;*/
+/*}*/
+/*.cell:hover {*/
+/*    background-color: #e5e5e5;*/
+/*}*/
+

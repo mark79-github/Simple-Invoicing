@@ -2,6 +2,7 @@ package bg.softuni.invoice.model.entity;
 
 import bg.softuni.invoice.model.enumerated.PaymentType;
 import bg.softuni.invoice.model.enumerated.StatusType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class Invoice extends BaseEntity implements Serializable {
     @NotNull(message = VALUE_POSITIVE)
     private BigDecimal totalValue;
 
+    @JsonIgnore
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private User user;
 

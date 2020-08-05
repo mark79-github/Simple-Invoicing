@@ -30,14 +30,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final ModelMapper modelMapper;
     private final UserService userService;
-    private final ItemService itemService;
 
     @Autowired
-    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, ModelMapper modelMapper, UserService userService, ItemService itemService) {
+    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, ModelMapper modelMapper, UserService userService) {
         this.invoiceRepository = invoiceRepository;
         this.modelMapper = modelMapper;
         this.userService = userService;
-        this.itemService = itemService;
     }
 
     @Override

@@ -21,13 +21,13 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    @PageTitle("Welcome")
+    @PageTitle("invoices")
     public String index(Principal principal,
                         Model model) {
 
         if (principal != null) {
             model.addAttribute("user", this.userService.loadUserByUsername(principal.getName()));
-            return "home/home";
+            return "redirect:/home";
         }
 
         return "home/index";

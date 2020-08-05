@@ -5,12 +5,13 @@
 
 <div class="container-fluid">
     <header th:replace="fragment/header :: header"></header>
-    <main class="app-main-mt">
+    <main class="app-main">
 
         <h1 class="text-center text-white">Register</h1>
         <hr class="hr-2 bg-white w-25">
 
-        <form class="form w-25 mx-auto" th:object="${userRegisterBindingModel}" th:action="@{/user/register}"
+        <form class="form w-25 mx-auto" th:object="${userRegisterBindingModel}"
+              th:action="@{/user/register}"
               th:method="post">
             <div class="form-group">
                 <label for="username" class="text-white d-flex justify-content-end font-italic">email</label>

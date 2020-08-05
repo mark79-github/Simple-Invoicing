@@ -29,8 +29,8 @@
                     <h4><u>action</u></h4>
                 </div>
             </div>
-            <div class="row align-items-center" th:each="item, iter : ${items}">
-<!--            <div class="row align-items-center" th:each="item, iter : ${#lists.sort(items, comparator)}">-->
+<!--            <div class="row align-items-center" th:each="item, iter : ${items}">-->
+            <div class="row align-items-center" th:each="item, iter : ${#lists.sort(items, comparator)}">
                 <div class="col-sm">
                     <h5 th:text="${item.name}">name</h5>
                 </div>

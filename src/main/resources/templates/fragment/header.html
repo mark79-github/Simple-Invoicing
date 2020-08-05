@@ -2,7 +2,7 @@
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top app-color">
         <div sec:authorize="isAuthenticated()">
-            <form th:action="@{/invoice/all}" th:method="get" class="align-text-bottom">
+            <form th:action="@{/home}" th:method="get" class="align-text-bottom">
                 <button class="logout-button h5 text-white" type="submit"
                         th:text="|Welcome, ${#authentication.name}|">Home
                 </button>

@@ -1,32 +1,43 @@
-package bg.softuni.invoice.web.controller.rest;
+package bg.softuni.invoice.web.controller;
 
 import bg.softuni.invoice.model.entity.Invoice;
 import bg.softuni.invoice.model.entity.Sale;
+import bg.softuni.invoice.model.entity.User;
 import bg.softuni.invoice.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @CrossOrigin("http://localhost")
 @RestController
 @RequestMapping("/all")
-public class DataController {
+public class InvoiceRestController {
 
     private final InvoiceRepository invoiceRepository;
 
     @Autowired
-    public DataController(InvoiceRepository invoiceRepository) {
+    public InvoiceRestController(InvoiceRepository invoiceRepository) {
         this.invoiceRepository = invoiceRepository;
     }
 
-
     @GetMapping
-    public List<Invoice> getInvoices() {
-        return this.invoiceRepository.findAll();
+    public List<Invoice> getInvoices(@AuthenticationPrincipal User principal) {
+
+        if (principal.getAuthorities().size() == 1) {
+            return this.invoiceRepository.findAll()
+                    .stream()
+                    .filter(invoice -> invoice.getUser().getUsername().equals(principal.getUsername()))
+                    .collect(Collectors.toList());
+        } else {
+            return this.invoiceRepository.findAll();
+        }
+
     }
 
     @GetMapping("/{invoiceId}")
