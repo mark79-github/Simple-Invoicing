@@ -6,6 +6,7 @@ It's my final project for the [Spring Advanced - June 2020](https://softuni.bg/t
 
 * [Spring](https://spring.io/) - The web framework used
 * [Thymeleaf](https://www.thymeleaf.org/) - Java template engine
+* [MySQL](https://www.mysql.com/) - Database engine
 * [Bootstrap](https://getbootstrap.com/) - The world’s most popular framework for building responsive web pages, as they say
 * [jQuery](https://jquery.com/) - JavaScript library
 
@@ -17,11 +18,11 @@ It's my final project for the [Spring Advanced - June 2020](https://softuni.bg/t
 
 ### Role
 
-* There are 3 types - ADMIN, ROUTE, USER, which are saved in the database using EventListener, but only when the repository is empty
+* There are 3 types - ADMIN, ROUTE, USER - which are saved in the database using EventListener, but only when the repository is empty
 
 ### User
 
-* entity with the following fields -> username, first and last name and password. username itself is an email. Тhe first registered user takes full rights (all roles) and the next ones are registered with role authority (ROLE_USER) and they are not allowed to enter the system before the user with the highest rights allows it. Еach user can edit some of their own data. Only the root user (with the highest rights) can change the roles of other users. Users who have admin rights can create companies and products and edit them. Ordinary users can view the lists of companies and items, add them to the storage by entering the appropriate quantity and issue an invoice. They can also remove items from the storage. 
+* entity with the following fields -> username, first and last name and password. username itself is an email. Тhe first registered user takes full rights (all roles) and the next ones are registered with role authority (ROLE_USER). They are not allowed to enter the system before the user with the highest rights allows it. Еach user can edit some of their own data. Only the root user (with the highest rights) can change the roles of other users. Users who have admin rights can create companies and products and edit them. Ordinary users can view the lists of companies and items, add them to the storage by entering the appropriate quantity and create an invoice. They can also remove items from the storage. 
 
 ### Company
 
