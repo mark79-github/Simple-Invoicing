@@ -14,11 +14,9 @@ $(document).ready(function () {
                 '<td>' + Number(invoice.totalValue).toFixed(2) + '</td>' +
                 '<td>' + invoice.receiver.name + '</td>' +
                 '<td>' + (invoice.paymentType === 'CASH' ? 'Cash' : 'Transfer') + '</td>' +
-                '<td>' + (invoice.statusType === 'COMPLETE' ? 'Complete' : 'Await') + '</td>' +
-
-                // '<td><button class="status-btn" data-invoice-id="' + invoice.id + '">show items</button></td>' +
-                // not working -> why ?
-
+                '<td>' + (invoice.statusType === 'COMPLETE' ?
+                'Complete' :
+                '<button class="status-btn" data-invoice-id="' + invoice.id + '">change</button>') + '</td>' +
                 '<td>' + new Date(invoice.createdOn).toLocaleString() + '</td>' +
                 '<td>' +
                 '<button class="invoice-btn" data-invoice-id="' + invoice.id + '">show items</button>' +
@@ -26,19 +24,6 @@ $(document).ready(function () {
                 '</tr>';
             $('.invoices-container').append(tableRow);
         }));
-});
-
-$('body').on('click', 'button.status-btn', function () {
-    let invoiceId = $(this).data('invoice-id');
-    var settings = {
-        "url": "http://localhost:8080/invoice/set-status/" + invoiceId,
-        "method": "POST"
-    };
-
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-    });
-
 });
 
 $('body').on('click', 'button.invoice-btn', function () {
@@ -61,6 +46,28 @@ $('body').on('click', 'button.invoice-btn', function () {
 
             $('.sales-container').append(tableRow);
         }));
+
+});
+
+$('body').on('click', 'button.status-btn', function () {
+
+    let invoiceId = $(this).data('invoice-id');
+    let clickedBtn = $(this);
+
+    $.ajax({
+        url: "/invoice/set-status",
+        type: "get",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data: {
+            id: invoiceId
+        },
+        success: function (response) {
+            $(clickedBtn).replaceWith("<span>" + "Complete" + "</span>");
+        },
+        error: function (response) {
+            alert("something very bad happened");
+        }
+    });
 
 });
 
