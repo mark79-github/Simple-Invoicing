@@ -1,5 +1,5 @@
 body {
-    background-image: url("/images/background.jpg");
+    background-image: url("../images/background.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -37,9 +37,10 @@ body {
 .invoices {
     /*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
     border-collapse: collapse;
-    width: 100%;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
     color: white;
-    text-align: center;
 }
 
 .invoices td, .invoices th {
@@ -51,34 +52,20 @@ body {
     background-color: transparent;
 }
 
-.invoices tr:hover {
-    background-color: #ddd;
-}
-
 .invoices th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #17A2B8;
-    color: white;
 }
 
 table button {
-    border: none;
     padding: 5px;
-    border-radius: 5px;
-    margin-left: 8%;
-    background: transparent;
-    color: white;
+    border-radius: 3px;
+    color: #17A2B8;
     font-weight: bold;
 }
 
-table button:hover {
-    text-decoration: underline;
-}
-
-table button#status-btn{
-    border: 2px;
-    color: red;
+button.status-btn{
+    color: darkred;
 }
 
