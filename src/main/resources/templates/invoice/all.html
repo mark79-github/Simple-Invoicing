@@ -68,12 +68,12 @@
                 <div class="col-sm-2">
                     <!-- Button trigger modal -->
                     <button class="btn btn-secondary btn-block border-white" data-toggle="modal"
-                            th:attr="data-target='#'+${invoice.id}">
+                            th:attr="data-target='#a'+${invoice.id}">
                         view
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" th:id="${invoice.id}" tabindex="-1" role="dialog"
+                    <div class="modal fade" th:id="'a'+${invoice.id}" tabindex="-1" role="dialog"
                          aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -84,6 +84,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body text-dark text-left">
+                                    <h5>Invoice sender: <strong th:text="${invoice.sender.name}"></strong></h5>
                                     <h5>Invoice number: <strong
                                             th:text="${#strings.prepend(invoice.invoiceNumber, #strings.substring('0000000000',0, 10 - #strings.length(invoice.invoiceNumber)))}"></strong>
                                     </h5>

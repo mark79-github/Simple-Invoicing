@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static bg.softuni.invoice.constant.ErrorMsg.USERNAME_NOT_FOUND;
 
 @Controller
 @RequestMapping("/user")
@@ -93,14 +96,14 @@ public class UserController {
         return "user/login";
     }
 
-    @GetMapping("/profile/{id}")
+    @GetMapping("/profile{id}")
     @PageTitle("User profile")
-    @PreAuthorize("isAuthenticated() && #id eq principal.id")
-    public String profile(@PathVariable("id") String id,
+    @PreAuthorize("isAuthenticated() && #id eq principal.username")
+    public String profile(@RequestParam(name = "id") String id,
                           @AuthenticationPrincipal User principal,
                           Model model) {
 
-        UserServiceModel userServiceModel = this.userService.getUserById(id);
+        UserServiceModel userServiceModel = this.userService.getUserByName(id).orElseThrow(() -> new UsernameNotFoundException(String.format(USERNAME_NOT_FOUND, id)));
 
         if (!model.containsAttribute("userProfileBindingModel")) {
             UserProfileBindingModel userProfileBindingModel = this.modelMapper.map(userServiceModel, UserProfileBindingModel.class);
@@ -110,24 +113,25 @@ public class UserController {
         return "user/profile";
     }
 
-    @PostMapping("/profile/{id}")
-    @PreAuthorize("isAuthenticated() && #id eq principal.id")
+    @PostMapping("/profile{id}")
+    @PreAuthorize("isAuthenticated() && #id eq principal.username")
     public String profileConfirm(@Valid
                                  @ModelAttribute(name = "userProfileBindingModel") UserProfileBindingModel userProfileBindingModel,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
                                  @AuthenticationPrincipal User principal,
-                                 @PathVariable("id") String id,
+                                 @RequestParam(name = "id") String id,
                                  Model model) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userProfileBindingModel", userProfileBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userProfileBindingModel", bindingResult);
+            redirectAttributes.addAttribute("id", id);
 
-            return "redirect:{id}";
+            return "redirect:profile";
         }
 
-        UserServiceModel userServiceModel = this.userService.getUserById(id);
+        UserServiceModel userServiceModel = this.userService.getUserByName(id).orElseThrow(() -> new UsernameNotFoundException(String.format(USERNAME_NOT_FOUND, id)));
 
         userServiceModel.setFirstName(userProfileBindingModel.getFirstName());
         userServiceModel.setLastName(userProfileBindingModel.getLastName());

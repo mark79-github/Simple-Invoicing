@@ -65,7 +65,7 @@
                 </li>
                 <li class="nav-item ml-3">
                     <a class="nav-link active h5"
-                       th:href="@{/user/profile/{id}(id = *{#authentication.principal.id})}">Profile</a>
+                       th:href="@{/user/profile(id = *{#authentication.name})}">Profile</a>
                 </li>
                 <li class="nav-item ml-3 d-flex">
                     <form th:action="@{/logout}" th:method="post">

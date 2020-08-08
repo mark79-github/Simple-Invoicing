@@ -16,11 +16,11 @@ public class ErrorMsg {
     public final static int STRING_MIN_LENGTH = 3;
     public final static String DATE_FORMAT_PATTERN = "yyyy-MM-dd";
 
-    public final static String NAME_MIN_LENGTH = "name must be at least " + STRING_MIN_LENGTH + "characters long";
-    public final static String FIRST_NAME_MIN_LENGTH = "first name must be at least " + STRING_MIN_LENGTH + "characters long";
-    public final static String LAST_NAME_MIN_LENGTH = "last name must be at least " + STRING_MIN_LENGTH + "characters long";
-    public final static String ADDRESS_MIN_LENGTH = "address must be at least " + STRING_MIN_LENGTH + "characters long";
-    public final static String PASSWORD_MIN_LENGTH = "password must be at least " + STRING_MIN_LENGTH + "characters long";
+    public final static String NAME_MIN_LENGTH = "name must be at least " + STRING_MIN_LENGTH + " characters long";
+    public final static String FIRST_NAME_MIN_LENGTH = "first name must be at least " + STRING_MIN_LENGTH + " characters long";
+    public final static String LAST_NAME_MIN_LENGTH = "last name must be at least " + STRING_MIN_LENGTH + " characters long";
+    public final static String ADDRESS_MIN_LENGTH = "address must be at least " + STRING_MIN_LENGTH + " characters long";
+    public final static String PASSWORD_MIN_LENGTH = "password must be at least " + STRING_MIN_LENGTH + " characters long";
     public final static String UNIQUE_IDENTIFIER_LENGTH = "unique identifier must be 9 or 13 digits";
     public final static String SUPPLIER_NOT_NULL = "supplier flag can not be null";
     public final static String SENDER_NOT_EMPTY = "sender must not be empty";

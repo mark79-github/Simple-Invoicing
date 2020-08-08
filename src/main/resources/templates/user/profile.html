@@ -11,7 +11,7 @@
         <hr class="hr-2 bg-white w-25">
 
         <form th:object="${userProfileBindingModel}" class="form w-25 mx-auto"
-              th:method="post" th:action="@{/user/profile/{id}(id = *{id})}">
+              th:method="post" th:action="@{/user/profile(id = *{username})}">
             <div class="form-group">
                 <label for="username" class="text-white d-flex justify-content-end font-italic">username</label>
                 <input th:value="*{username}" type="text" class="form-control w-100"
@@ -22,14 +22,22 @@
                 <input th:value="*{firstName}" th:errorclass="bg-warning" type="text" class="form-control w-100"
                        id="firstName" placeholder="first name ..." name="firstName" required="required"
                        data-toggle="popover" data-content="must be at least 3 characters">
-                <small th:each="error:${#fields.errors('firstName')}" th:text="${error}" class="text-white"></small>
+                <ul class="list-unstyled">
+                    <li class="text-white" th:each="error:${#fields.errors('firstName')}">
+                        <small th:text="${error}"></small>
+                    </li>
+                </ul>
             </div>
             <div class="form-group">
                 <label for="lastName" class="text-white d-flex justify-content-end font-italic">last name</label>
                 <input th:value="*{lastName}" th:errorclass="bg-warning" type="text" class="form-control w-100"
                        id="lastName" placeholder="last name ..." name="lastName" required="required"
                        data-toggle="popover" data-content="must be at least 3 characters">
-                <small th:each="error:${#fields.errors('lastName')}" th:text="${error}" class="text-white"></small>
+                <ul class="list-unstyled">
+                    <li class="text-white" th:each="error:${#fields.errors('lastName')}">
+                        <small th:text="${error}"></small>
+                    </li>
+                </ul>
             </div>
 
             <hr class="hr-2 bg-white">

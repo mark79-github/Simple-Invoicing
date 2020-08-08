@@ -10,7 +10,7 @@ It's my final project for the [Spring Advanced - June 2020](https://softuni.bg/t
 * [Bootstrap](https://getbootstrap.com/) - The world’s most popular framework for building responsive web pages, as they say
 * [jQuery](https://jquery.com/) - JavaScript library
 
-## Authors
+## Author
 
 * **Martin Dimitrov** - [mark79-github](https://github.com/mark79-github/)
 
