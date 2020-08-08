@@ -29,6 +29,6 @@ public class HomeController {
     @PageTitle("Home")
     public String home() {
 
-        return "home/home";
+        return "redirect:/invoice/all";
     }
 }

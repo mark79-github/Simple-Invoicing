@@ -157,9 +157,9 @@ public class InvoiceController {
         return "invoice/all";
     }
 
-    @PostMapping("/set-status")
+    @PostMapping("/set-status/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String setDisabled(@RequestParam(name = "id") String id) {
+    public String setDisabled(@PathVariable(name = "id") String id) {
         this.invoiceService.changeStatus(id);
 
         return "redirect:/invoice/all";

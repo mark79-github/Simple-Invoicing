@@ -19,6 +19,16 @@ public class FavIconInterceptor extends HandlerInterceptorAdapter {
                            ModelAndView modelAndView) {
 
         if (modelAndView != null) {
+
+            if (!modelAndView.hasView()) {
+                return;
+            }
+
+            String originalViewName = modelAndView.getViewName();
+            if (originalViewName == null || originalViewName.startsWith("redirect:")) {
+                return;
+            }
+
             modelAndView.addObject("favIcon", FAV_ICON);
         }
 

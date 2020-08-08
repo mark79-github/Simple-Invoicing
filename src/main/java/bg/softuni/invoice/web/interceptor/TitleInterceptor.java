@@ -23,6 +23,17 @@ public class TitleInterceptor extends HandlerInterceptorAdapter {
             modelAndView = new ModelAndView();
         } else {
             if (handler instanceof HandlerMethod) {
+
+                if (!modelAndView.hasView()) {
+                    return;
+                }
+
+                String originalViewName = modelAndView.getViewName();
+                if (originalViewName == null || originalViewName.startsWith("redirect:")) {
+                    return;
+                }
+
+
                 PageTitle methodAnnotation = ((HandlerMethod) handler).getMethodAnnotation(PageTitle.class);
 
                 if (methodAnnotation != null) {
