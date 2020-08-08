@@ -8,12 +8,23 @@
     <main class="app-main">
 
         <h1 class="text-white text-center">Welcome</h1>
-        <h2 class="text-white text-center">final web project</h2>
         <hr class="hr-2 bg-white w-25">
-        <h3 class="text-white text-center"><a class="text-info" th:href="@{/user/login}">Login</a> if you have an
-            account or
-            <a class="text-info" th:href="@{/user/register}">Register</a> now and find out our offers.
+        <div class="container-fluid w-75">
+            <h3 class="text-white text-center text-justify">
+                The Simple-Invoicing online electronic invoicing system is a web-based application for automation of the
+                accounting of the warehouse. It has been developed with modern means and technologies. Provides the
+                ability
+                to issue invoices from any computer connected to the Internet. It has the characteristic for all our
+                products clean interface with simple and clear navigation, which ensures easy and efficient operation.
+            </h3>
+        </div>
+        <hr class="hr-2 bg-white w-25">
+        <h3 class="text-white text-center">
+            <a class="text-info" th:href="@{/user/login}">Login</a> if you have an account or <a class="text-info"
+                                                                                                 th:href="@{/user/register}">Register</a>
+            now and find out how easy is to work with.
         </h3>
+
 
     </main>
     <footer th:replace="fragment/footer :: footer"></footer>

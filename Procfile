@@ -1,1 +1,1 @@
-web: java -jar target/{name}-{version}.jar
+web: java -jar target/invoice-1.0.0-SNAPSHOT.war

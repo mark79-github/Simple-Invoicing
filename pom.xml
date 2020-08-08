@@ -10,7 +10,7 @@
     </parent>
     <groupId>bg.softuni</groupId>
     <artifactId>invoice</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>invoice</name>
     <description>Final project - Spring Advanced - May 2020</description>
@@ -104,6 +104,12 @@
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.8</version>
         </dependency>
 
     </dependencies>

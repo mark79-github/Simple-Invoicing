@@ -25,6 +25,9 @@
                 <div class="col-sm-2">
                     <h4><u>identifier</u></h4>
                 </div>
+                <div class="col-sm">
+                    <h4><u>supplier</u></h4>
+                </div>
                 <div class="col-sm-2">
                     <h4><u>action</u></h4>
                 </div>
@@ -38,6 +41,9 @@
                 </div>
                 <div class="col-sm-2">
                     <h5 th:text="${company.uniqueIdentifier}">price</h5>
+                </div>
+                <div class="col-sm">
+                    <h5 th:text="${company.supplier} ? 'yes': 'no'">supplier</h5>
                 </div>
                 <div class="col-sm-2">
                     <a th:href="@{/company/details/{id}(id=${company.id})}"

@@ -37,8 +37,7 @@ public class TitleInterceptor extends HandlerInterceptorAdapter {
                 PageTitle methodAnnotation = ((HandlerMethod) handler).getMethodAnnotation(PageTitle.class);
 
                 if (methodAnnotation != null) {
-                    modelAndView
-                            .addObject("title", APP_TITLE + " - " + methodAnnotation.value().toLowerCase());
+                    modelAndView.addObject("title", String.format("%s - %s", APP_TITLE, methodAnnotation.value().toLowerCase()));
                 }
             }
         }
