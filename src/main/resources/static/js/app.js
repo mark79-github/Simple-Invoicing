@@ -10,8 +10,8 @@ $(document).ready(function () {
                 '<tr>' +
                 '<td>' + log.requestURI + '</td>' +
                 '<td>' + log.method + '</td>' +
-                '<td>' + log.dateTime + '</td>' +
-                '<td>' + log.user.firstName + ' ' + log.user.lastName + '</td>' +
+                '<td>' + new Date(log.dateTime).toLocaleString()  + '</td>' +
+                '<td>' + (log.user === null ? 'anonymous' : log.user.firstName + ' ' + log.user.lastName) + '</td>' +
                 '</tr>';
             $('.data-container').append(tableRow);
         }));
