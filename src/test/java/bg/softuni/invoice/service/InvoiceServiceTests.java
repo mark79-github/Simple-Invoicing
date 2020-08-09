@@ -1,12 +1,13 @@
 package bg.softuni.invoice.service;
 
+import bg.softuni.invoice.exception.InvoiceNotFoundException;
 import bg.softuni.invoice.model.entity.*;
 import bg.softuni.invoice.model.enumerated.PaymentType;
 import bg.softuni.invoice.model.enumerated.StatusType;
 import bg.softuni.invoice.model.enumerated.VatValue;
-import bg.softuni.invoice.model.service.InvoiceServiceModel;
 import bg.softuni.invoice.repository.InvoiceRepository;
 import bg.softuni.invoice.service.impl.InvoiceServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -20,13 +21,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import java.util.UUID;
 
 @SpringBootTest
 //@ExtendWith(MockitoExtension.class)
 public class InvoiceServiceTests {
+
+    private final String INVOICE_NON_EXISTING = UUID.randomUUID().toString();
 
     private List<Invoice> invoiceList = new ArrayList<>();
     private Invoice invoice;
@@ -63,6 +64,7 @@ public class InvoiceServiceTests {
         company.setName("company");
         company.setAddress("address");
         company.setUniqueIdentifier("123456789");
+        company.setSupplier(true);
 
         this.user = new User();
         this.user.setUsername("admin@admin.com");
@@ -86,13 +88,8 @@ public class InvoiceServiceTests {
     }
 
     @Test
-    public void getAllInvoices_shouldReturnInvoicesCorrectly() {
-        when(this.invoiceRepository.findAll()).thenReturn(this.invoiceList);
+    public void changeStatus_shouldThrowExceptionIfInvoiceNotExists() {
 
-
-        List<InvoiceServiceModel> invoices = this.invoiceService.getAllInvoices();
-
-        assertEquals(1, invoices.size());
+        Assertions.assertThrows(InvoiceNotFoundException.class, () -> this.invoiceService.changeStatus(INVOICE_NON_EXISTING));
     }
-
 }

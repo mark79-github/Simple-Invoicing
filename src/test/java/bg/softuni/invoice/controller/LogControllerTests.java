@@ -20,7 +20,7 @@ public class LogControllerTests {
     private MockMvc mockMvc;
 
     @Test
-    @WithMockUser(roles = {"ADMIN"})
+    @WithMockUser(roles = {"ROOT"})
     public void all_shouldReturnCorrectView() throws Exception {
         this.mockMvc
                 .perform(get("/log/all").with(csrf()))

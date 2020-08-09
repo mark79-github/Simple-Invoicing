@@ -102,6 +102,9 @@
                                     <h5>Invoice created on: <strong
                                             th:text="${#temporals.format(invoice.createdOn, 'dd-MM-yyyy HH:mm')}"></strong>
                                     </h5>
+                                    <h5>Invoice created by: <strong
+                                            th:text="${invoice.user.username}"></strong>
+                                    </h5>
                                     <h5>Invoice content:</h5><br>
                                     <table class="table table-active">
                                         <thead>

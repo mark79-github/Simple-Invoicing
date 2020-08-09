@@ -3,7 +3,6 @@ package bg.softuni.invoice.service;
 import bg.softuni.invoice.exception.CompanyNotFoundException;
 import bg.softuni.invoice.model.entity.Company;
 import bg.softuni.invoice.model.service.CompanyServiceModel;
-import bg.softuni.invoice.model.service.InvoiceServiceModel;
 import bg.softuni.invoice.repository.CompanyRepository;
 import bg.softuni.invoice.service.impl.CompanyServiceImpl;
 import org.junit.jupiter.api.Assertions;

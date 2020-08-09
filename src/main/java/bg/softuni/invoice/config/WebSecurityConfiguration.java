@@ -56,6 +56,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .deleteCookies("JSESSIONID", "remember-me")
+                .invalidateHttpSession(true)
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/error");
