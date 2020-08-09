@@ -19,24 +19,28 @@ public class TitleInterceptor extends HandlerInterceptorAdapter {
                            Object handler,
                            ModelAndView modelAndView) {
 
-        if (handler instanceof HandlerMethod) {
+        if (modelAndView == null) {
+            modelAndView = new ModelAndView();
+        } else {
+            if (handler instanceof HandlerMethod) {
 
-            if (!modelAndView.hasView()) {
-                return;
-            }
+                if (!modelAndView.hasView()) {
+                    return;
+                }
 
-            String originalViewName = modelAndView.getViewName();
-            if (originalViewName == null || originalViewName.startsWith("redirect:")) {
-                return;
-            }
+                String originalViewName = modelAndView.getViewName();
+                if (originalViewName == null || originalViewName.startsWith("redirect:")) {
+                    return;
+                }
 
-            PageTitle methodAnnotation = ((HandlerMethod) handler).getMethodAnnotation(PageTitle.class);
+                PageTitle methodAnnotation = ((HandlerMethod) handler).getMethodAnnotation(PageTitle.class);
 
-            if (methodAnnotation != null) {
-                String title = methodAnnotation.value();
-                modelAndView.addObject("title", String.format("%s : %s",
-                        APP_TITLE,
-                        title.substring(0, 1).toUpperCase() + title.substring(1).toLowerCase()));
+                if (methodAnnotation != null) {
+                    String title = methodAnnotation.value();
+                    modelAndView.addObject("title", String.format("%s : %s",
+                            APP_TITLE,
+                            title.substring(0, 1).toUpperCase() + title.substring(1).toLowerCase()));
+                }
             }
         }
     }

@@ -24,17 +24,31 @@ public class LogController {
         this.logService = logService;
     }
 
+//    @GetMapping("/all")
+//    @PageTitle("Log all")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public String all(Model model) {
+//
+//        if (!model.containsAttribute("logs")) {
+//            List<LogViewModel> logs = this.logService.getAllLogs();
+//            model.addAttribute("logs", logs);
+//            model.addAttribute("comparator", Comparator.comparing(LogViewModel::getDateTime));
+//        }
+//
+//        return "log/all";
+//    }
+
     @GetMapping("/all")
     @PageTitle("Log all")
     @PreAuthorize("hasRole('ADMIN')")
-    public String all(Model model) {
+    public String all() {
 
-        if (!model.containsAttribute("logs")) {
-            List<LogViewModel> logs = this.logService.getAllLogs();
-            model.addAttribute("logs", logs);
-            model.addAttribute("comparator", Comparator.comparing(LogViewModel::getDateTime));
-        }
+//        if (!model.containsAttribute("logs")) {
+//            List<LogViewModel> logs = this.logService.getAllLogs();
+//            model.addAttribute("logs", logs);
+//            model.addAttribute("comparator", Comparator.comparing(LogViewModel::getDateTime));
+//        }
 
-        return "log/all";
+        return "log/log";
     }
 }

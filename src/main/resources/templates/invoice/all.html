@@ -35,8 +35,8 @@
                     <h4><u>action</u></h4>
                 </div>
             </div>
-            <div class="row align-items-center" th:each="invoice, iter : ${invoices}">
-                <!--            <div class="row align-items-center" th:each="invoice, iter : ${#lists.sort(invoices, comparator)}">-->
+            <!--            <div class="row align-items-center" th:each="invoice, iter : ${invoices}">-->
+            <div class="row align-items-center" th:each="invoice, iter : ${#lists.sort(invoices, comparator)}">
                 <div class="col-sm-2 mb-2 mt-2">
                     <h5 th:text="${#strings.prepend(invoice.invoiceNumber, #strings.substring('0000000000',0, 10 - #strings.length(invoice.invoiceNumber)))}">
                         number</h5>
@@ -118,7 +118,7 @@
                                             <td class="col-2 text-center" th:text="${sale.quantity}">name</td>
                                             <td class="col-2 text-right" th:text="${sale.price}">name</td>
                                             <td class="col-2 text-right" th:text="|${sale.vatValue}%|">name</td>
-<!--                                            <td class="col-2 text-right" th:text="|${T(bg.softuni.invoice.model.enumerated.VatValue).valueOf(sale.vatValue).getValue()}%|">vat</td>-->
+                                            <!--                                            <td class="col-2 text-right" th:text="|${T(bg.softuni.invoice.model.enumerated.VatValue).valueOf(sale.vatValue).getValue()}%|">vat</td>-->
                                         </tr>
                                         </tbody>
                                     </table>

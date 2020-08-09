@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin("http://localhost")
 @RestController
-@RequestMapping("/all")
+@RequestMapping("/api/invoice")
 public class InvoiceRestController {
 
     private final InvoiceRepository invoiceRepository;

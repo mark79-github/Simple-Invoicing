@@ -1,5 +1,6 @@
 package bg.softuni.invoice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,6 +29,7 @@ public class User extends BaseEntity implements UserDetails {
     @Pattern(regexp = NAME_REGEX, message = LAST_NAME_FIRST_LETTER_UPPERCASE)
     private String lastName;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     @Length(min = STRING_MIN_LENGTH, message = PASSWORD_MIN_LENGTH)
     private String password;

@@ -1,11 +1,21 @@
 package bg.softuni.invoice.controller;
 
+import bg.softuni.invoice.model.entity.Role;
+import bg.softuni.invoice.model.entity.User;
+import bg.softuni.invoice.repository.UserRepository;
+import bg.softuni.invoice.service.RoleService;
+import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+import java.util.Set;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -18,6 +28,17 @@ public class UserControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleService roleService;
+
+    @AfterEach
+    public void clear() {
+        this.userRepository.deleteAll();
+    }
 
     @Test
     public void login_shouldReturnCorrectView() throws Exception {
@@ -55,6 +76,8 @@ public class UserControllerTests {
                 )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:login"));
+
+        Assertions.assertEquals(1, this.userRepository.count());
     }
 
     @Test
@@ -73,13 +96,22 @@ public class UserControllerTests {
 
     @Test
     public void register_whenUsernameAlreadyExistsRedirect() throws Exception {
+
+//        User user = new User();
+//        user.setUsername("admin@admin.com");
+//        user.setFirstName("Admin");
+//        user.setLastName("Admin");
+//        user.setPassword("admin");
+//        user.setAuthorities(Set.of(this.roleService.getRoleByName("ROLE_ROOT")));
+//        this.userRepository.save(user);
+
         this.mockMvc
                 .perform(post("/user/register").with(csrf())
                         .param("username", "admin@admin.com")
-                        .param("firstName", "Test")
-                        .param("lastName", "Test")
-                        .param("password", "test")
-                        .param("confirmPassword", "test")
+                        .param("firstName", "Admin")
+                        .param("lastName", "Admin")
+                        .param("password", "admin")
+                        .param("confirmPassword", "admin")
                 );
 
         this.mockMvc

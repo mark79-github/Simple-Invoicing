@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
-    $('.invoices-container').empty();
+    $('.data-container').empty();
     $('.sales-container').empty();
 
-    fetch('http://localhost:8080/all') // Fetch the data (GET request)
+    fetch('http://localhost:8080/api/invoice') // Fetch the data (GET request)
         .then((response) => response.json()) // Extract the JSON from the Response
         .then((json) => json.forEach((invoice) => { // Render the JSON data to the HTML
 
@@ -22,7 +22,7 @@ $(document).ready(function () {
                 '<button class="invoice-btn" data-invoice-id="' + invoice.id + '">show items</button>' +
                 '</td>' +
                 '</tr>';
-            $('.invoices-container').append(tableRow);
+            $('.data-container').append(tableRow);
         }));
 });
 
@@ -31,9 +31,9 @@ $('body').on('click', 'button.invoice-btn', function () {
 
     $('.sales-container').empty();
 
-    fetch('http://localhost:8080/all/' + invoiceId + '/sales') // Fetch the data (GET request)
+    fetch('http://localhost:8080/api/invoice/' + invoiceId + '/sales') // Fetch the data (GET request)
         .then((response) => response.json()) // Extract the JSON from the Response
-        .then((json) => json.forEach((sale, idx) => { // Render the JSON data to the HTML
+        .then((json) => json.forEach((sale) => { // Render the JSON data to the HTML
             console.log(sale.name);
 
             let tableRow =
@@ -61,10 +61,10 @@ $('body').on('click', 'button.status-btn', function () {
         data: {
             id: invoiceId
         },
-        success: function (response) {
+        success: function () {
             $(clickedBtn).replaceWith("<span>" + "Complete" + "</span>");
         },
-        error: function (response) {
+        error: function () {
             alert("something very bad happened");
         }
     });

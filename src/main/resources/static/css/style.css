@@ -34,7 +34,7 @@ body {
     padding: 1.25rem;
 }
 
-.invoices {
+.data {
     /*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
     border-collapse: collapse;
     width: 75%;
@@ -43,16 +43,16 @@ body {
     color: white;
 }
 
-.invoices td, .invoices th {
+.data td, .data th {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-.invoices tr:nth-child(even) {
+.data tr:nth-child(even) {
     background-color: transparent;
 }
 
-.invoices th {
+.data th {
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #17A2B8;
