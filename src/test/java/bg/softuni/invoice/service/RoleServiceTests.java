@@ -3,6 +3,7 @@ package bg.softuni.invoice.service;
 import bg.softuni.invoice.exception.AuthorityNotFoundException;
 import bg.softuni.invoice.model.entity.Role;
 import bg.softuni.invoice.repository.RoleRepository;
+import bg.softuni.invoice.service.impl.ItemServiceImpl;
 import bg.softuni.invoice.service.impl.RoleServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 public class RoleServiceTests {
 
     private Role role;

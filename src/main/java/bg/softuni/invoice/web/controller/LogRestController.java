@@ -25,14 +25,14 @@ public class LogRestController {
     }
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
-    public List<Log> getLogs(@AuthenticationPrincipal User principal) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<Log> getLogs() {
         return this.logRepository.findAll();
     }
 
     @GetMapping("/{logId}")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Log> getInvoice(@PathVariable String logId) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Log> getLog(@PathVariable String logId) {
         Optional<Log> optionalLog = this.logRepository.findById(logId);
 
         return optionalLog.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
