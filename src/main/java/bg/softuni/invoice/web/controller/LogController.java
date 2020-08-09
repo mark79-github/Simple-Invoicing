@@ -26,7 +26,7 @@ public class LogController {
 
 //    @GetMapping("/all")
 //    @PageTitle("Log all")
-//    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ROOT')")
 //    public String all(Model model) {
 //
 //        if (!model.containsAttribute("logs")) {
@@ -40,7 +40,7 @@ public class LogController {
 
     @GetMapping("/all")
     @PageTitle("Log all")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROOT')")
     public String all() {
 
 //        if (!model.containsAttribute("logs")) {

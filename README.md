@@ -1,12 +1,12 @@
 # Simple Invoicing
 
-It's my final project for the [Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal) course
+it's my final project for the [Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal) course
 
 ## Built With
 
 * [Spring](https://spring.io/) - The web framework used
 * [Thymeleaf](https://www.thymeleaf.org/) - Java template engine
-* [MySQL](https://www.mysql.com/) - Database engine
+* [PostgreSQL](https://www.postgresql.org/) - The World's Most Advanced Open Source Relational Database
 * [Bootstrap](https://getbootstrap.com/) - The world’s most popular framework for building responsive web pages, as they say
 * [jQuery](https://jquery.com/) - JavaScript library
 
@@ -18,7 +18,7 @@ It's my final project for the [Spring Advanced - June 2020](https://softuni.bg/t
 
 ### Role
 
-* There are 3 types - ADMIN, ROUTE, USER - which are saved in the database using EventListener, but only when the repository is empty
+* there are 3 types - ADMIN, ROUTE, USER - which are saved in the database using EventListener, but only when the repository is empty
 
 ### User
 
@@ -50,7 +50,7 @@ It's my final project for the [Spring Advanced - June 2020](https://softuni.bg/t
 
 ### Interceptor
 
-* There are also very commonly used interceptors for the fav icon, and the title page
+* there are also very commonly used interceptors for the fav icon, and the title page
 
 ### Scheduler
 
@@ -59,5 +59,12 @@ It's my final project for the [Spring Advanced - June 2020](https://softuni.bg/t
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+* this project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Deploy
+
+* a running example of this project can be found [here](https://simple-invoicing.herokuapp.com/)
+
+
+
 

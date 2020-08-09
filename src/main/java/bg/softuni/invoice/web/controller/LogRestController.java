@@ -1,12 +1,10 @@
 package bg.softuni.invoice.web.controller;
 
 import bg.softuni.invoice.model.entity.Log;
-import bg.softuni.invoice.model.entity.User;
 import bg.softuni.invoice.repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,13 +23,13 @@ public class LogRestController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROOT')")
     public List<Log> getLogs() {
         return this.logRepository.findAll();
     }
 
     @GetMapping("/{logId}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROOT')")
     public ResponseEntity<Log> getLog(@PathVariable String logId) {
         Optional<Log> optionalLog = this.logRepository.findById(logId);
 
