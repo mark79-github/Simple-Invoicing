@@ -22,9 +22,6 @@ public class InvoiceServiceModel {
     private LocalDateTime createdOn;
     private Set<SaleServiceModel> sales;
 
-    public InvoiceServiceModel() {
-    }
-
     public String getId() {
         return id;
     }

@@ -11,9 +11,6 @@ public class SaleServiceModel {
     private BigDecimal price;
     private VatValue vatValue;
 
-    public SaleServiceModel() {
-    }
-
     public String getName() {
         return name;
     }

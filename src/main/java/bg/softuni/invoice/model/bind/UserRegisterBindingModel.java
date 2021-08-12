@@ -26,9 +26,6 @@ public class UserRegisterBindingModel {
 
     private String confirmPassword;
 
-    public UserRegisterBindingModel() {
-    }
-
     public String getUsername() {
         return username;
     }

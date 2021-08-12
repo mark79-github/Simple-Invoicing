@@ -19,10 +19,11 @@ public class CloudConfiguration {
 
     @Bean
     public Cloudinary cloudinary() {
-        return new Cloudinary(new HashMap<String, Object>() {{
-            put("cloud_name", cloudApiName);
-            put("api_key", cloudApiKey);
-            put("api_secret", cloudApiSecret);
-        }});
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("cloud_name", cloudApiName);
+        map.put("api_key", cloudApiKey);
+        map.put("api_secret", cloudApiSecret);
+        return new Cloudinary(map);
     }
 }

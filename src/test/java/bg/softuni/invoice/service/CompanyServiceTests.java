@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 //@ExtendWith(MockitoExtension.class)
-public class CompanyServiceTests {
+class CompanyServiceTests {
 
     private final String NON_EXISTING_COMPANY = UUID.randomUUID().toString();
 
@@ -52,25 +52,25 @@ public class CompanyServiceTests {
     }
 
     @Test
-    public void getCompanyById_shouldThrowExceptionIfItemNotExists() {
+    void getCompanyById_shouldThrowExceptionIfItemNotExists() {
 
         Assertions.assertThrows(CompanyNotFoundException.class, () -> this.companyService.getCompanyById(NON_EXISTING_COMPANY));
     }
 
     @Test
-    public void getCompanyByName_shouldReturnNullIfItemNotExists() {
+    void getCompanyByName_shouldReturnNullIfItemNotExists() {
 
         Assertions.assertNull(this.companyService.getCompanyByName(NON_EXISTING_COMPANY));
     }
 
     @Test
-    public void getCompanyByUniqueIdentifier_shouldReturnNullIfItemNotExists() {
+    void getCompanyByUniqueIdentifier_shouldReturnNullIfItemNotExists() {
 
         Assertions.assertNull(this.companyService.getCompanyByUniqueIdentifier(NON_EXISTING_COMPANY));
     }
 
     @Test
-    public void getAllCompanies_shouldReturnInvoicesCorrectly() {
+    void getAllCompanies_shouldReturnInvoicesCorrectly() {
         when(this.companyRepository.findAll()).thenReturn(this.companyList);
 
         List<CompanyServiceModel> companies = this.companyService.getAllCompanies();

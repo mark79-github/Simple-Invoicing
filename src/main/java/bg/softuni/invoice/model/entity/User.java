@@ -52,9 +52,6 @@ public class User extends BaseEntity implements UserDetails {
     @Transient
     private boolean credentialsNonExpired;
 
-    public User() {
-    }
-
     @Override
     public Set<Role> getAuthorities() {
         return authorities;

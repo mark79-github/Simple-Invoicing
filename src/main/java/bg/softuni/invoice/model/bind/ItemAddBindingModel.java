@@ -24,9 +24,6 @@ public class ItemAddBindingModel {
 
     private MultipartFile imageUrl;
 
-    public ItemAddBindingModel() {
-    }
-
     public String getName() {
         return name;
     }

@@ -7,12 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 
 import static bg.softuni.invoice.constant.ErrorMsg.*;
 
 @Entity
 @Table(name = "companies")
-public class Company extends BaseEntity {
+public class Company extends BaseEntity implements Serializable {
 
     @Column(name = "name", nullable = false, unique = true)
     @Length(min = STRING_MIN_LENGTH, message = NAME_MIN_LENGTH)
@@ -29,9 +30,6 @@ public class Company extends BaseEntity {
     @Column(name = "supplier", nullable = false)
     @NotNull(message = SUPPLIER_NOT_NULL)
     private boolean supplier;
-
-    public Company() {
-    }
 
     public String getName() {
         return name;

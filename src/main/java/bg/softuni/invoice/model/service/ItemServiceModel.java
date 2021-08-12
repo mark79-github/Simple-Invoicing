@@ -13,9 +13,6 @@ public class ItemServiceModel {
     private String imageUrl;
     private int quantity;
 
-    public ItemServiceModel() {
-    }
-
     public String getId() {
         return id;
     }

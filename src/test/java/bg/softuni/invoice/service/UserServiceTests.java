@@ -20,7 +20,7 @@ import java.util.Set;
 
 //@ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class UserServiceTests {
+class UserServiceTests {
 
     private User user;
 
@@ -56,7 +56,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void getUserByName_shouldThrowExceptionWhenUserNotExists() {
+    void getUserByName_shouldThrowExceptionWhenUserNotExists() {
 
         Assertions.assertThrows(UsernameNotFoundException.class,
                 () -> this.userService.loadUserByUsername("admin@admin.com"));
@@ -74,7 +74,7 @@ public class UserServiceTests {
 //    }
 
     @Test
-    public void getUserById_shouldThrowExceptionWhenUserNotExists() {
+    void getUserById_shouldThrowExceptionWhenUserNotExists() {
 
         Assertions.assertThrows(UserNotFoundException.class,
                 () -> this.userService.getUserById("admin@admin.com"));

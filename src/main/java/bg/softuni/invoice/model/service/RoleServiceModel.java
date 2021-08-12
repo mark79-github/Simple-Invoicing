@@ -5,9 +5,6 @@ public class RoleServiceModel {
     private String id;
     private String authority;
 
-    public RoleServiceModel() {
-    }
-
     public String getId() {
         return id;
     }

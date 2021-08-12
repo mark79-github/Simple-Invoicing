@@ -11,9 +11,6 @@ public class UserViewModel {
     private Set<String> authorities;
     private boolean enabled;
 
-    public UserViewModel() {
-    }
-
     public String getId() {
         return id;
     }

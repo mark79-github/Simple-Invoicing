@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
+import static bg.softuni.invoice.constant.GlobalConstants.REMEMBER_ME;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -51,11 +53,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .userDetailsService(userDetailsService)
                 .tokenValiditySeconds(60 * 60)
-                .key("remember-me")
-                .rememberMeCookieName("remember-me")
+                .key(REMEMBER_ME)
+                .rememberMeCookieName(REMEMBER_ME)
                 .and()
                 .logout()
-                .deleteCookies("JSESSIONID", "remember-me")
+                .deleteCookies("JSESSIONID", REMEMBER_ME)
                 .invalidateHttpSession(true)
                 .and()
                 .exceptionHandling()

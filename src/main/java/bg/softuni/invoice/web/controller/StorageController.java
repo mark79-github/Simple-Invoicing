@@ -21,6 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static bg.softuni.invoice.constant.GlobalConstants.TOTAL_PRICE;
+
 @Controller
 @RequestMapping("/storage")
 public class StorageController {
@@ -67,7 +69,7 @@ public class StorageController {
 
         if (httpSession.getAttribute("cart") == null) {
             httpSession.setAttribute("cart", new LinkedHashMap<String, Integer>());
-            httpSession.setAttribute("totalPrice", BigDecimal.ZERO);
+            httpSession.setAttribute(TOTAL_PRICE, BigDecimal.ZERO);
         }
 
         LinkedHashMap<String, Integer> items = (LinkedHashMap<String, Integer>) httpSession.getAttribute("cart");
@@ -81,11 +83,11 @@ public class StorageController {
         });
 
         model.addAttribute("cart", cart);
-        model.addAttribute("totalPrice", cart.stream()
+        model.addAttribute(TOTAL_PRICE, cart.stream()
                 .map(x -> x.getPrice().multiply(BigDecimal.valueOf(x.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
 
-        httpSession.setAttribute("totalPrice", model.getAttribute("totalPrice"));
+        httpSession.setAttribute(TOTAL_PRICE, model.getAttribute(TOTAL_PRICE));
 
         return "storage/details";
     }

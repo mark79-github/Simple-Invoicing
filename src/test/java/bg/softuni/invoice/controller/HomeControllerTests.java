@@ -15,13 +15,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HomeControllerTests {
+class HomeControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void index_shouldReturnCorrectView() throws Exception {
+    void index_shouldReturnCorrectView() throws Exception {
         this.mockMvc
                 .perform(get("/"))
                 .andExpect(view().name("home/index"));
@@ -29,7 +29,7 @@ public class HomeControllerTests {
 
     @Test
     @WithMockUser
-    public void index_withAuthenticatedUserShouldReturnCorrectView() throws Exception {
+    void index_withAuthenticatedUserShouldReturnCorrectView() throws Exception {
         this.mockMvc
                 .perform(get("/"))
                 .andExpect(view().name("home/home"));
@@ -37,7 +37,7 @@ public class HomeControllerTests {
 
     @Test
     @WithMockUser()
-    public void home_shouldReturnCorrectView() throws Exception {
+    void home_shouldReturnCorrectView() throws Exception {
         this.mockMvc
                 .perform(get("/home").with(csrf()))
                 .andExpect(status().is3xxRedirection())

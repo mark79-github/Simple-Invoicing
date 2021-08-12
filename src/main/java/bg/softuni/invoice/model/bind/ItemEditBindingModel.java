@@ -29,9 +29,6 @@ public class ItemEditBindingModel {
 
     private MultipartFile newImageUrl;
 
-    public ItemEditBindingModel() {
-    }
-
     public String getId() {
         return id;
     }

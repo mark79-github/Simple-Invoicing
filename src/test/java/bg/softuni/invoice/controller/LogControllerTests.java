@@ -14,14 +14,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LogControllerTests {
+class LogControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     @WithMockUser(roles = {"ROOT"})
-    public void all_shouldReturnCorrectView() throws Exception {
+    void all_shouldReturnCorrectView() throws Exception {
         this.mockMvc
                 .perform(get("/log/all").with(csrf()))
                 .andExpect(view().name("log/all"));

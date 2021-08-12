@@ -25,7 +25,7 @@ import java.util.UUID;
 
 @SpringBootTest
 //@ExtendWith(MockitoExtension.class)
-public class InvoiceServiceTests {
+class InvoiceServiceTests {
 
     private final String INVOICE_NON_EXISTING = UUID.randomUUID().toString();
 
@@ -88,7 +88,7 @@ public class InvoiceServiceTests {
     }
 
     @Test
-    public void changeStatus_shouldThrowExceptionIfInvoiceNotExists() {
+    void changeStatus_shouldThrowExceptionIfInvoiceNotExists() {
 
         Assertions.assertThrows(InvoiceNotFoundException.class, () -> this.invoiceService.changeStatus(INVOICE_NON_EXISTING));
     }

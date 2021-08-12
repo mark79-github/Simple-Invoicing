@@ -17,9 +17,6 @@ public class CompanyAddBindingModel {
     @Pattern(regexp = UNIQUE_IDENTIFIER_REGEX, message = UNIQUE_IDENTIFIER_LENGTH)
     private String uniqueIdentifier;
 
-    public CompanyAddBindingModel() {
-    }
-
     public String getName() {
         return name;
     }

@@ -5,9 +5,6 @@ public class CompanyViewSelectModel {
     private String id;
     private String name;
 
-    public CompanyViewSelectModel() {
-    }
-
     public String getId() {
         return id;
     }

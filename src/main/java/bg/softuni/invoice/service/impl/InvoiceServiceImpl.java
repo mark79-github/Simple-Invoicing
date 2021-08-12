@@ -6,10 +6,11 @@ import bg.softuni.invoice.model.entity.Invoice;
 import bg.softuni.invoice.model.entity.Sale;
 import bg.softuni.invoice.model.entity.User;
 import bg.softuni.invoice.model.enumerated.StatusType;
-import bg.softuni.invoice.model.service.*;
+import bg.softuni.invoice.model.service.CompanyServiceModel;
+import bg.softuni.invoice.model.service.InvoiceServiceModel;
+import bg.softuni.invoice.model.service.UserServiceModel;
 import bg.softuni.invoice.repository.InvoiceRepository;
 import bg.softuni.invoice.service.InvoiceService;
-import bg.softuni.invoice.service.ItemService;
 import bg.softuni.invoice.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         UserServiceModel userServiceModel = this.userService.getUserByName(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(USERNAME_NOT_FOUND, username)));
-//        UserServiceModel userServiceModel = this.userService.getUserById(principalId);
         User user = this.modelMapper.map(userServiceModel, User.class);
         invoice.setUser(user);
 

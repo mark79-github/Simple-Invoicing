@@ -1,6 +1,5 @@
 package bg.softuni.invoice.model.entity;
 
-import bg.softuni.invoice.model.enumerated.StatusType;
 import bg.softuni.invoice.model.enumerated.VatValue;
 import org.hibernate.validator.constraints.Length;
 
@@ -29,9 +28,6 @@ public class Item extends BaseEntity {
 
     @Enumerated(EnumType.ORDINAL)
     private VatValue vatValue;
-
-    public Item() {
-    }
 
     public String getName() {
         return name;

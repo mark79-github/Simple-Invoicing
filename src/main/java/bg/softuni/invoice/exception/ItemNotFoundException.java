@@ -8,7 +8,7 @@ import static bg.softuni.invoice.constant.ErrorMsg.ITEM_NOT_FOUND;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = ITEM_NOT_FOUND)
 public class ItemNotFoundException extends RuntimeException {
 
-    private int status;
+    private final int status;
 
     public ItemNotFoundException() {
         this.status = 404;

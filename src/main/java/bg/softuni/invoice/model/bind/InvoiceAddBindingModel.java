@@ -31,9 +31,6 @@ public class InvoiceAddBindingModel {
     @NotNull(message = DATE_NOT_EMPTY)
     private LocalDate date;
 
-    public InvoiceAddBindingModel() {
-    }
-
     public String getSender() {
         return sender;
     }

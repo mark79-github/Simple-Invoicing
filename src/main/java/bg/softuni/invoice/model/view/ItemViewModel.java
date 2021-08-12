@@ -11,9 +11,6 @@ public class ItemViewModel {
     private String imageUrl;
     private int quantity;
 
-    public ItemViewModel() {
-    }
-
     public String getId() {
         return id;
     }

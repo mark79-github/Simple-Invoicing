@@ -8,7 +8,7 @@ import static bg.softuni.invoice.constant.ErrorMsg.USERNAME_NOT_FOUND;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = USERNAME_NOT_FOUND)
 public class UserNotFoundException extends RuntimeException {
 
-    private int status;
+    private final int status;
 
     public UserNotFoundException() {
         this.status = 404;

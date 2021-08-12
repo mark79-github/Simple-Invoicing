@@ -8,7 +8,7 @@ import static bg.softuni.invoice.constant.ErrorMsg.INVOICE_NOT_FOUND;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = INVOICE_NOT_FOUND)
 public class InvoiceNotFoundException extends RuntimeException {
 
-    private int status;
+    private final int status;
 
     public InvoiceNotFoundException() {
         this.status = 404;

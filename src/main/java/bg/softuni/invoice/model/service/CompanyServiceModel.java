@@ -8,9 +8,6 @@ public class CompanyServiceModel {
     private String uniqueIdentifier;
     private boolean supplier;
 
-    public CompanyServiceModel() {
-    }
-
     public String getId() {
         return id;
     }

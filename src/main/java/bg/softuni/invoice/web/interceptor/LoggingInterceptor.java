@@ -7,7 +7,7 @@ import bg.softuni.invoice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import static bg.softuni.invoice.constant.GlobalConstants.ANONYMOUS_USER_USERNAME;
 
 @Component
-public class LoggingInterceptor extends HandlerInterceptorAdapter {
+public class LoggingInterceptor implements HandlerInterceptor {
 
     private final LogService logService;
     private final UserService userService;
@@ -43,6 +43,6 @@ public class LoggingInterceptor extends HandlerInterceptorAdapter {
             this.logService.createLog(new LogServiceModel(requestURI, method, LocalDateTime.now(), userServiceModel));
         }
 
-        return super.preHandle(request, response, handler);
+        return true;
     }
 }

@@ -10,9 +10,6 @@ public class SaleViewModel {
     private BigDecimal price;
     private int vatValue;
 
-    public SaleViewModel() {
-    }
-
     public String getId() {
         return id;
     }

@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 //@ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class ItemServiceTests {
+class ItemServiceTests {
 
     private final String NON_EXISTING_ITEM_ID = UUID.randomUUID().toString();
 
@@ -42,7 +42,7 @@ public class ItemServiceTests {
     private ModelMapper modelMapper;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         this.itemService = new ItemServiceImpl(itemRepository, modelMapper);
 
         this.item = new Item();
@@ -55,20 +55,20 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void getItemById_shouldThrowExceptionIfItemNotExists() {
+    void getItemById_shouldThrowExceptionIfItemNotExists() {
 
         Assertions.assertThrows(ItemNotFoundException.class,
                 () -> this.itemService.getItemById(NON_EXISTING_ITEM_ID));
     }
 
     @Test
-    public void getItemByName_shouldReturnNullIfItemNotExists() {
+    void getItemByName_shouldReturnNullIfItemNotExists() {
 
         Assertions.assertNull(this.itemService.getItemByName(NON_EXISTING_ITEM_ID));
     }
 
     @Test
-    public void getAllItems_shouldReturnItemsCorrectly() {
+    void getAllItems_shouldReturnItemsCorrectly() {
         when(this.itemRepository.findAll()).thenReturn(this.itemList);
 
         List<ItemServiceModel> items = this.itemService.getAllItems();

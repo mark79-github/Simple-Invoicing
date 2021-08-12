@@ -8,7 +8,7 @@ import static bg.softuni.invoice.constant.ErrorMsg.ROLE_NOT_FOUND;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = ROLE_NOT_FOUND)
 public class AuthorityNotFoundException extends RuntimeException {
 
-    private int status;
+    private final int status;
 
     public AuthorityNotFoundException() {
         this.status = 404;

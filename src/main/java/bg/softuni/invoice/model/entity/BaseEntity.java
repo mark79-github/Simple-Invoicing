@@ -16,7 +16,7 @@ public abstract class BaseEntity {
     @Column(nullable = false, unique = true, updatable = false)
     private String id;
 
-    public BaseEntity() {
+    protected BaseEntity() {
     }
 
     public String getId() {

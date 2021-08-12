@@ -1,16 +1,15 @@
 package bg.softuni.invoice.model.entity;
 
 import bg.softuni.invoice.model.enumerated.VatValue;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "sales")
-public class Sale extends BaseEntity {
+public class Sale extends BaseEntity implements Serializable {
 
     @Column(name = "name", nullable = false, updatable = false)
     private String name;
@@ -26,9 +25,6 @@ public class Sale extends BaseEntity {
     @Column(name = "vat_value", nullable = false, updatable = false)
     @Enumerated(EnumType.ORDINAL)
     private VatValue vatValue;
-
-    public Sale() {
-    }
 
     public String getName() {
         return name;

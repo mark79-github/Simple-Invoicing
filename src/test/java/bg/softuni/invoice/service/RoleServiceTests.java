@@ -4,8 +4,6 @@ import bg.softuni.invoice.exception.AuthorityNotFoundException;
 import bg.softuni.invoice.model.entity.Role;
 import bg.softuni.invoice.repository.RoleRepository;
 import bg.softuni.invoice.service.impl.RoleServiceImpl;
-import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,13 +15,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 //@ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class RoleServiceTests {
+class RoleServiceTests {
 
     private Role role;
     private List<Role> roleList = new ArrayList<>();
@@ -46,24 +43,24 @@ public class RoleServiceTests {
     }
 
     @Test
-    public void getRoleByName_shouldReturnRoleCorrectly() {
+    void getRoleByName_shouldReturnRoleCorrectly() {
         when(this.roleRepository.findByAuthority("ROLE_ADMIN"))
                 .thenReturn(Optional.ofNullable(role));
 
         Role roleAdmin = this.roleService.getRoleByName("ROLE_ADMIN");
 
-        Assert.assertEquals(roleAdmin, this.role);
+        assertEquals(roleAdmin, this.role);
     }
 
     @Test
-    public void getRoleByName_shouldThrowExceptionWhenRoleNotExists() {
+    void getRoleByName_shouldThrowExceptionWhenRoleNotExists() {
 
-        Assertions.assertThrows(AuthorityNotFoundException.class,
+        assertThrows(AuthorityNotFoundException.class,
                 () -> this.roleService.getRoleByName("ROLE_ADMINISTRATOR"));
     }
 
     @Test
-    public void getAllRoles_shouldReturnAllRolesCorrectly() {
+    void getAllRoles_shouldReturnAllRolesCorrectly() {
         when(this.roleRepository.findAll()).thenReturn(this.roleList);
 
         Set<Role> roleSet = this.roleService.getAllRoles();
@@ -73,7 +70,7 @@ public class RoleServiceTests {
     }
 
     @Test
-    public void getRoleRepositoryCount_shouldReturnResultCorrectly() {
+    void getRoleRepositoryCount_shouldReturnResultCorrectly() {
         when(this.roleRepository.count()).thenReturn(Long.valueOf(this.roleList.size()));
 
         long actual = this.roleService.getRoleRepositoryCount();

@@ -23,9 +23,6 @@ public class CompanyEditBindingModel {
     @NotNull(message = SUPPLIER_NOT_NULL)
     private boolean supplier;
 
-    public CompanyEditBindingModel() {
-    }
-
     public String getId() {
         return id;
     }

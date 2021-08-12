@@ -23,9 +23,6 @@ public class Log extends BaseEntity {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private User user;
 
-    public Log() {
-    }
-
     public String getRequestURI() {
         return requestURI;
     }

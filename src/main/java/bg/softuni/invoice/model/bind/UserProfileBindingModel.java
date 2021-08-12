@@ -23,9 +23,6 @@ public class UserProfileBindingModel {
     @Pattern(regexp = NAME_REGEX, message = LAST_NAME_FIRST_LETTER_UPPERCASE)
     private String lastName;
 
-    public UserProfileBindingModel() {
-    }
-
     public String getId() {
         return id;
     }

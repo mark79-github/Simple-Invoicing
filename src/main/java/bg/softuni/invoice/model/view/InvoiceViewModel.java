@@ -22,9 +22,6 @@ public class InvoiceViewModel {
     private LocalDateTime createdOn;
     private Set<SaleViewModel> sales;
 
-    public InvoiceViewModel() {
-    }
-
     public String getId() {
         return id;
     }

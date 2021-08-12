@@ -8,9 +8,6 @@ public class CompanyViewModel {
     private String uniqueIdentifier;
     private boolean supplier;
 
-    public CompanyViewModel() {
-    }
-
     public String getId() {
         return id;
     }

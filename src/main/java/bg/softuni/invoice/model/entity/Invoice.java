@@ -2,7 +2,6 @@ package bg.softuni.invoice.model.entity;
 
 import bg.softuni.invoice.model.enumerated.PaymentType;
 import bg.softuni.invoice.model.enumerated.StatusType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,9 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static bg.softuni.invoice.constant.ErrorMsg.DATE_FORMAT_PATTERN;
@@ -62,9 +59,6 @@ public class Invoice extends BaseEntity implements Serializable {
             joinColumns = @JoinColumn(name = "invoice_id"),
             inverseJoinColumns = @JoinColumn(name = "sale_id"))
     private Set<Sale> sales = new HashSet<>();
-
-    public Invoice() {
-    }
 
     public LocalDate getDate() {
         return date;

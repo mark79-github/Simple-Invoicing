@@ -8,7 +8,7 @@ import static bg.softuni.invoice.constant.ErrorMsg.COMPANY_NOT_FOUND;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = COMPANY_NOT_FOUND)
 public class CompanyNotFoundException extends RuntimeException {
 
-    private int status;
+    private final int status;
 
     public CompanyNotFoundException() {
         this.status = 404;

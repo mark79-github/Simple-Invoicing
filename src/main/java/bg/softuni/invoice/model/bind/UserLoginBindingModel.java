@@ -15,9 +15,6 @@ public class UserLoginBindingModel {
     @NotBlank(message = PASSWORD_NOT_EMPTY)
     private String password;
 
-    public UserLoginBindingModel() {
-    }
-
     public String getUsername() {
         return username;
     }
