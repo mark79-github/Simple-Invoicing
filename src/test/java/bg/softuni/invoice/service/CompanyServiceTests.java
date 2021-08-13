@@ -21,13 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-//@ExtendWith(MockitoExtension.class)
 class CompanyServiceTests {
 
     private final String NON_EXISTING_COMPANY = UUID.randomUUID().toString();
 
-    private List<Company> companyList = new ArrayList<>();
-    private Company company;
+    private final List<Company> companyList = new ArrayList<>();
 
     @InjectMocks
     private CompanyServiceImpl companyService;
@@ -42,7 +40,7 @@ class CompanyServiceTests {
     private void init() {
         this.companyService = new CompanyServiceImpl(this.companyRepository, this.modelMapper);
 
-        this.company = new Company();
+        Company company = new Company();
         company.setName("company");
         company.setAddress("address");
         company.setUniqueIdentifier("123456789");
@@ -52,25 +50,25 @@ class CompanyServiceTests {
     }
 
     @Test
-    void getCompanyById_shouldThrowExceptionIfItemNotExists() {
+    void getCompanyById_shouldThrowExceptionIfCompanyNotExists() {
 
         Assertions.assertThrows(CompanyNotFoundException.class, () -> this.companyService.getCompanyById(NON_EXISTING_COMPANY));
     }
 
     @Test
-    void getCompanyByName_shouldReturnNullIfItemNotExists() {
+    void getCompanyByName_shouldReturnNullIfCompanyNotExists() {
 
         Assertions.assertNull(this.companyService.getCompanyByName(NON_EXISTING_COMPANY));
     }
 
     @Test
-    void getCompanyByUniqueIdentifier_shouldReturnNullIfItemNotExists() {
+    void getCompanyByUniqueIdentifier_shouldReturnNullIfCompanyNotExists() {
 
         Assertions.assertNull(this.companyService.getCompanyByUniqueIdentifier(NON_EXISTING_COMPANY));
     }
 
     @Test
-    void getAllCompanies_shouldReturnInvoicesCorrectly() {
+    void getAllCompanies_shouldReturnCompaniesCorrectly() {
         when(this.companyRepository.findAll()).thenReturn(this.companyList);
 
         List<CompanyServiceModel> companies = this.companyService.getAllCompanies();
