@@ -20,7 +20,6 @@
                         <div class="card-body text-white">
                             <h4 class="card-text">price: <strong th:text="${itemViewModel.price}"></strong></h4>
                             <h4 class="card-text">vat value: <strong th:text="|${T(bg.softuni.invoice.model.enumerated.VatValue).valueOf(itemViewModel.vatValue).getValue()}%|"></strong></h4>
-<!--                            <h5 th:text="|${T(bg.softuni.invoice.model.enumerated.VatValue).valueOf(item.vatValue).getValue()}%|">vatValue</h5>-->
                             <div class="text-center">
                                 <img class="img-fluid mx-auto d-block" th:src="${itemViewModel.imageUrl}" height="240"
                                      width="240" alt="No image found">

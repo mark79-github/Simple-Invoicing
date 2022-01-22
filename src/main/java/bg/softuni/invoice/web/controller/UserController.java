@@ -31,6 +31,11 @@ import static bg.softuni.invoice.constant.ErrorMsg.USERNAME_NOT_FOUND;
 @RequestMapping("/user")
 public class UserController {
 
+    private static final String USER_REGISTER_BINDING_MODEL = "userRegisterBindingModel";
+    private static final String USER_PROFILE_BINDING_MODEL = "userProfileBindingModel";
+    private static final String VALIDATION_BINDING_RESULT = "org.springframework.validation.BindingResult.";
+    private static final String REDIRECT_USER_ALL = "redirect:/user/all";
+    private static final String REDIRECT_REGISTER = "redirect:register";
     private final UserService userService;
     private final ModelMapper modelMapper;
 
@@ -45,8 +50,8 @@ public class UserController {
     @PreAuthorize("isAnonymous()")
     public String register(Model model) {
 
-        if (!model.containsAttribute("userRegisterBindingModel")) {
-            model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
+        if (!model.containsAttribute(USER_REGISTER_BINDING_MODEL)) {
+            model.addAttribute(USER_REGISTER_BINDING_MODEL, new UserRegisterBindingModel());
         }
 
         return "user/register";
@@ -55,33 +60,33 @@ public class UserController {
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
     public String registerConfirm(@Valid
-                                  @ModelAttribute(name = "userRegisterBindingModel") UserRegisterBindingModel userRegisterBindingModel,
+                                      @ModelAttribute(name = USER_REGISTER_BINDING_MODEL) UserRegisterBindingModel userRegisterBindingModel,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
+            redirectAttributes.addFlashAttribute(USER_REGISTER_BINDING_MODEL, userRegisterBindingModel);
+            redirectAttributes.addFlashAttribute(VALIDATION_BINDING_RESULT + USER_REGISTER_BINDING_MODEL, bindingResult);
 
-            return "redirect:register";
+            return REDIRECT_REGISTER;
         }
 
         boolean present = this.userService.getUserByName(userRegisterBindingModel.getUsername()).isPresent();
 
         if (present) {
-            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
+            redirectAttributes.addFlashAttribute(USER_REGISTER_BINDING_MODEL, userRegisterBindingModel);
+            redirectAttributes.addFlashAttribute(VALIDATION_BINDING_RESULT + USER_REGISTER_BINDING_MODEL, bindingResult);
             bindingResult.rejectValue("username", "error.userRegisterBindingModel", "Username is already taken");
 
-            return "redirect:register";
+            return REDIRECT_REGISTER;
         }
 
         if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
-            redirectAttributes.addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
+            redirectAttributes.addFlashAttribute(USER_REGISTER_BINDING_MODEL, userRegisterBindingModel);
+            redirectAttributes.addFlashAttribute(VALIDATION_BINDING_RESULT + USER_REGISTER_BINDING_MODEL, bindingResult);
             bindingResult.rejectValue("confirmPassword", "error.userRegisterBindingModel", "Confirm password did not match");
 
-            return "redirect:register";
+            return REDIRECT_REGISTER;
         }
 
         this.userService.registerUser(this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
@@ -105,9 +110,9 @@ public class UserController {
 
         UserServiceModel userServiceModel = this.userService.getUserByName(id).orElseThrow(() -> new UsernameNotFoundException(String.format(USERNAME_NOT_FOUND, id)));
 
-        if (!model.containsAttribute("userProfileBindingModel")) {
+        if (!model.containsAttribute(USER_PROFILE_BINDING_MODEL)) {
             UserProfileBindingModel userProfileBindingModel = this.modelMapper.map(userServiceModel, UserProfileBindingModel.class);
-            model.addAttribute("userProfileBindingModel", userProfileBindingModel);
+            model.addAttribute(USER_PROFILE_BINDING_MODEL, userProfileBindingModel);
         }
 
         return "user/profile";
@@ -116,7 +121,7 @@ public class UserController {
     @PostMapping("/profile{id}")
     @PreAuthorize("isAuthenticated() && #id eq principal.username")
     public String profileConfirm(@Valid
-                                 @ModelAttribute(name = "userProfileBindingModel") UserProfileBindingModel userProfileBindingModel,
+                                     @ModelAttribute(name = USER_PROFILE_BINDING_MODEL) UserProfileBindingModel userProfileBindingModel,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
                                  @AuthenticationPrincipal User principal,
@@ -124,7 +129,7 @@ public class UserController {
                                  Model model) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("userProfileBindingModel", userProfileBindingModel);
+            redirectAttributes.addFlashAttribute(USER_PROFILE_BINDING_MODEL, userProfileBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userProfileBindingModel", bindingResult);
             redirectAttributes.addAttribute("id", id);
 
@@ -172,7 +177,7 @@ public class UserController {
     public String setAdminRole(@PathVariable String id) {
         this.userService.setAdmin(id);
 
-        return "redirect:/user/all";
+        return REDIRECT_USER_ALL;
     }
 
     @PostMapping("/set-user/{id}")
@@ -180,7 +185,7 @@ public class UserController {
     public String setUserRole(@PathVariable String id) {
         this.userService.setUser(id);
 
-        return "redirect:/user/all";
+        return REDIRECT_USER_ALL;
     }
 
     @PostMapping("/set-enabled/{id}")
@@ -188,7 +193,7 @@ public class UserController {
     public String setEnabled(@PathVariable String id) {
         this.userService.setUserEnabled(id);
 
-        return "redirect:/user/all";
+        return REDIRECT_USER_ALL;
     }
 
     @PostMapping("/set-disabled/{id}")
@@ -196,7 +201,7 @@ public class UserController {
     public String setDisabled(@PathVariable String id) {
         this.userService.setUserDisabled(id);
 
-        return "redirect:/user/all";
+        return REDIRECT_USER_ALL;
     }
 
 }
