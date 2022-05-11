@@ -10,8 +10,10 @@ import bg.softuni.invoice.service.impl.InvoiceServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -24,16 +26,12 @@ import java.util.Set;
 import java.util.UUID;
 
 @SpringBootTest
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 class InvoiceServiceTests {
 
     private final String INVOICE_NON_EXISTING = UUID.randomUUID().toString();
 
-    private List<Invoice> invoiceList = new ArrayList<>();
-    private Invoice invoice;
-    private Company company;
-    private User user;
-    private Sale sale;
+    private final List<Invoice> invoiceList = new ArrayList<>();
 
     @InjectMocks
     private InvoiceServiceImpl invoiceService;
@@ -52,7 +50,7 @@ class InvoiceServiceTests {
 
         this.invoiceService = new InvoiceServiceImpl(invoiceRepository, modelMapper, userService);
 
-        this.invoice = new Invoice();
+        Invoice invoice = new Invoice();
         invoice.setDate(LocalDate.now());
         invoice.setCreatedOn(LocalDateTime.now());
         invoice.setInvoiceNumber(1);
@@ -60,20 +58,20 @@ class InvoiceServiceTests {
         invoice.setStatusType(StatusType.COMPLETE);
         invoice.setTotalValue(BigDecimal.TEN);
 
-        this.company = new Company();
+        Company company = new Company();
         company.setName("company");
         company.setAddress("address");
         company.setUniqueIdentifier("123456789");
         company.setSupplier(true);
 
-        this.user = new User();
-        this.user.setUsername("admin@admin.com");
-        this.user.setFirstName("Admin");
-        this.user.setLastName("Admin");
-        this.user.setPassword("admin");
-        this.user.setAuthorities(Set.of(new Role("ROLE_ROOT")));
+        User user = new User();
+        user.setUsername("admin@admin.com");
+        user.setFirstName("Admin");
+        user.setLastName("Admin");
+        user.setPassword("admin");
+        user.setAuthorities(Set.of(new Role("ROLE_ROOT")));
 
-        this.sale = new Sale();
+        Sale sale = new Sale();
         sale.setName("item");
         sale.setPrice(BigDecimal.TEN);
         sale.setQuantity(1);

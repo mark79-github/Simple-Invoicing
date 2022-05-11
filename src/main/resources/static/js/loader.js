@@ -56,7 +56,7 @@ $('body').on('click', 'button.status-btn', function () {
 
     $.ajax({
         url: "/invoice/set-status",
-        type: "get",
+        type: "post",
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         data: {
             id: invoiceId

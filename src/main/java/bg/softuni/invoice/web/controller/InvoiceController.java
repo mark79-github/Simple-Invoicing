@@ -166,12 +166,4 @@ public class InvoiceController {
 
         return REDIRECT_INVOICE_ALL;
     }
-
-    @GetMapping("/set-status")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String getDisabled(@RequestParam(name = "id") String id) {
-        this.invoiceService.changeStatus(id);
-
-        return REDIRECT_INVOICE_ALL;
-    }
 }

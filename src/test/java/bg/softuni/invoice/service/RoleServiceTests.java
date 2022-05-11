@@ -6,8 +6,10 @@ import bg.softuni.invoice.repository.RoleRepository;
 import bg.softuni.invoice.service.impl.RoleServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -18,12 +20,12 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class RoleServiceTests {
 
     private Role role;
-    private List<Role> roleList = new ArrayList<>();
+    private final List<Role> roleList = new ArrayList<>();
 
     @InjectMocks
     private RoleServiceImpl roleService;

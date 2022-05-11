@@ -8,8 +8,10 @@ import bg.softuni.invoice.service.impl.CompanyServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,13 +23,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 class CompanyServiceTests {
 
     private final String NON_EXISTING_COMPANY = UUID.randomUUID().toString();
 
-    private List<Company> companyList = new ArrayList<>();
-    private Company company;
+    private final List<Company> companyList = new ArrayList<>();
 
     @InjectMocks
     private CompanyServiceImpl companyService;
@@ -42,7 +43,7 @@ class CompanyServiceTests {
     private void init() {
         this.companyService = new CompanyServiceImpl(this.companyRepository, this.modelMapper);
 
-        this.company = new Company();
+        Company company = new Company();
         company.setName("company");
         company.setAddress("address");
         company.setUniqueIdentifier("123456789");
