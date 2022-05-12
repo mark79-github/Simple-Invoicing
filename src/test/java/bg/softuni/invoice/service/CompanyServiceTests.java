@@ -1,33 +1,39 @@
 package bg.softuni.invoice.service;
 
+
 import bg.softuni.invoice.exception.CompanyNotFoundException;
 import bg.softuni.invoice.model.entity.Company;
 import bg.softuni.invoice.model.service.CompanyServiceModel;
 import bg.softuni.invoice.repository.CompanyRepository;
 import bg.softuni.invoice.service.impl.CompanyServiceImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static bg.softuni.invoice.constant.ErrorMsg.COMPANY_NOT_FOUND;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class CompanyServiceTests {
 
     private final String NON_EXISTING_COMPANY = UUID.randomUUID().toString();
 
+    private Company company;
     private final List<Company> companyList = new ArrayList<>();
 
     @InjectMocks
@@ -36,14 +42,13 @@ class CompanyServiceTests {
     @Mock
     private CompanyRepository companyRepository;
 
-    @Mock
+    @Spy
     private ModelMapper modelMapper;
 
     @BeforeEach
-    private void init() {
-        this.companyService = new CompanyServiceImpl(this.companyRepository, this.modelMapper);
+    private void setUp() {
 
-        Company company = new Company();
+        company = new Company();
         company.setName("company");
         company.setAddress("address");
         company.setUniqueIdentifier("123456789");
@@ -55,27 +60,89 @@ class CompanyServiceTests {
     @Test
     void getCompanyById_shouldThrowExceptionIfItemNotExists() {
 
-        Assertions.assertThrows(CompanyNotFoundException.class, () -> this.companyService.getCompanyById(NON_EXISTING_COMPANY));
+        assertThatThrownBy(() -> this.companyService.getCompanyById(NON_EXISTING_COMPANY))
+                .isInstanceOf(CompanyNotFoundException.class)
+                .hasMessageContaining(COMPANY_NOT_FOUND);
+    }
+
+    @Test
+    void getCompanyById_shouldReturnCompanyCorrectly() {
+
+        doReturn(Optional.of(company)).when(this.companyRepository).findById(anyString());
+
+        this.companyService.getCompanyById(NON_EXISTING_COMPANY);
+
+        assertThat(company).isNotNull();
     }
 
     @Test
     void getCompanyByName_shouldReturnNullIfItemNotExists() {
 
-        Assertions.assertNull(this.companyService.getCompanyByName(NON_EXISTING_COMPANY));
+        assertThat(this.companyService.getCompanyByName(NON_EXISTING_COMPANY)).isNull();
     }
 
     @Test
     void getCompanyByUniqueIdentifier_shouldReturnNullIfItemNotExists() {
 
-        Assertions.assertNull(this.companyService.getCompanyByUniqueIdentifier(NON_EXISTING_COMPANY));
+        assertThat(this.companyService.getCompanyByUniqueIdentifier(NON_EXISTING_COMPANY)).isNull();
     }
 
     @Test
     void getAllCompanies_shouldReturnInvoicesCorrectly() {
-        when(this.companyRepository.findAll()).thenReturn(this.companyList);
+        doReturn(this.companyList).when(this.companyRepository).findAll();
 
         List<CompanyServiceModel> companies = this.companyService.getAllCompanies();
 
-        assertEquals(1, companies.size());
+        assertThat(companies).hasSize(1);
     }
+
+    @Test
+    void getSupplierCompany_shouldReturnSuppliersCorrectly() {
+        doReturn(this.companyList).when(this.companyRepository).findBySupplier(anyBoolean());
+
+        List<CompanyServiceModel> companies = this.companyService.getSupplierCompany(true);
+
+        assertThat(companies).hasSize(1);
+    }
+
+    @Test
+    void editCompany_shouldReturnCompanyCorrectly() {
+        given(companyRepository.save(isA(Company.class))).willReturn(company);
+
+        this.companyService.editCompany(new CompanyServiceModel());
+
+        verify(companyRepository, times(1)).save(isA(Company.class));
+        assertThat(company).isNotNull();
+    }
+
+    @Test
+    void addCompany_shouldCreateSupplierCompanyCorrectly() {
+
+        CompanyServiceModel companyServiceModel = new CompanyServiceModel();
+
+        given(companyRepository.saveAndFlush(isA(Company.class))).willReturn(company);
+        doReturn(0L).when(this.companyRepository).count();
+
+        companyService.addCompany(companyServiceModel);
+
+        verify(companyRepository, times(1)).saveAndFlush(isA(Company.class));
+        assertThat(company.isSupplier()).isTrue();
+    }
+
+    @Test
+    void addCompany_shouldCreateCustomerCompanyCorrectly() {
+
+        CompanyServiceModel companyServiceModel = new CompanyServiceModel();
+
+        company.setSupplier(false);
+        given(companyRepository.saveAndFlush(isA(Company.class))).willReturn(company);
+        doReturn(1L).when(this.companyRepository).count();
+
+        companyService.addCompany(companyServiceModel);
+
+        verify(companyRepository, times(1)).saveAndFlush(isA(Company.class));
+        assertThat(company.isSupplier()).isFalse();
+    }
+
+
 }
