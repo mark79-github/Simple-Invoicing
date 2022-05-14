@@ -11,28 +11,31 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static bg.softuni.invoice.constant.ErrorMsg.ITEM_NOT_FOUND;
 import static bg.softuni.invoice.constant.GlobalConstants.DEFAULT_ITEM_IMAGE_FILE;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
-
-@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class ItemServiceTests {
 
     private final String NON_EXISTING_ITEM_ID = UUID.randomUUID().toString();
 
+    private Item item;
     private final List<Item> itemList = new ArrayList<>();
 
     @InjectMocks
@@ -41,14 +44,14 @@ class ItemServiceTests {
     @Mock
     private ItemRepository itemRepository;
 
-    @Mock
+    @Spy
     private ModelMapper modelMapper;
 
     @BeforeEach
     public void init() {
-//        this.itemService = new ItemServiceImpl(itemRepository, modelMapper);
 
-        Item item = new Item();
+        item = new Item();
+        item.setId(NON_EXISTING_ITEM_ID);
         item.setName("item");
         item.setPrice(BigDecimal.TEN);
         item.setVatValue(VatValue.TWENTY);
@@ -66,9 +69,31 @@ class ItemServiceTests {
     }
 
     @Test
+    void getItemById_shouldReturnItemServiceModelIfExists() {
+
+        doReturn(Optional.of(item)).when(itemRepository).findById(anyString());
+
+        ItemServiceModel model = itemService.getItemById(NON_EXISTING_ITEM_ID);
+
+        assertThat(model.getId()).isEqualTo(item.getId());
+    }
+
+    @Test
     void getItemByName_shouldReturnNullIfItemNotExists() {
 
-        assertThat(this.itemService.getItemByName(NON_EXISTING_ITEM_ID)).isNull();
+        doReturn(Optional.empty()).when(itemRepository).findByName(anyString());
+
+        ItemServiceModel itemServiceModel = itemService.getItemByName(NON_EXISTING_ITEM_ID);
+
+        assertThat(itemServiceModel).isNull();
+    }
+
+    @Test
+    void getItemByName_shouldReturnItemIfItemExists() {
+
+        doReturn(Optional.of(this.item)).when(this.itemRepository).findByName(anyString());
+        this.itemService.getItemByName(NON_EXISTING_ITEM_ID);
+        assertThat(this.item).isNotNull();
     }
 
     @Test
@@ -77,6 +102,17 @@ class ItemServiceTests {
 
         List<ItemServiceModel> items = this.itemService.getAllItems();
 
-        assertThat(items).asList().hasSize(1);
+        assertThat(items).hasSize(1);
+    }
+
+    @Test
+    void saveItem_shouldCreateItemCorrectly() {
+
+        ItemServiceModel itemServiceModel = new ItemServiceModel();
+        given(itemRepository.saveAndFlush(isA(Item.class))).willReturn(item);
+
+        itemService.saveItem(itemServiceModel);
+
+        verify(itemRepository, times(1)).saveAndFlush(isA(Item.class));
     }
 }
