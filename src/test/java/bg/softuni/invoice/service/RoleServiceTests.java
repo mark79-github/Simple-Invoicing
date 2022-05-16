@@ -25,7 +25,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-//@SpringBootTest
 class RoleServiceTests {
 
     private Role role;
