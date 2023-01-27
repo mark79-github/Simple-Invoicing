@@ -82,7 +82,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .findAll()
                 .stream()
                 .map(this::apply)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         return invoices.stream()
                 .map(this::apply)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -112,7 +112,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .getAllByStatusType(statusType)
                 .stream()
                 .map(invoice -> this.modelMapper.map(invoice, InvoiceServiceModel.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private InvoiceServiceModel apply(Invoice invoice) {

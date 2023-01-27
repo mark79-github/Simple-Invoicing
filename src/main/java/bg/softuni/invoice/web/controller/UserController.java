@@ -164,7 +164,7 @@ public class UserController {
                     userViewModel.setAuthorities(authorities);
                     return userViewModel;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         model.addAttribute("users", users);
         model.addAttribute("comparator", Comparator.comparing(UserViewModel::getUsername));

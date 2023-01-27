@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @CrossOrigin("http://localhost")
 @RestController
@@ -35,7 +34,7 @@ public class InvoiceRestController {
             return this.invoiceRepository.findAll()
                     .stream()
                     .filter(invoice -> invoice.getUser().getUsername().equals(principal.getUsername()))
-                    .collect(Collectors.toList());
+                    .toList();
         } else {
             return this.invoiceRepository.findAll();
         }

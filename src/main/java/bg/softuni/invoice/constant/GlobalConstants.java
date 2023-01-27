@@ -9,7 +9,8 @@ public class GlobalConstants {
 
     public static final String CHARACTERS_LONG = " characters long";
     public static final String REMEMBER_ME = "remember-me";
-    public static final String TOTAL_PRICE = "totalPrice";
+    public static final String CART_TOTAL_PRICE = "totalPrice";
+    public static final String CART_ITEMS_COUNT = "cartItemsCount";
 
     private GlobalConstants() {
     }

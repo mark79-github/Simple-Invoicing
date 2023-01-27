@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static bg.softuni.invoice.constant.ErrorMsg.COMPANY_NOT_FOUND;
 
@@ -67,7 +66,7 @@ public class CompanyServiceImpl implements CompanyService {
                 .findAll()
                 .stream()
                 .map(company -> this.modelMapper.map(company, CompanyServiceModel.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -76,7 +75,7 @@ public class CompanyServiceImpl implements CompanyService {
                 .findBySupplier(supplier)
                 .stream()
                 .map(company -> this.modelMapper.map(company, CompanyServiceModel.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

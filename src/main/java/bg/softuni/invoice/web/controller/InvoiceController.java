@@ -11,6 +11,8 @@ import bg.softuni.invoice.service.CompanyService;
 import bg.softuni.invoice.service.InvoiceService;
 import bg.softuni.invoice.service.ItemService;
 import bg.softuni.invoice.web.annotation.PageTitle;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,12 +23,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static bg.softuni.invoice.constant.GlobalConstants.CART_ITEMS_COUNT;
+import static bg.softuni.invoice.constant.GlobalConstants.CART_TOTAL_PRICE;
 
 @Controller
 @RequestMapping("/invoice")
@@ -65,12 +68,12 @@ public class InvoiceController {
             List<CompanyViewSelectModel> senderCompany = this.companyService.getSupplierCompany(true)
                     .stream()
                     .map(companyServiceModel -> this.modelMapper.map(companyServiceModel, CompanyViewSelectModel.class))
-                    .collect(Collectors.toList());
+                    .toList();
 
             List<CompanyViewSelectModel> receiverCompanies = this.companyService.getSupplierCompany(false)
                     .stream()
                     .map(companyServiceModel -> this.modelMapper.map(companyServiceModel, CompanyViewSelectModel.class))
-                    .collect(Collectors.toList());
+                    .toList();
 
             model.addAttribute("senderCompany", senderCompany);
             model.addAttribute("receiverCompanies", receiverCompanies);
@@ -82,7 +85,7 @@ public class InvoiceController {
     @PostMapping("/add")
     @PreAuthorize("isAuthenticated()")
     public String addConfirm(@Valid
-                                 @ModelAttribute(name = INVOICE_ADD_BINDING_MODEL) InvoiceAddBindingModel invoiceAddBindingModel,
+                             @ModelAttribute(name = INVOICE_ADD_BINDING_MODEL) InvoiceAddBindingModel invoiceAddBindingModel,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              @AuthenticationPrincipal User principal,
@@ -94,12 +97,12 @@ public class InvoiceController {
             List<CompanyViewSelectModel> senderCompany = this.companyService.getSupplierCompany(true)
                     .stream()
                     .map(companyServiceModel -> this.modelMapper.map(companyServiceModel, CompanyViewSelectModel.class))
-                    .collect(Collectors.toList());
+                    .toList();
 
             List<CompanyViewSelectModel> receiverCompanies = this.companyService.getSupplierCompany(false)
                     .stream()
                     .map(companyServiceModel -> this.modelMapper.map(companyServiceModel, CompanyViewSelectModel.class))
-                    .collect(Collectors.toList());
+                    .toList();
 
             redirectAttributes.addFlashAttribute("senderCompany", senderCompany);
             redirectAttributes.addFlashAttribute("receiverCompanies", receiverCompanies);
@@ -129,6 +132,8 @@ public class InvoiceController {
         this.invoiceService.addInvoice(invoiceServiceModel, principal.getUsername());
 
         httpSession.removeAttribute("cart");
+        httpSession.removeAttribute(CART_ITEMS_COUNT);
+        httpSession.removeAttribute(CART_TOTAL_PRICE);
 
         return REDIRECT_INVOICE_ALL;
     }
@@ -145,12 +150,12 @@ public class InvoiceController {
                 invoices = this.invoiceService.getAllInvoices()
                         .stream()
                         .map(invoiceServiceModel -> this.modelMapper.map(invoiceServiceModel, InvoiceViewModel.class))
-                        .collect(Collectors.toList());
+                        .toList();
             } else {
                 invoices = this.invoiceService.getAllInvoicesByUserId(principal.getId())
                         .stream()
                         .map(invoiceServiceModel -> this.modelMapper.map(invoiceServiceModel, InvoiceViewModel.class))
-                        .collect(Collectors.toList());
+                        .toList();
             }
             model.addAttribute("invoices", invoices);
             model.addAttribute("comparator", Comparator.comparing(InvoiceViewModel::getInvoiceNumber).reversed());

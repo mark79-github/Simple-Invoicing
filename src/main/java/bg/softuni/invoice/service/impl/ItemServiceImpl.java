@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static bg.softuni.invoice.constant.ErrorMsg.ITEM_NOT_FOUND;
 
@@ -32,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
                 .findAll()
                 .stream()
                 .map(item -> this.modelMapper.map(item, ItemServiceModel.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

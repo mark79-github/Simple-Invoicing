@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static bg.softuni.invoice.constant.GlobalConstants.DEFAULT_ITEM_IMAGE_FILE;
 
@@ -57,7 +56,7 @@ public class ItemController {
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
     public String addConfirm(@Valid
-                                 @ModelAttribute(name = ITEM_ADD_BINDING_MODEL) ItemAddBindingModel itemAddBindingModel,
+                             @ModelAttribute(name = ITEM_ADD_BINDING_MODEL) ItemAddBindingModel itemAddBindingModel,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              @RequestParam("imageUrl") MultipartFile multipartFile) throws IOException {
@@ -100,7 +99,7 @@ public class ItemController {
             List<ItemViewModel> itemViewModels = this.itemService.getAllItems()
                     .stream()
                     .map(itemServiceModel -> this.modelMapper.map(itemServiceModel, ItemViewModel.class))
-                    .collect(Collectors.toList());
+                    .toList();
 
             model.addAttribute("items", itemViewModels);
             model.addAttribute("comparator", Comparator.comparing(ItemViewModel::getName));

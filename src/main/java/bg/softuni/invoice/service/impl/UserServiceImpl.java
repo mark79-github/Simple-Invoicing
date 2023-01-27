@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
                     userServiceModel.setAuthorities(authorities);
                     return userServiceModel;
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

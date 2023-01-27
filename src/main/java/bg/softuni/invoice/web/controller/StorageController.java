@@ -18,7 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static bg.softuni.invoice.constant.GlobalConstants.TOTAL_PRICE;
+import static bg.softuni.invoice.constant.GlobalConstants.CART_ITEMS_COUNT;
+import static bg.softuni.invoice.constant.GlobalConstants.CART_TOTAL_PRICE;
 
 @Controller
 @RequestMapping("/storage")
@@ -55,7 +56,7 @@ public class StorageController {
         }
 
         httpSession.setAttribute("cart", cart);
-        httpSession.setAttribute("cartItemsCount", cart.size());
+        httpSession.setAttribute(CART_ITEMS_COUNT, cart.size());
 
         return "redirect:/item/all";
     }
@@ -68,7 +69,7 @@ public class StorageController {
 
         if (httpSession.getAttribute("cart") == null) {
             httpSession.setAttribute("cart", new LinkedHashMap<String, Integer>());
-            httpSession.setAttribute(TOTAL_PRICE, BigDecimal.ZERO);
+            httpSession.setAttribute(CART_TOTAL_PRICE, BigDecimal.ZERO);
         }
 
         LinkedHashMap<String, Integer> items = (LinkedHashMap<String, Integer>) httpSession.getAttribute("cart");
@@ -82,11 +83,11 @@ public class StorageController {
         });
 
         model.addAttribute("cart", cart);
-        model.addAttribute(TOTAL_PRICE, cart.stream()
+        model.addAttribute(CART_TOTAL_PRICE, cart.stream()
                 .map(x -> x.getPrice().multiply(BigDecimal.valueOf(x.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
 
-        httpSession.setAttribute(TOTAL_PRICE, model.getAttribute(TOTAL_PRICE));
+        httpSession.setAttribute(CART_TOTAL_PRICE, model.getAttribute(CART_TOTAL_PRICE));
 
         return "storage/details";
     }
@@ -102,23 +103,23 @@ public class StorageController {
         cart.remove(id);
 
         model.addAttribute("cart", cart);
-        httpSession.setAttribute("cartItemsCount", cart.size());
+        httpSession.setAttribute(CART_ITEMS_COUNT, cart.size());
 
         return "redirect:/storage/details";
     }
 
     @ModelAttribute("cartItemsCount")
     public int getCartData(HttpSession httpSession) {
-        Integer cartItemsCount = (Integer) httpSession.getAttribute("cartItemsCount");
+        Integer cartItemsCount = (Integer) httpSession.getAttribute(CART_ITEMS_COUNT);
         if (cartItemsCount == null){
             return 0;
         }
         return cartItemsCount;
     }
 
-    @ModelAttribute(TOTAL_PRICE)
+    @ModelAttribute(CART_TOTAL_PRICE)
     public BigDecimal getTotalValue(HttpSession httpSession) {
-        BigDecimal totalValue = (BigDecimal) httpSession.getAttribute(TOTAL_PRICE);
+        BigDecimal totalValue = (BigDecimal) httpSession.getAttribute(CART_TOTAL_PRICE);
         if (totalValue != null) {
             return totalValue;
         }

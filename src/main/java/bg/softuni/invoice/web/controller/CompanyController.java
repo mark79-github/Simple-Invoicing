@@ -6,6 +6,7 @@ import bg.softuni.invoice.model.service.CompanyServiceModel;
 import bg.softuni.invoice.model.view.CompanyViewModel;
 import bg.softuni.invoice.service.CompanyService;
 import bg.softuni.invoice.web.annotation.PageTitle;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,10 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jakarta.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/company")
@@ -54,7 +53,7 @@ public class CompanyController {
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
     public String addConfirm(@Valid
-                                 @ModelAttribute(name = COMPANY_ADD_BINDING_MODEL) CompanyAddBindingModel companyAddBindingModel,
+                             @ModelAttribute(name = COMPANY_ADD_BINDING_MODEL) CompanyAddBindingModel companyAddBindingModel,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
 
@@ -98,7 +97,7 @@ public class CompanyController {
             List<CompanyViewModel> companyViewModels = this.companyService.getAllCompanies()
                     .stream()
                     .map(companyServiceModel -> this.modelMapper.map(companyServiceModel, CompanyViewModel.class))
-                    .collect(Collectors.toList());
+                    .toList();
             model.addAttribute("companies", companyViewModels);
             model.addAttribute("comparator", Comparator.comparing(CompanyViewModel::getName));
         }
