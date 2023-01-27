@@ -22,7 +22,7 @@
                 </li>
             </ul>
         </div>
-        <div sec:authorize="isAuthenticated() && #session.id != null" id="navbar"
+        <div sec:authorize="isAuthenticated()" id="navbar"
              class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav navbar-brand">
                 <li class="nav-item dropdown ml-3"
@@ -59,8 +59,8 @@
                     <a class="nav-link active h5" th:href="@{/storage/details}">
                         Storage
                         <span class="badge badge-light"
-                              th:if="${#session.getAttribute('cart') != null && #session.getAttribute('cart').size() > 0}"
-                              th:text="${#session.getAttribute('cart').size()}"></span>
+                              th:if="${cartItemsCount > 0}"
+                              th:text="${cartItemsCount}"></span>
                     </a>
                 </li>
                 <li class="nav-item ml-3">

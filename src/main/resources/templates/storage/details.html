@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragment/head :: head"></head>
+<head th:replace="~{fragment/head :: head}"></head>
 <body>
 
 <div class="container-fluid">
-    <header th:replace="fragment/header :: header"></header>
+    <header th:replace="~{fragment/header :: header}"></header>
     <main class="app-main">
 
         <h1 class="text-center text-white">Storage</h1>
         <hr class="hr-2 bg-white w-25">
 
-        <div class="container" th:if="${#session.getAttribute('cart').isEmpty()}">
+        <div class="container" th:if="${cartItemsCount == 0}">
             <h2 class="text-white">No items added to the invoice storage yet!</h2>
         </div>
 
-        <div class="container text-center text-white w-50" th:unless="${#session.getAttribute('cart').isEmpty()}">
+        <div class="container text-center text-white w-50" th:unless="${cartItemsCount == 0}">
             <div class="row">
                 <div class="col-sm-3">
                     <h4><u>name</u></h4>
@@ -74,7 +74,7 @@
         </div>
 
     </main>
-    <footer th:replace="fragment/footer :: footer"></footer>
+    <footer th:replace="~{fragment/footer :: footer}"></footer>
 </div>
 
 </body>

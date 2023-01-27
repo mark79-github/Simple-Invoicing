@@ -2,8 +2,8 @@ package bg.softuni.invoice.model.entity;
 
 import bg.softuni.invoice.model.enumerated.VatValue;
 
-import javax.persistence.*;
-import javax.validation.constraints.Positive;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import java.io.Serializable;
 import java.math.BigDecimal;
 

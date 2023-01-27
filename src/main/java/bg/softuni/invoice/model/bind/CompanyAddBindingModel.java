@@ -2,7 +2,7 @@ package bg.softuni.invoice.model.bind;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Pattern;
+import jakarta.validation.constraints.Pattern;
 
 import static bg.softuni.invoice.constant.ErrorMsg.*;
 

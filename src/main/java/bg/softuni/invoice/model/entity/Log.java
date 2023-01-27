@@ -1,7 +1,7 @@
 package bg.softuni.invoice.model.entity;
 
-import javax.persistence.*;
-import javax.validation.constraints.PastOrPresent;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 
 import static bg.softuni.invoice.constant.ErrorMsg.DATE_PAST;

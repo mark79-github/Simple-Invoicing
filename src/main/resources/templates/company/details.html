@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragment/head :: head"></head>
+<head th:replace="~{fragment/head :: head}"></head>
 <body>
 
 <div class="container-fluid">
-    <header th:replace="fragment/header :: header"></header>
+    <header th:replace="~{fragment/header :: header}"></header>
     <main class="app-main">
 
         <h1 class="text-center text-white">Company - details</h1>
@@ -45,7 +45,7 @@
         </div>
 
     </main>
-    <footer th:replace="fragment/footer :: footer"></footer>
+    <footer th:replace="~{fragment/footer :: footer}"></footer>
 </div>
 
 </body>

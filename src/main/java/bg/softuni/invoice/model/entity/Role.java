@@ -2,10 +2,10 @@ package bg.softuni.invoice.model.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 import static bg.softuni.invoice.constant.ErrorMsg.AUTHORITY_NOT_EMPTY;
 

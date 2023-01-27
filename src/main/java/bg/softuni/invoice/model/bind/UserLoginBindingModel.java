@@ -1,7 +1,7 @@
 package bg.softuni.invoice.model.bind;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import static bg.softuni.invoice.constant.ErrorMsg.*;
 
