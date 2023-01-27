@@ -16,9 +16,9 @@
     <description>Final Project - Spring Advanced - May 2020</description>
 
     <properties>
-        <java.version>14</java.version>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <modelmapper.version>2.4.5</modelmapper.version>
         <cloudinary.version>1.0.14</cloudinary.version>
     </properties>
