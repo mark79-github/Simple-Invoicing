@@ -29,6 +29,8 @@ import static bg.softuni.invoice.constant.GlobalConstants.DEFAULT_ITEM_IMAGE_FIL
 @RequestMapping("/item")
 public class ItemController {
 
+    private static final String ITEM_ADD_BINDING_MODEL = "itemAddBindingModel";
+    private static final String ITEM_EDIT_BINDING_MODEL = "itemEditBindingModel";
     private final ItemService itemService;
     private final ModelMapper modelMapper;
     private final CloudinaryService cloudinaryService;
@@ -45,8 +47,8 @@ public class ItemController {
     @PreAuthorize("hasRole('ADMIN')")
     public String add(Model model) {
 
-        if (!model.containsAttribute("itemAddBindingModel")) {
-            model.addAttribute("itemAddBindingModel", new ItemAddBindingModel());
+        if (!model.containsAttribute(ITEM_ADD_BINDING_MODEL)) {
+            model.addAttribute(ITEM_ADD_BINDING_MODEL, new ItemAddBindingModel());
         }
 
         return "item/add";
@@ -55,13 +57,13 @@ public class ItemController {
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
     public String addConfirm(@Valid
-                             @ModelAttribute(name = "itemAddBindingModel") ItemAddBindingModel itemAddBindingModel,
+                                 @ModelAttribute(name = ITEM_ADD_BINDING_MODEL) ItemAddBindingModel itemAddBindingModel,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              @RequestParam("imageUrl") MultipartFile multipartFile) throws IOException {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("itemAddBindingModel", itemAddBindingModel);
+            redirectAttributes.addFlashAttribute(ITEM_ADD_BINDING_MODEL, itemAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.itemAddBindingModel", bindingResult);
             return "redirect:add";
         }
@@ -69,7 +71,7 @@ public class ItemController {
         ItemServiceModel itemServiceModel = this.itemService.getItemByName(itemAddBindingModel.getName());
 
         if (itemServiceModel != null) {
-            redirectAttributes.addFlashAttribute("itemAddBindingModel", itemAddBindingModel);
+            redirectAttributes.addFlashAttribute(ITEM_ADD_BINDING_MODEL, itemAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.itemAddBindingModel", bindingResult);
             bindingResult.rejectValue("name", "error.itemAddBindingModel", "name already exists");
 
@@ -125,10 +127,10 @@ public class ItemController {
     public String edit(@PathVariable String id,
                        Model model) {
 
-        if (!model.containsAttribute("itemEditBindingModel")) {
+        if (!model.containsAttribute(ITEM_EDIT_BINDING_MODEL)) {
             ItemServiceModel itemServiceModel = this.itemService.getItemById(id);
             ItemEditBindingModel itemEditBindingModel = this.modelMapper.map(itemServiceModel, ItemEditBindingModel.class);
-            model.addAttribute("itemEditBindingModel", itemEditBindingModel);
+            model.addAttribute(ITEM_EDIT_BINDING_MODEL, itemEditBindingModel);
         }
 
         return "item/edit";
@@ -142,7 +144,7 @@ public class ItemController {
                               RedirectAttributes redirectAttributes) throws IOException {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("itemEditBindingModel", itemEditBindingModel);
+            redirectAttributes.addFlashAttribute(ITEM_EDIT_BINDING_MODEL, itemEditBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.itemEditBindingModel", bindingResult);
             return "redirect:{id}";
         }
@@ -150,7 +152,7 @@ public class ItemController {
         ItemServiceModel itemServiceModel = this.itemService.getItemByName(itemEditBindingModel.getName());
 
         if (itemServiceModel != null && !itemServiceModel.getId().equals(id)) {
-            redirectAttributes.addFlashAttribute("itemEditBindingModel", itemEditBindingModel);
+            redirectAttributes.addFlashAttribute(ITEM_EDIT_BINDING_MODEL, itemEditBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.itemEditBindingModel", bindingResult);
             bindingResult.rejectValue("name", "error.itemEditBindingModel", "name already exists");
 

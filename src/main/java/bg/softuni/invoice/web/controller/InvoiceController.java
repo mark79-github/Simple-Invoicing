@@ -32,6 +32,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/invoice")
 public class InvoiceController {
 
+    private static final String INVOICE_ADD_BINDING_MODEL = "invoiceAddBindingModel";
+    private static final String REDIRECT_INVOICE_ALL = "redirect:/invoice/all";
     private final CompanyService companyService;
     private final ModelMapper modelMapper;
     private final InvoiceService invoiceService;
@@ -51,14 +53,14 @@ public class InvoiceController {
     public String add(Model model,
                       HttpSession httpSession) {
 
-        if (!model.containsAttribute("invoiceAddBindingModel")) {
+        if (!model.containsAttribute(INVOICE_ADD_BINDING_MODEL)) {
             InvoiceAddBindingModel invoiceAddBindingModel = new InvoiceAddBindingModel();
             Map<String, Integer> cart = (LinkedHashMap<String, Integer>) httpSession.getAttribute("cart");
             if (!cart.isEmpty()) {
                 invoiceAddBindingModel.setTotalValue((BigDecimal) httpSession.getAttribute("totalPrice"));
             }
             invoiceAddBindingModel.setDate(LocalDate.now());
-            model.addAttribute("invoiceAddBindingModel", invoiceAddBindingModel);
+            model.addAttribute(INVOICE_ADD_BINDING_MODEL, invoiceAddBindingModel);
 
             List<CompanyViewSelectModel> senderCompany = this.companyService.getSupplierCompany(true)
                     .stream()
@@ -80,14 +82,14 @@ public class InvoiceController {
     @PostMapping("/add")
     @PreAuthorize("isAuthenticated()")
     public String addConfirm(@Valid
-                             @ModelAttribute(name = "invoiceAddBindingModel") InvoiceAddBindingModel invoiceAddBindingModel,
+                                 @ModelAttribute(name = INVOICE_ADD_BINDING_MODEL) InvoiceAddBindingModel invoiceAddBindingModel,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              @AuthenticationPrincipal User principal,
                              HttpSession httpSession) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("invoiceAddBindingModel", invoiceAddBindingModel);
+            redirectAttributes.addFlashAttribute(INVOICE_ADD_BINDING_MODEL, invoiceAddBindingModel);
 
             List<CompanyViewSelectModel> senderCompany = this.companyService.getSupplierCompany(true)
                     .stream()
@@ -128,7 +130,7 @@ public class InvoiceController {
 
         httpSession.removeAttribute("cart");
 
-        return "redirect:/invoice/all";
+        return REDIRECT_INVOICE_ALL;
     }
 
     @GetMapping("/all")
@@ -162,14 +164,6 @@ public class InvoiceController {
     public String setDisabled(@PathVariable(name = "id") String id) {
         this.invoiceService.changeStatus(id);
 
-        return "redirect:/invoice/all";
-    }
-
-    @GetMapping("/set-status")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String getDisabled(@RequestParam(name = "id") String id) {
-        this.invoiceService.changeStatus(id);
-
-        return "redirect:/invoice/all";
+        return REDIRECT_INVOICE_ALL;
     }
 }

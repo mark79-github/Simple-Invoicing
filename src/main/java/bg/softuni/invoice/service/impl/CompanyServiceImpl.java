@@ -81,6 +81,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void editCompany(CompanyServiceModel companyServiceModel) {
-        this.companyRepository.save(this.modelMapper.map(companyServiceModel, Company.class));
+        Company company = this.modelMapper.map(companyServiceModel, Company.class);
+        this.companyRepository.save(company);
     }
 }

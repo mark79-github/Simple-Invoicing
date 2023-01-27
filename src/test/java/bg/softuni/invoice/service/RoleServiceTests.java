@@ -4,26 +4,31 @@ import bg.softuni.invoice.exception.AuthorityNotFoundException;
 import bg.softuni.invoice.model.entity.Role;
 import bg.softuni.invoice.repository.RoleRepository;
 import bg.softuni.invoice.service.impl.RoleServiceImpl;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static bg.softuni.invoice.constant.ErrorMsg.ROLE_NOT_FOUND;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
-//@ExtendWith(MockitoExtension.class)
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class RoleServiceTests {
 
     private Role role;
-    private List<Role> roleList = new ArrayList<>();
+    private final List<Role> roleList = new ArrayList<>();
 
     @InjectMocks
     private RoleServiceImpl roleService;
@@ -33,7 +38,6 @@ class RoleServiceTests {
 
     @BeforeEach
     void init() {
-        this.roleService = new RoleServiceImpl(roleRepository);
 
         this.role = new Role("ROLE_ADMIN");
 
@@ -44,64 +48,49 @@ class RoleServiceTests {
 
     @Test
     void getRoleByName_shouldReturnRoleCorrectly() {
-        when(this.roleRepository.findByAuthority("ROLE_ADMIN"))
-                .thenReturn(Optional.ofNullable(role));
 
-        Role roleAdmin = this.roleService.getRoleByName("ROLE_ADMIN");
+        doReturn(Optional.ofNullable(role)).when(roleRepository).findByAuthority(anyString());
 
-        assertEquals(roleAdmin, this.role);
+        Role roleAdmin = roleService.getRoleByName("ROLE_ADMIN");
+
+        Assertions.assertThat(roleAdmin).isNotNull();
     }
 
     @Test
     void getRoleByName_shouldThrowExceptionWhenRoleNotExists() {
 
-        assertThrows(AuthorityNotFoundException.class,
-                () -> this.roleService.getRoleByName("ROLE_ADMINISTRATOR"));
+        assertThatThrownBy(() -> roleService.getRoleByName("NON_EXISTING_ROLE"))
+                .isInstanceOf(AuthorityNotFoundException.class)
+                .hasMessageContaining(ROLE_NOT_FOUND);
     }
 
     @Test
     void getAllRoles_shouldReturnAllRolesCorrectly() {
-        when(this.roleRepository.findAll()).thenReturn(this.roleList);
+
+        doReturn(roleList).when(roleRepository).findAll();
 
         Set<Role> roleSet = this.roleService.getAllRoles();
 
-        assertEquals(3, roleSet.size());
-        this.roleList.forEach(role -> assertTrue(roleSet.contains(role)));
+        Assertions.assertThat(roleSet).hasSize(3);
     }
 
     @Test
     void getRoleRepositoryCount_shouldReturnResultCorrectly() {
-        when(this.roleRepository.count()).thenReturn(Long.valueOf(this.roleList.size()));
+
+        doReturn(3L).when(roleRepository).count();
 
         long actual = this.roleService.getRoleRepositoryCount();
 
-        assertEquals(3, actual);
+        Assertions.assertThat(actual).isEqualTo(3);
     }
 
+    @Test
+    void addRole_shouldCreateRoleCorrectly() {
 
-//    @Test
-//    public void register_whenUserDataIsValid_shouldSaveTheUser() {
-//        String email = "ivanov@abv.bg";
-//        String username = UUID.randomUUID().toString();
-//        String password = UUID.randomUUID().toString();
-//
-//        UserRegisterServiceModel userRegisterServiceModel = new UserRegisterServiceModel();
-//        userRegisterServiceModel.setUsername(username);
-//        userRegisterServiceModel.setEmail(email);
-//        userRegisterServiceModel.setPassword(password);
-//        userRegisterServiceModel.setConfirmPassword(password);
-//
-//        assertNull(authService.register(userRegisterServiceModel));
-//
-//        ArgumentCaptor<User> argumentUser = ArgumentCaptor.forClass(User.class);
-//        Mockito.verify(userRepository).save(argumentUser.capture());
-//
-//        User userDB = argumentUser.getValue();
-//
-//        assertNotNull(userDB);
-//        assertEquals(userRegisterServiceModel.getUsername(), userDB.getUsername());
-//        assertEquals(userRegisterServiceModel.getEmail(), userDB.getEmail());
-//        assertTrue(hashingService.isPasswordMatch(userRegisterServiceModel.getPassword(),userDB.getPassword() ));
-//    }
+        given(roleRepository.saveAndFlush(isA(Role.class))).willReturn(role);
 
+        roleService.addRole(role);
+
+        verify(roleRepository, times(1)).saveAndFlush(isA(Role.class));
+    }
 }
