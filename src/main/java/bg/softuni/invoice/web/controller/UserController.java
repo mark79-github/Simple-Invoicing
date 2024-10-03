@@ -8,6 +8,7 @@ import bg.softuni.invoice.model.service.UserServiceModel;
 import bg.softuni.invoice.model.view.UserViewModel;
 import bg.softuni.invoice.service.UserService;
 import bg.softuni.invoice.web.annotation.PageTitle;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,10 +17,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jakarta.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -101,7 +106,7 @@ public class UserController {
         return "user/login";
     }
 
-    @GetMapping("/profile{id}")
+    @GetMapping("/profile")
     @PageTitle("User profile")
     @PreAuthorize("isAuthenticated() && #id eq principal.username")
     public String profile(@RequestParam(name = "id") String id,
@@ -118,7 +123,7 @@ public class UserController {
         return "user/profile";
     }
 
-    @PostMapping("/profile{id}")
+    @PostMapping("/profile")
     @PreAuthorize("isAuthenticated() && #id eq principal.username")
     public String profileConfirm(@Valid
                                      @ModelAttribute(name = USER_PROFILE_BINDING_MODEL) UserProfileBindingModel userProfileBindingModel,

@@ -1,13 +1,12 @@
 package bg.softuni.invoice.web.interceptor;
 
 import bg.softuni.invoice.web.annotation.PageTitle;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import static bg.softuni.invoice.constant.GlobalConstants.APP_TITLE;
 
@@ -19,7 +18,7 @@ public class TitleInterceptor implements HandlerInterceptor {
                            Object handler,
                            ModelAndView modelAndView) {
 
-        if (modelAndView != null && handler instanceof HandlerMethod) {
+        if (modelAndView != null && handler instanceof HandlerMethod handlerMethod) {
 
             if (!modelAndView.hasView()) {
                 return;
@@ -30,7 +29,7 @@ public class TitleInterceptor implements HandlerInterceptor {
                 return;
             }
 
-            PageTitle methodAnnotation = ((HandlerMethod) handler).getMethodAnnotation(PageTitle.class);
+            PageTitle methodAnnotation = handlerMethod.getMethodAnnotation(PageTitle.class);
 
             if (methodAnnotation != null) {
                 String title = methodAnnotation.value();
