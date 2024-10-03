@@ -14,7 +14,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -90,14 +93,6 @@ class UserControllerTests {
 
     @Test
     void register_whenUsernameAlreadyExistsRedirect() throws Exception {
-
-//        User user = new User();
-//        user.setUsername("admin@admin.com");
-//        user.setFirstName("Admin");
-//        user.setLastName("Admin");
-//        user.setPassword("admin");
-//        user.setAuthorities(Set.of(this.roleService.getRoleByName("ROLE_ROOT")));
-//        this.userRepository.save(user);
 
         this.mockMvc
                 .perform(post("/user/register").with(csrf())

@@ -26,12 +26,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyBoolean;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class CompanyServiceTests {
 
-    private final String NON_EXISTING_COMPANY = UUID.randomUUID().toString();
+    private static final String NON_EXISTING_COMPANY = UUID.randomUUID().toString();
 
     private Company company;
     private final List<Company> companyList = new ArrayList<>();
@@ -46,7 +49,7 @@ class CompanyServiceTests {
     private ModelMapper modelMapper;
 
     @BeforeEach
-    private void setUp() {
+    void setUp() {
 
         company = new Company();
         company.setName("company");

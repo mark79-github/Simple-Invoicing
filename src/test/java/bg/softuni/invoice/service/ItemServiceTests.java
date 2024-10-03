@@ -28,12 +28,15 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ItemServiceTests {
 
-    private final String NON_EXISTING_ITEM_ID = UUID.randomUUID().toString();
+    private static final String NON_EXISTING_ITEM_ID = UUID.randomUUID().toString();
 
     private Item item;
     private final List<Item> itemList = new ArrayList<>();

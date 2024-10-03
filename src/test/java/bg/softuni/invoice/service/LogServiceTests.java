@@ -1,9 +1,9 @@
-package bg.softuni.invoice.service.impl;
+package bg.softuni.invoice.service;
 
 import bg.softuni.invoice.model.entity.Log;
 import bg.softuni.invoice.model.service.LogServiceModel;
 import bg.softuni.invoice.repository.LogRepository;
-import org.junit.jupiter.api.BeforeEach;
+import bg.softuni.invoice.service.impl.LogServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +16,10 @@ import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class LogServiceTests {
@@ -30,10 +33,6 @@ class LogServiceTests {
 
     @Spy
     private ModelMapper modelMapper;
-
-    @BeforeEach
-    void setUp() {
-    }
 
     @Test
     void createLog_shouldCreateItemCorrectly() {

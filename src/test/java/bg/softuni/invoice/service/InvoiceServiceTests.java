@@ -1,7 +1,11 @@
 package bg.softuni.invoice.service;
 
 import bg.softuni.invoice.exception.InvoiceNotFoundException;
-import bg.softuni.invoice.model.entity.*;
+import bg.softuni.invoice.model.entity.Company;
+import bg.softuni.invoice.model.entity.Invoice;
+import bg.softuni.invoice.model.entity.Role;
+import bg.softuni.invoice.model.entity.Sale;
+import bg.softuni.invoice.model.entity.User;
 import bg.softuni.invoice.model.enumerated.PaymentType;
 import bg.softuni.invoice.model.enumerated.StatusType;
 import bg.softuni.invoice.model.enumerated.VatValue;
@@ -23,7 +27,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 import static bg.softuni.invoice.constant.ErrorMsg.INVOICE_NOT_FOUND;
 import static bg.softuni.invoice.constant.ErrorMsg.USERNAME_NOT_FOUND;
@@ -31,13 +40,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.isA;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class InvoiceServiceTests {
 
-    private final String INVOICE_NON_EXISTING = UUID.randomUUID().toString();
-    private final String USER_ID = UUID.randomUUID().toString();
+    private static final String INVOICE_NON_EXISTING = UUID.randomUUID().toString();
+    private static final String USER_ID = UUID.randomUUID().toString();
     private Invoice invoice;
     private final List<Invoice> invoiceList = new ArrayList<>();
 
