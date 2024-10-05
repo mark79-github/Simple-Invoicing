@@ -109,9 +109,7 @@ public class UserController {
     @GetMapping("/profile")
     @PageTitle("User profile")
     @PreAuthorize("isAuthenticated() && #id eq principal.username")
-    public String profile(@RequestParam(name = "id") String id,
-                          @AuthenticationPrincipal User principal,
-                          Model model) {
+    public String profile(@RequestParam(name = "id") String id, Model model) {
 
         UserServiceModel userServiceModel = this.userService.getUserByName(id).orElseThrow(() -> new UsernameNotFoundException(String.format(USERNAME_NOT_FOUND, id)));
 
