@@ -42,13 +42,13 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Scheduled(cron = "0 */5 * ? * *")
     public void deleteLogs() {
         LocalDateTime localDateTime = LocalDateTime.now().minusMinutes(5);
-        this.logService.deleteAllLogsByDateTimeIsBefore(localDateTime);
+        logService.deleteAllLogsByDateTimeIsBefore(localDateTime);
     }
 
     @Override
     @Scheduled(cron = "0 */5 * ? * *")
     public void changeStatus() {
-        List<InvoiceServiceModel> invoices = this.invoiceService.getAllInvoicesStatus(StatusType.AWAIT);
-        invoices.forEach(invoiceServiceModel -> this.invoiceService.changeStatus(invoiceServiceModel.getId()));
+        List<InvoiceServiceModel> invoices = invoiceService.getAllInvoicesStatus(StatusType.AWAIT);
+        invoices.forEach(invoiceServiceModel -> invoiceService.changeStatus(invoiceServiceModel.getId()));
     }
 }
