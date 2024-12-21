@@ -13,6 +13,8 @@ import java.util.Arrays;
 @Component
 public class SeedUserRoles {
 
+    private boolean seedInitialized = false;
+
     private final RoleService roleService;
 
     @Autowired
@@ -22,17 +24,18 @@ public class SeedUserRoles {
 
 
     @EventListener
-    public void seed(ContextRefreshedEvent contextRefreshedEvent) {
-        seedRoles();
-    }
-
-    private void seedRoles() {
-        if (this.roleService.getRoleRepositoryCount() == 0) {
-            Arrays.stream(RoleType.values())
-                    .map(r -> new Role(r.getType()))
-                    .forEach(this.roleService::addRole);
+    public void seed(ContextRefreshedEvent event) {
+        if (!seedInitialized) {
+            seedRoles();
+            seedInitialized = true;
         }
     }
 
-
+    private void seedRoles() {
+        if (roleService.getRoleRepositoryCount() == 0) {
+            Arrays.stream(RoleType.values())
+                    .map(r -> new Role(r.getType()))
+                    .forEach(roleService::addRole);
+        }
+    }
 }
