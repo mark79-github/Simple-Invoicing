@@ -14,7 +14,6 @@ public class LogController {
     @PageTitle("Log all")
     @PreAuthorize("hasRole('ROOT')")
     public String all() {
-
         return "log/all";
     }
 }
