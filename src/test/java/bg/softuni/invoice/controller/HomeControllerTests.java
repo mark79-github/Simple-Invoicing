@@ -43,4 +43,19 @@ class HomeControllerTests {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/invoice/all"));
     }
+
+    @Test
+    void index_withNullPrincipal_shouldReturnIndexView() throws Exception {
+        this.mockMvc
+                .perform(get("/"))
+                .andExpect(view().name("home/index"));
+    }
+
+    @Test
+    @WithMockUser
+    void index_withAuthenticatedPrincipal_shouldReturnHomeView() throws Exception {
+        this.mockMvc
+                .perform(get("/"))
+                .andExpect(view().name("home/home"));
+    }
 }
