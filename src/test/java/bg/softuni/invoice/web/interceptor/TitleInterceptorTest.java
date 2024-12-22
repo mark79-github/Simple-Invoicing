@@ -11,6 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 import static bg.softuni.invoice.constant.GlobalConstants.APP_TITLE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 class TitleInterceptorTest {
 
@@ -24,7 +30,7 @@ class TitleInterceptorTest {
         ModelAndView modelAndView = createModelAndView(EXAMPLE_VIEW);
 
         PageTitle pageTitleAnnotation = Mockito.mock(PageTitle.class);
-        Mockito.when(pageTitleAnnotation.value()).thenReturn("testTitle");
+        when(pageTitleAnnotation.value()).thenReturn("testTitle");
         HandlerMethod handlerMethod = createMockHandlerMethodWithAnnotation(pageTitleAnnotation);
 
         TitleInterceptor interceptor = new TitleInterceptor();
@@ -86,7 +92,7 @@ class TitleInterceptorTest {
         TitleInterceptor interceptor = new TitleInterceptor();
 
         assertDoesNotThrow(() -> interceptor.postHandle(request, response, handlerMethod, null));
-        Mockito.verifyNoInteractions(request, response, handlerMethod);
+        verifyNoInteractions(request, response, handlerMethod);
     }
 
     @Test
@@ -95,13 +101,13 @@ class TitleInterceptorTest {
         HttpServletResponse response = createMockResponse();
 
         ModelAndView modelAndView = Mockito.mock(ModelAndView.class);
-        Mockito.when(modelAndView.hasView()).thenReturn(false);
+        when(modelAndView.hasView()).thenReturn(false);
         HandlerMethod handlerMethod = Mockito.mock(HandlerMethod.class);
 
         TitleInterceptor interceptor = new TitleInterceptor();
         interceptor.postHandle(request, response, handlerMethod, modelAndView);
 
-        Mockito.verify(modelAndView, Mockito.never()).addObject(Mockito.eq("title"), Mockito.any());
+        verify(modelAndView, never()).addObject(eq("title"), any());
     }
 
 
@@ -119,7 +125,7 @@ class TitleInterceptorTest {
 
     private HandlerMethod createMockHandlerMethodWithAnnotation(PageTitle annotation) {
         HandlerMethod handlerMethod = Mockito.mock(HandlerMethod.class);
-        Mockito.when(handlerMethod.getMethodAnnotation(PageTitle.class)).thenReturn(annotation);
+        when(handlerMethod.getMethodAnnotation(PageTitle.class)).thenReturn(annotation);
         return handlerMethod;
     }
 }
