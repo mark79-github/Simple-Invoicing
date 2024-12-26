@@ -49,6 +49,27 @@ class CompanyRepositoryTest {
         assertFalse(result.isPresent());
     }
 
+    @Test
+    void testFindByName_whenCompanyExists_shouldReturnCompany() {
+        persistTestCompany(TEST_COMPANY_NAME, TEST_ADDRESS, TEST_IDENTIFIER, true);
+
+        Optional<Company> result = companyRepository.findByName(TEST_COMPANY_NAME);
+
+        assertTrue(result.isPresent());
+        assertEquals(TEST_COMPANY_NAME, result.get().getName());
+        assertEquals(TEST_ADDRESS, result.get().getAddress());
+        assertEquals(TEST_IDENTIFIER, result.get().getUniqueIdentifier());
+        assertTrue(result.get().isSupplier());
+    }
+
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = {"Unknown Company"})
+    void shouldReturnEmpty_whenCompanyNameDoesNotExist(String name) {
+        Optional<Company> result = companyRepository.findByName(name);
+        assertFalse(result.isPresent());
+    }
+
     private void persistTestCompany(String name, String address, String uniqueIdentifier, boolean isSupplier) {
         Company company = new Company();
         company.setName(name);
