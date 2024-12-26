@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -77,5 +78,39 @@ class CompanyRepositoryTest {
         company.setUniqueIdentifier(uniqueIdentifier);
         company.setSupplier(isSupplier);
         entityManager.persist(company);
+    }
+
+    @Test
+    void testFindBySupplier_whenSupplierIsTrue_shouldReturnSupplierCompanies() {
+        persistTestCompany("Supplier1", "Address1", "111111111", true);
+        persistTestCompany("Supplier2", "Address2", "222222222", true);
+        persistTestCompany("NonSupplier", "Address3", "333333333", false);
+
+        List<Company> result = companyRepository.findBySupplier(true);
+
+        assertEquals(2, result.size());
+        assertTrue(result.stream().allMatch(Company::isSupplier));
+    }
+
+    @Test
+    void testFindBySupplier_whenSupplierIsFalse_shouldReturnNonSupplierCompanies() {
+        persistTestCompany("Supplier1", "Address1", "111111111", true);
+        persistTestCompany("Supplier2", "Address2", "222222222", true);
+        persistTestCompany("NonSupplier1", "Address3", "333333333", false);
+        persistTestCompany("NonSupplier2", "Address4", "444444444", false);
+
+        List<Company> result = companyRepository.findBySupplier(false);
+
+        assertEquals(2, result.size());
+        assertTrue(result.stream().noneMatch(Company::isSupplier));
+    }
+
+    @Test
+    void testFindBySupplier_whenNoCompaniesMatch_shouldReturnEmptyList() {
+        persistTestCompany("Supplier1", "Address1", "111111111", true);
+
+        List<Company> result = companyRepository.findBySupplier(false);
+
+        assertTrue(result.isEmpty());
     }
 }
