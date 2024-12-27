@@ -1,10 +1,12 @@
 package bg.softuni.invoice.repository;
 
+import bg.softuni.invoice.model.entity.Company;
 import bg.softuni.invoice.model.entity.Invoice;
 import bg.softuni.invoice.model.entity.User;
 import bg.softuni.invoice.model.enumerated.PaymentType;
 import bg.softuni.invoice.model.enumerated.StatusType;
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,17 +21,40 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 class InvoiceRepositoryTest {
 
+    private User user;
+    private Company sender;
+    private Company receiver;
+
     @Autowired
     private InvoiceRepository invoiceRepository;
 
     @Autowired
     private EntityManager entityManager;
 
+    @BeforeEach
+    void setup() {
+        user = persistUser("testuser@example.com", "securepassword", "Test", "User", true);
+
+        sender = persistCompany(
+                "Sender Company",
+                "123 Sender Street",
+                "123456789",
+                true
+        );
+
+        receiver = persistCompany(
+                "Receiver Company",
+                "456 Receiver Avenue",
+                "987654321",
+                false
+        );
+
+    }
+
     @Test
     void testGetAllByUser_withExistingUser_returnsInvoices() {
-        User user = persistUser("testuser@example.com", "securepassword", "Test", "User", true);
-        persistInvoice(user, LocalDate.now(), new BigDecimal("100.00"), PaymentType.CASH, StatusType.COMPLETE, 1);
-        persistInvoice(user, LocalDate.now(), new BigDecimal("150.50"), PaymentType.CASH, StatusType.COMPLETE, 2);
+        persistInvoice(user, sender, receiver, LocalDate.now(), new BigDecimal("100.00"), PaymentType.CASH, StatusType.COMPLETE, 1);
+        persistInvoice(user, sender, receiver, LocalDate.now(), new BigDecimal("150.50"), PaymentType.CASH, StatusType.COMPLETE, 2);
 
         List<Invoice> result = invoiceRepository.getAllByUser(user);
 
@@ -40,8 +65,6 @@ class InvoiceRepositoryTest {
 
     @Test
     void testGetAllByUser_withNoInvoicesForUser_returnsEmptyList() {
-        User user = persistUser("nouser@example.com", "securepassword", "No", "Invoices", true);
-
         List<Invoice> result = invoiceRepository.getAllByUser(user);
 
         assertThat(result).isEmpty();
@@ -49,9 +72,9 @@ class InvoiceRepositoryTest {
 
     @Test
     void testGetAllByUser_withDifferentUser_returnsOnlyRelevantInvoices() {
-        User user1 = persistUser("user1@example.com", "password1", "User1", "Test", true);
-        User user2 = persistUser("user2@example.com", "password2", "User2", "Test", true);
-        persistInvoice(user1, LocalDate.now(), new BigDecimal("200.00"), PaymentType.TRANSFER, StatusType.COMPLETE, 3);
+        User user1 = persistUser("user1@example.com", "password1", "UserOne", "Test", true);
+        User user2 = persistUser("user2@example.com", "password2", "UserTwo", "Test", true);
+        persistInvoice(user1, sender, receiver, LocalDate.now(), new BigDecimal("200.00"), PaymentType.TRANSFER, StatusType.COMPLETE, 3);
 
         List<Invoice> resultForUser1 = invoiceRepository.getAllByUser(user1);
         List<Invoice> resultForUser2 = invoiceRepository.getAllByUser(user2);
@@ -61,29 +84,66 @@ class InvoiceRepositoryTest {
         assertThat(resultForUser2).isEmpty();
     }
 
-    private User persistUser(String username, String password, String firstName, String lastName, boolean enabled) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEnabled(enabled);
-        entityManager.persist(user);
-        return user;
+    @Test
+    void testGetAllByStatusType_withExistingStatus_returnsInvoices() {
+        persistInvoice(user, sender, receiver, LocalDate.now(), new BigDecimal("100.00"), PaymentType.CASH, StatusType.COMPLETE, 1);
+        persistInvoice(user, sender, receiver, LocalDate.now(), new BigDecimal("150.50"), PaymentType.CASH, StatusType.COMPLETE, 2);
+        persistInvoice(user, sender, receiver, LocalDate.now(), new BigDecimal("50.00"), PaymentType.TRANSFER, StatusType.AWAIT, 3);
+
+        List<Invoice> result = invoiceRepository.getAllByStatusType(StatusType.COMPLETE);
+
+        assertThat(result).hasSize(2);
+        assertThat(result).extracting(Invoice::getTotalValue)
+                .containsExactlyInAnyOrder(new BigDecimal("100.00"), new BigDecimal("150.50"));
     }
 
-    private Invoice persistInvoice(User user, LocalDate date, BigDecimal totalValue, PaymentType paymentType, StatusType statusType, int invoiceNumber) {
+    @Test
+    void testGetAllByStatusType_withNoInvoicesForStatus_returnsEmptyList() {
+        persistInvoice(user, sender, receiver, LocalDate.now(), new BigDecimal("300.00"), PaymentType.CASH, StatusType.COMPLETE, 4);
+
+        List<Invoice> result = invoiceRepository.getAllByStatusType(StatusType.AWAIT);
+
+        assertThat(result).isEmpty();
+    }
+
+    private User persistUser(String username, String password, String firstName, String lastName, boolean enabled) {
+        User createdBy = new User();
+        createdBy.setUsername(username);
+        createdBy.setPassword(password);
+        createdBy.setFirstName(firstName);
+        createdBy.setLastName(lastName);
+        createdBy.setEnabled(enabled);
+        entityManager.persist(createdBy);
+        return createdBy;
+    }
+
+    private void persistInvoice(
+            User user, Company sender, Company receiver,
+            LocalDate date, BigDecimal totalValue,
+            PaymentType paymentType, StatusType statusType,
+            int invoiceNumber) {
         Invoice invoice = new Invoice();
         invoice.setDate(date);
         invoice.setTotalValue(totalValue);
         invoice.setUser(user);
-        invoice.setSender(null);
-        invoice.setReceiver(null);
+
+        invoice.setSender(sender);
+        invoice.setReceiver(receiver);
+
         invoice.setPaymentType(paymentType);
         invoice.setStatusType(statusType);
         invoice.setInvoiceNumber(invoiceNumber);
         invoice.setCreatedOn(LocalDateTime.now());
         entityManager.persist(invoice);
-        return invoice;
+    }
+
+    private Company persistCompany(String name, String address, String uniqueIdentifier, boolean supplier) {
+        Company company = new Company();
+        company.setName(name);
+        company.setAddress(address);
+        company.setUniqueIdentifier(uniqueIdentifier);
+        company.setSupplier(supplier);
+        entityManager.persist(company);
+        return company;
     }
 }
