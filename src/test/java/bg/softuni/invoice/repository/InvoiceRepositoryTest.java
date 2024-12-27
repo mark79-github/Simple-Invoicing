@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -104,6 +105,24 @@ class InvoiceRepositoryTest {
         List<Invoice> result = invoiceRepository.getAllByStatusType(StatusType.AWAIT);
 
         assertThat(result).isEmpty();
+    }
+
+    @Test
+    void testGetLastInvoiceNumber_withExistingInvoices_returnsMaxInvoiceNumber() {
+        persistInvoice(user, sender, receiver, LocalDate.now(), new BigDecimal("100.00"), PaymentType.CASH, StatusType.COMPLETE, 1);
+        persistInvoice(user, sender, receiver, LocalDate.now(), new BigDecimal("200.00"), PaymentType.CASH, StatusType.COMPLETE, 5);
+        persistInvoice(user, sender, receiver, LocalDate.now(), new BigDecimal("300.00"), PaymentType.TRANSFER, StatusType.AWAIT, 3);
+
+        Optional<Long> result = invoiceRepository.getLastInvoiceNumber();
+
+        assertThat(result).isPresent().contains(5L);
+    }
+
+    @Test
+    void testGetLastInvoiceNumber_withNoInvoices_returnsEmpty() {
+        Optional<Long> result = invoiceRepository.getLastInvoiceNumber();
+
+        assertThat(result).isNotPresent();
     }
 
     private User persistUser(String username, String password, String firstName, String lastName, boolean enabled) {
