@@ -18,6 +18,8 @@ class CompanyAddBindingModelTest {
 
     private static final String VALID_NAME = "Valid Company Name";
     private static final String EMPTY_NAME = "";
+    private static final String VALID_ADDRESS = "Valid Address";
+    private static final String EMPTY_ADDRESS = "";
 
     private Validator validator;
 
@@ -40,6 +42,28 @@ class CompanyAddBindingModelTest {
     void setCompany_withEmptyName_shouldFailValidation() {
         CompanyAddBindingModel model = new CompanyAddBindingModel();
         model.setName(EMPTY_NAME);
+
+        Set<ConstraintViolation<CompanyAddBindingModel>> violations = validateCompanyModel(model);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+        assertEquals(NAME_MIN_LENGTH, violations.iterator().next().getMessage());
+    }
+
+    @Test
+    void setCompany_withValidAddress_shouldPassValidation() {
+        CompanyAddBindingModel model = new CompanyAddBindingModel();
+        model.setAddress(VALID_ADDRESS);
+
+        Set<ConstraintViolation<CompanyAddBindingModel>> violations = validateCompanyModel(model);
+
+        assertTrue(violations.isEmpty());
+    }
+
+    @Test
+    void setCompany_withEmptyAddress_shouldFailValidation() {
+        CompanyAddBindingModel model = new CompanyAddBindingModel();
+        model.setName(EMPTY_ADDRESS);
 
         Set<ConstraintViolation<CompanyAddBindingModel>> violations = validateCompanyModel(model);
 
