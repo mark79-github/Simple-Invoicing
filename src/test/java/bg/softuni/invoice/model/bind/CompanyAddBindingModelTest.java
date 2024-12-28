@@ -40,6 +40,7 @@ class CompanyAddBindingModelTest {
         Set<ConstraintViolation<CompanyAddBindingModel>> violations = validateCompanyModel(model);
 
         assertTrue(violations.isEmpty());
+        assertEquals(VALID_NAME, model.getName());
     }
 
     @Test
@@ -62,6 +63,7 @@ class CompanyAddBindingModelTest {
         Set<ConstraintViolation<CompanyAddBindingModel>> violations = validateCompanyModel(model);
 
         assertTrue(violations.isEmpty());
+        assertEquals(VALID_ADDRESS, model.getAddress());
     }
 
     @Test
@@ -84,6 +86,7 @@ class CompanyAddBindingModelTest {
         Set<ConstraintViolation<CompanyAddBindingModel>> violations = validateCompanyModel(model);
 
         assertTrue(violations.isEmpty());
+        assertEquals(VALID_IDENTIFIER, model.getUniqueIdentifier());
     }
 
     @ParameterizedTest
