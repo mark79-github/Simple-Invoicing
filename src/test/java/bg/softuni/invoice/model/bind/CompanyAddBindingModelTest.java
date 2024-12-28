@@ -6,10 +6,13 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Set;
 
 import static bg.softuni.invoice.constant.ErrorMsg.NAME_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.UNIQUE_IDENTIFIER_LENGTH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,6 +23,7 @@ class CompanyAddBindingModelTest {
     private static final String EMPTY_NAME = "";
     private static final String VALID_ADDRESS = "Valid Address";
     private static final String EMPTY_ADDRESS = "";
+    private static final String VALID_IDENTIFIER = "123456789";
 
     private Validator validator;
 
@@ -70,6 +74,29 @@ class CompanyAddBindingModelTest {
         assertFalse(violations.isEmpty());
         assertEquals(1, violations.size());
         assertEquals(NAME_MIN_LENGTH, violations.iterator().next().getMessage());
+    }
+
+    @Test
+    void setCompany_withValidUniqueIdentifier_shouldPassValidation() {
+        CompanyAddBindingModel model = new CompanyAddBindingModel();
+        model.setUniqueIdentifier(VALID_IDENTIFIER);
+
+        Set<ConstraintViolation<CompanyAddBindingModel>> violations = validateCompanyModel(model);
+
+        assertTrue(violations.isEmpty());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", "abcdefghi", "12345678a", "12345678", "1234567890", "123456789012", "12345678901234"})
+    void setCompany_withInvalidUniqueIdentifier_shouldFailValidation(String uniqueIdentifier) {
+        CompanyAddBindingModel model = new CompanyAddBindingModel();
+        model.setUniqueIdentifier(uniqueIdentifier);
+
+        Set<ConstraintViolation<CompanyAddBindingModel>> violations = validateCompanyModel(model);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+        assertEquals(UNIQUE_IDENTIFIER_LENGTH, violations.iterator().next().getMessage());
     }
 
     private Set<ConstraintViolation<CompanyAddBindingModel>> validateCompanyModel(CompanyAddBindingModel model) {
