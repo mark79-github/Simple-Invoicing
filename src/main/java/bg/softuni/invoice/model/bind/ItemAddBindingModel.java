@@ -1,17 +1,20 @@
 package bg.softuni.invoice.model.bind;
 
-import org.hibernate.validator.constraints.Length;
-import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
 
-import static bg.softuni.invoice.constant.ErrorMsg.*;
+import static bg.softuni.invoice.constant.ErrorMsg.NAME_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.PRICE_POSITIVE;
+import static bg.softuni.invoice.constant.ErrorMsg.STRING_MIN_LENGTH;
 
 public class ItemAddBindingModel {
 
+    @NotBlank(message = NAME_MIN_LENGTH)
     @Length(min = STRING_MIN_LENGTH, message = NAME_MIN_LENGTH)
     private String name;
 
