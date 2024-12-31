@@ -11,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import static bg.softuni.invoice.constant.ErrorMsg.EMAIL_NOT_CORRECT;
@@ -62,12 +61,11 @@ class UserLoginBindingModelTests {
         model.setPassword(VALID_PASSWORD);
 
         Set<ConstraintViolation<UserLoginBindingModel>> violations = validator.validate(model);
-        Iterator<ConstraintViolation<UserLoginBindingModel>> violationIterator = violations.iterator();
 
         assertFalse(violations.isEmpty());
         assertEquals(2, violations.size());
-        assertEquals(EMAIL_NOT_EMPTY, violationIterator.next().getMessage());
-        assertEquals(EMAIL_NOT_CORRECT, violationIterator.next().getMessage());
+        assertTrue(violations.stream().anyMatch(v -> v.getMessage().equals(EMAIL_NOT_EMPTY)));
+        assertTrue(violations.stream().anyMatch(v -> v.getMessage().equals(EMAIL_NOT_CORRECT)));
     }
 
     @Test
