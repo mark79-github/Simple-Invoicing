@@ -34,7 +34,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ItemServiceTests {
+class ItemServiceTest {
 
     private static final String NON_EXISTING_ITEM_ID = UUID.randomUUID().toString();
 

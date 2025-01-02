@@ -47,7 +47,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class InvoiceServiceTests {
+class InvoiceServiceTest {
 
     private static final String INVOICE_NON_EXISTING = UUID.randomUUID().toString();
     private static final String USER_ID = UUID.randomUUID().toString();

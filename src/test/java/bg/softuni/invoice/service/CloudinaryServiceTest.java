@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CloudinaryServiceTests {
+class CloudinaryServiceTest {
 
     private static final String IMAGE_URL = "https://mocked_url";
     private static final String MOCK_FILE_CONTENT = "Hello World";

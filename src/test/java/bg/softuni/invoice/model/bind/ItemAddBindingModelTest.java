@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ItemAddBindingModelTests {
+class ItemAddBindingModelTest {
 
     public static final String VALID_NAME = "Valid Item Name";
     public static final BigDecimal VALID_PRICE = BigDecimal.valueOf(20.00);

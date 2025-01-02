@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class InvoiceAddBindingModelTests {
+class InvoiceAddBindingModelTest {
 
     public static final String VALID_SENDER = "Valid Sender";
     public static final String VALID_RECEIVER = "Valid Receiver";

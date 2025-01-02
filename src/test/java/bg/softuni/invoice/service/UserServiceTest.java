@@ -17,7 +17,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 import static bg.softuni.invoice.constant.ErrorMsg.USERNAME_NOT_FOUND;
 import static bg.softuni.invoice.constant.ErrorMsg.USER_NOT_FOUND;
@@ -25,15 +29,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.isA;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTests {
+class UserServiceTest {
+
     private static final String ID = UUID.randomUUID().toString();
     private static final String USER_NAME = "admin@admin.com";
     private User user;
     private Role role;
+
     @InjectMocks
     private UserServiceImpl userService;
 

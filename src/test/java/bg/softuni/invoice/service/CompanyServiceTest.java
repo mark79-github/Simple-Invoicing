@@ -32,7 +32,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class CompanyServiceTests {
+class CompanyServiceTest {
 
     private static final String NON_EXISTING_COMPANY = UUID.randomUUID().toString();
 

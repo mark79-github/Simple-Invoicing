@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import static bg.softuni.invoice.constant.ErrorMsg.EMAIL_NOT_CORRECT;
@@ -19,23 +18,20 @@ import static bg.softuni.invoice.constant.ErrorMsg.FIRST_NAME_FIRST_LETTER_UPPER
 import static bg.softuni.invoice.constant.ErrorMsg.FIRST_NAME_MIN_LENGTH;
 import static bg.softuni.invoice.constant.ErrorMsg.LAST_NAME_FIRST_LETTER_UPPERCASE;
 import static bg.softuni.invoice.constant.ErrorMsg.LAST_NAME_MIN_LENGTH;
-import static bg.softuni.invoice.constant.ErrorMsg.PASSWORD_MIN_LENGTH;
-import static bg.softuni.invoice.constant.ErrorMsg.PASSWORD_NOT_EMPTY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class UserRegisterBindingModelTests {
+class UserProfileBindingModelTest {
 
     public static final String VALID_USERNAME = "test@example.com";
     public static final String VALID_FIRST_NAME = "John";
     public static final String VALID_LAST_NAME = "Doe";
-    public static final String VALID_PASSWORD = "password123";
 
     private static ValidatorFactory validatorFactory;
     private Validator validator;
-    private UserRegisterBindingModel model;
+    private UserProfileBindingModel model;
 
     @BeforeAll
     static void setupValidatorFactory() {
@@ -45,9 +41,26 @@ class UserRegisterBindingModelTests {
     @BeforeEach
     void setup() {
         validator = validatorFactory.getValidator();
-        model = new UserRegisterBindingModel();
+        model = new UserProfileBindingModel();
     }
 
+    // ID field test
+    @Test
+    void id_shouldBeProperlySet() {
+        String validId = "123e4567-e89b-12d3-a456-426614174000";
+        model.setId(validId);
+
+        assertEquals(validId, model.getId());
+    }
+
+    @Test
+    void id_shouldAllowNullValue() {
+        model.setId(null);
+
+        assertNull(model.getId());
+    }
+
+    // Username tests
     @ParameterizedTest
     @CsvSource({
             "valid.email@example.com",
@@ -57,9 +70,8 @@ class UserRegisterBindingModelTests {
         model.setUsername(validUsername);
         model.setFirstName(VALID_FIRST_NAME);
         model.setLastName(VALID_LAST_NAME);
-        model.setPassword(VALID_PASSWORD);
 
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
+        Set<ConstraintViolation<UserProfileBindingModel>> violations = validator.validate(model);
 
         assertTrue(violations.isEmpty());
         assertEquals(validUsername, model.getUsername());
@@ -68,16 +80,15 @@ class UserRegisterBindingModelTests {
     @ParameterizedTest
     @CsvSource({
             "' '",
-            "invalid@",
-            "plainaddress"
+            "plain@",
+            "email.com"
     })
     void username_withInvalidValues_shouldFailValidation(String invalidUsername) {
         model.setUsername(invalidUsername);
         model.setFirstName(VALID_FIRST_NAME);
         model.setLastName(VALID_LAST_NAME);
-        model.setPassword(VALID_PASSWORD);
 
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
+        Set<ConstraintViolation<UserProfileBindingModel>> violations = validator.validate(model);
 
         assertFalse(violations.isEmpty());
         assertEquals(1, violations.size());
@@ -89,15 +100,14 @@ class UserRegisterBindingModelTests {
         model.setUsername(null);
         model.setFirstName(VALID_FIRST_NAME);
         model.setLastName(VALID_LAST_NAME);
-        model.setPassword(VALID_PASSWORD);
 
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
+        Set<ConstraintViolation<UserProfileBindingModel>> violations = validator.validate(model);
 
         assertFalse(violations.isEmpty());
-        assertEquals(1, violations.size());
         assertEquals(EMAIL_NOT_EMPTY, violations.iterator().next().getMessage());
     }
 
+    // First name tests
     @ParameterizedTest
     @CsvSource({
             "John",
@@ -108,9 +118,8 @@ class UserRegisterBindingModelTests {
         model.setUsername(VALID_USERNAME);
         model.setFirstName(validFirstName);
         model.setLastName(VALID_LAST_NAME);
-        model.setPassword(VALID_PASSWORD);
 
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
+        Set<ConstraintViolation<UserProfileBindingModel>> violations = validator.validate(model);
 
         assertTrue(violations.isEmpty());
         assertEquals(validFirstName, model.getFirstName());
@@ -119,16 +128,15 @@ class UserRegisterBindingModelTests {
     @ParameterizedTest
     @CsvSource({
             "' '",
-            "J@",
-            "jo"
+            "jo",
+            "1J"
     })
     void firstName_withInvalidValues_shouldFailValidation(String invalidFirstName) {
         model.setUsername(VALID_USERNAME);
         model.setFirstName(invalidFirstName);
         model.setLastName(VALID_LAST_NAME);
-        model.setPassword(VALID_PASSWORD);
 
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
+        Set<ConstraintViolation<UserProfileBindingModel>> violations = validator.validate(model);
 
         assertFalse(violations.isEmpty());
         assertEquals(2, violations.size());
@@ -141,28 +149,27 @@ class UserRegisterBindingModelTests {
         model.setUsername(VALID_USERNAME);
         model.setFirstName(null);
         model.setLastName(VALID_LAST_NAME);
-        model.setPassword(VALID_PASSWORD);
 
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
+        Set<ConstraintViolation<UserProfileBindingModel>> violations = validator.validate(model);
 
         assertFalse(violations.isEmpty());
         assertEquals(1, violations.size());
         assertEquals(FIRST_NAME_MIN_LENGTH, violations.iterator().next().getMessage());
     }
 
+    // Last name tests
     @ParameterizedTest
     @CsvSource({
             "Doe",
-            "White",
-            "Smith"
+            "James",
+            "Brown"
     })
     void lastName_withValidValues_shouldPassValidation(String validLastName) {
         model.setUsername(VALID_USERNAME);
         model.setFirstName(VALID_FIRST_NAME);
         model.setLastName(validLastName);
-        model.setPassword(VALID_PASSWORD);
 
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
+        Set<ConstraintViolation<UserProfileBindingModel>> violations = validator.validate(model);
 
         assertTrue(violations.isEmpty());
         assertEquals(validLastName, model.getLastName());
@@ -170,21 +177,19 @@ class UserRegisterBindingModelTests {
 
     @ParameterizedTest
     @CsvSource({
-            "' '",
-            "D2",
-            "sm"
+            "do",
+            "B2",
+            "' '"
     })
     void lastName_withInvalidValues_shouldFailValidation(String invalidLastName) {
         model.setUsername(VALID_USERNAME);
         model.setFirstName(VALID_FIRST_NAME);
         model.setLastName(invalidLastName);
-        model.setPassword(VALID_PASSWORD);
 
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
+        Set<ConstraintViolation<UserProfileBindingModel>> violations = validator.validate(model);
 
         assertFalse(violations.isEmpty());
         assertEquals(2, violations.size());
-
         assertTrue(violations.stream().anyMatch(v -> v.getMessage().equals(LAST_NAME_MIN_LENGTH)));
         assertTrue(violations.stream().anyMatch(v -> v.getMessage().equals(LAST_NAME_FIRST_LETTER_UPPERCASE)));
     }
@@ -194,81 +199,11 @@ class UserRegisterBindingModelTests {
         model.setUsername(VALID_USERNAME);
         model.setFirstName(VALID_FIRST_NAME);
         model.setLastName(null);
-        model.setPassword(VALID_PASSWORD);
 
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
-        Iterator<ConstraintViolation<UserRegisterBindingModel>> violationIterator = violations.iterator();
+        Set<ConstraintViolation<UserProfileBindingModel>> violations = validator.validate(model);
 
         assertFalse(violations.isEmpty());
         assertEquals(1, violations.size());
-        assertEquals(LAST_NAME_MIN_LENGTH, violationIterator.next().getMessage());
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "'password123'",
-            "'MyPassword!'"
-    })
-    void password_withValidValues_shouldPassValidation(String validPassword) {
-        model.setUsername(VALID_USERNAME);
-        model.setFirstName(VALID_FIRST_NAME);
-        model.setLastName(VALID_LAST_NAME);
-        model.setPassword(validPassword);
-
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
-
-        assertTrue(violations.isEmpty());
-        assertEquals(validPassword, model.getPassword());
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "' '",
-            "'pa'"
-    })
-    void password_withInvalidValues_shouldFailValidation(String invalidPassword) {
-        model.setUsername(VALID_USERNAME);
-        model.setFirstName(VALID_FIRST_NAME);
-        model.setLastName(VALID_LAST_NAME);
-        model.setPassword(invalidPassword);
-
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
-
-        assertFalse(violations.isEmpty());
-        assertEquals(1, violations.size());
-        assertEquals(PASSWORD_MIN_LENGTH, violations.iterator().next().getMessage());
-    }
-
-    @Test
-    void password_withNullValue_shouldFailValidation() {
-        model.setUsername(VALID_USERNAME);
-        model.setFirstName(VALID_FIRST_NAME);
-        model.setLastName(VALID_LAST_NAME);
-        model.setPassword(null);
-
-        Set<ConstraintViolation<UserRegisterBindingModel>> violations = validator.validate(model);
-
-        assertFalse(violations.isEmpty());
-        assertEquals(1, violations.size());
-        assertEquals(PASSWORD_NOT_EMPTY, violations.iterator().next().getMessage());
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "password123",
-            "SomeOtherPassword",
-            "' '"
-    })
-    void confirmPassword_shouldBeProperlySet(String confirmPassword) {
-        model.setConfirmPassword(confirmPassword);
-
-        assertEquals(confirmPassword, model.getConfirmPassword());
-    }
-
-    @Test
-    void confirmPassword_shouldAllowNullValue() {
-        model.setConfirmPassword(null);
-
-        assertNull(model.getConfirmPassword());
+        assertEquals(LAST_NAME_MIN_LENGTH, violations.iterator().next().getMessage());
     }
 }

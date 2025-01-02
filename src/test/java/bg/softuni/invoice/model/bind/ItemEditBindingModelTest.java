@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ItemEditBindingModelTests {
+class ItemEditBindingModelTest {
 
     public static final String VALID_ID = "valid-id";
     public static final String VALID_NAME = "Valid Item Name";

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class UserLoginBindingModelTests {
+class UserLoginBindingModelTest {
 
     public static final String VALID_USERNAME = "test@example.com";
     public static final String VALID_PASSWORD = "password123";

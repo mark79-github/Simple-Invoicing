@@ -10,16 +10,6 @@ public class LogViewModel {
     private LocalDateTime dateTime;
     private String user;
 
-    public LogViewModel() {
-    }
-
-    public LogViewModel(String requestURI, String method, LocalDateTime dateTime, String user) {
-        this.requestURI = requestURI;
-        this.method = method;
-        this.dateTime = dateTime;
-        this.user = user;
-    }
-
     public String getId() {
         return id;
     }
