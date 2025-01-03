@@ -4,7 +4,6 @@ import bg.softuni.invoice.exception.AuthorityNotFoundException;
 import bg.softuni.invoice.model.entity.Role;
 import bg.softuni.invoice.repository.RoleRepository;
 import bg.softuni.invoice.service.impl.RoleServiceImpl;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static bg.softuni.invoice.constant.ErrorMsg.ROLE_NOT_FOUND;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isA;
@@ -40,7 +40,6 @@ class RoleServiceTest {
 
     @BeforeEach
     void init() {
-
         this.role = new Role("ROLE_ADMIN");
 
         this.roleList.add(new Role("ROLE_ROOT"));
@@ -55,7 +54,7 @@ class RoleServiceTest {
 
         Role roleAdmin = roleService.getRoleByName("ROLE_ADMIN");
 
-        Assertions.assertThat(roleAdmin).isNotNull();
+        assertThat(roleAdmin).isNotNull();
     }
 
     @Test
@@ -73,7 +72,7 @@ class RoleServiceTest {
 
         Set<Role> roleSet = this.roleService.getAllRoles();
 
-        Assertions.assertThat(roleSet).hasSize(3);
+        assertThat(roleSet).hasSize(3);
     }
 
     @Test
@@ -83,7 +82,7 @@ class RoleServiceTest {
 
         long actual = this.roleService.getRoleRepositoryCount();
 
-        Assertions.assertThat(actual).isEqualTo(3);
+        assertThat(actual).isEqualTo(3);
     }
 
     @Test

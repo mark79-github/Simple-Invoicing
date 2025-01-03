@@ -43,6 +43,4 @@ public class RoleServiceImpl implements RoleService {
                 .findByAuthority(roleName)
                 .orElseThrow(() -> new AuthorityNotFoundException(ROLE_NOT_FOUND));
     }
-
-
 }
