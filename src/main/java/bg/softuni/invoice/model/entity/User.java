@@ -1,22 +1,40 @@
 package bg.softuni.invoice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import java.util.Set;
 
-import static bg.softuni.invoice.constant.ErrorMsg.*;
+import static bg.softuni.invoice.constant.ErrorMsg.EMAIL_NOT_CORRECT;
+import static bg.softuni.invoice.constant.ErrorMsg.EMAIL_NOT_EMPTY;
+import static bg.softuni.invoice.constant.ErrorMsg.EMAIL_REGEX;
+import static bg.softuni.invoice.constant.ErrorMsg.FIRST_NAME_FIRST_LETTER_UPPERCASE;
+import static bg.softuni.invoice.constant.ErrorMsg.FIRST_NAME_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.LAST_NAME_FIRST_LETTER_UPPERCASE;
+import static bg.softuni.invoice.constant.ErrorMsg.LAST_NAME_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.NAME_REGEX;
+import static bg.softuni.invoice.constant.ErrorMsg.PASSWORD_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.STRING_MIN_LENGTH;
 
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
 
     @Column(name = "username", nullable = false, unique = true)
-    @Pattern(regexp = EMAIL_REGEX,
-            message = EMAIL_NOT_CORRECT)
+    @NotEmpty(message = EMAIL_NOT_EMPTY)
+    @Pattern(regexp = EMAIL_REGEX, message = EMAIL_NOT_CORRECT)
     private String username;
 
     @Column(name = "first_name", nullable = false)
