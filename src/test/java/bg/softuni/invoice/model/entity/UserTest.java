@@ -35,6 +35,9 @@ class UserTest {
         user.setLastName("Smith");
         user.setPassword("<PASSWORD>");
         user.setEnabled(true);
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
         Role role1 = new Role("ROLE_USER");
         Role role2 = new Role("ROLE_ADMIN");
         Set<Role> roles = Set.of(role1, role2);
@@ -132,7 +135,9 @@ class UserTest {
         Set<ConstraintViolation<User>> violations = validator.validate(user);
 
         assertFalse(violations.isEmpty());
-        assertEquals(LAST_NAME_MIN_LENGTH, violations.iterator().next().getMessage());
+        assertEquals(2, violations.size());
+        assertTrue(violations.stream().anyMatch(v -> v.getMessage().equals(LAST_NAME_MIN_LENGTH)));
+        assertTrue(violations.stream().anyMatch(v -> v.getMessage().equals(LAST_NAME_FIRST_LETTER_UPPERCASE)));
     }
 
     // Password tests
@@ -186,6 +191,21 @@ class UserTest {
         user.setAuthorities(null);
 
         assertNull(user.getAuthorities());
+    }
+
+    @Test
+    void accountNonExpired_defaultValue_shouldBeTrue() {
+        assertTrue(user.isAccountNonExpired());
+    }
+
+    @Test
+    void accountNonLocked_defaultValue_shouldBeTrue() {
+        assertTrue(user.isAccountNonLocked());
+    }
+
+    @Test
+    void credentialsNonExpired_defaultValue_shouldBeTrue() {
+        assertTrue(user.isCredentialsNonExpired());
     }
 
     private Validator createValidator() {
