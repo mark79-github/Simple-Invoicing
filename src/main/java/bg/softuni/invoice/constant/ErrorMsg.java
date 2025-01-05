@@ -40,8 +40,11 @@ public class ErrorMsg {
     public static final String LAST_NAME_FIRST_LETTER_UPPERCASE = "last name must be in lower case except for the first one";
     public static final String DATE_PAST = "date can only be in the past";
     public static final String AUTHORITY_NOT_EMPTY = "authority cannot be empty";
-    public static final String URI_NOT_EMPTY = "Request URI cannot be empty.";
-    public static final String METHOD_NOT_EMPTY = "Method cannot be empty.";
+    public static final String URI_NOT_EMPTY = "request URI cannot be empty";
+    public static final String METHOD_NOT_EMPTY = "method cannot be empty";
+    public static final String VAT_VALUE_NOT_EMPTY = "vat value cannot be empty";
+    public static final String PRICE_NOT_EMPTY = "price cannot be empty";
+
 
     private ErrorMsg() {
     }
