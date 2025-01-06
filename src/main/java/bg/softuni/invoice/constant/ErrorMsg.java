@@ -44,6 +44,9 @@ public class ErrorMsg {
     public static final String METHOD_NOT_EMPTY = "method cannot be empty";
     public static final String VAT_VALUE_NOT_EMPTY = "vat value cannot be empty";
     public static final String PRICE_NOT_EMPTY = "price cannot be empty";
+    public static final String NAME_NOT_EMPTY = "name cannot be empty";
+    public static final String ADDRESS_NOT_EMPTY = "address cannot be empty";
+    public static final String UNIQUE_IDENTIFIER_NOT_EMPTY = "unique identifier cannot be empty";
 
 
     private ErrorMsg() {
