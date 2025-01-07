@@ -47,6 +47,11 @@ public class ErrorMsg {
     public static final String NAME_NOT_EMPTY = "name cannot be empty";
     public static final String ADDRESS_NOT_EMPTY = "address cannot be empty";
     public static final String UNIQUE_IDENTIFIER_NOT_EMPTY = "unique identifier cannot be empty";
+    public static final String VALUE_NOT_EMPTY = "total value cannot be empty";
+    public static final String STATUS_TYPE_NOT_EMPTY = "status type must not be empty";
+    public static final String INVOICE_NUMBER_NOT_EMPTY = "invoice number must not be empty";
+    public static final String USER_NOT_EMPTY = "user must not be empty";
+    public static final String INVOICE_NUMBER_POSITIVE = "invoice number must be positive";
 
 
     private ErrorMsg() {
