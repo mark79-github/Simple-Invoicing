@@ -21,15 +21,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class LogTest {
 
     private Validator validator;
+    private Log log;
 
     @BeforeEach
     void setUp() {
         validator = createValidator();
+
+        log = new Log();
+        log.setRequestURI("/api/resource");
+        log.setMethod("POST");
+        log.setDateTime(LocalDateTime.now());
     }
 
     @Test
     void requestURI_withValidValue_shouldReturnCorrectRequestURI() {
-        Log log = new Log();
         String expectedRequestURI = "/api/resource";
         log.setRequestURI(expectedRequestURI);
 
@@ -40,7 +45,6 @@ class LogTest {
 
     @Test
     void requestURI_withNullValue_shouldAllowNullValue() {
-        Log log = new Log();
         log.setRequestURI(null);
 
         String actualRequestURI = log.getRequestURI();
@@ -50,7 +54,6 @@ class LogTest {
 
     @Test
     void method_withValidValue_shouldReturnCorrectMethod() {
-        Log log = new Log();
         String expectedMethod = "GET";
         log.setMethod(expectedMethod);
 
@@ -61,7 +64,6 @@ class LogTest {
 
     @Test
     void dateTime_withValidPastOrPresentValue_shouldReturnCorrectDateTime() {
-        Log log = new Log();
         LocalDateTime expectedDateTime = LocalDateTime.now();
         log.setDateTime(expectedDateTime);
 
@@ -72,7 +74,6 @@ class LogTest {
 
     @Test
     void dateTime_withFutureValue_shouldFailValidation() {
-        Log log = new Log();
         log.setDateTime(LocalDateTime.now().plusDays(1));
 
         Set<ConstraintViolation<Log>> violations = validator.validate(log);
@@ -85,7 +86,6 @@ class LogTest {
 
     @Test
     void user_withValidValue_shouldReturnCorrectUser() {
-        Log log = new Log();
         User user = new User();
         user.setUsername("testuser");
         log.setUser(user);
@@ -98,7 +98,6 @@ class LogTest {
 
     @Test
     void user_withNullValue_shouldAllowNullValue() {
-        Log log = new Log();
         log.setUser(null);
 
         User actualUser = log.getUser();
@@ -108,7 +107,6 @@ class LogTest {
 
     @Test
     void log_withValidFields_shouldPassValidation() {
-        Log log = new Log();
         log.setRequestURI("/api/resource");
         log.setMethod("POST");
         log.setDateTime(LocalDateTime.now());
@@ -120,7 +118,6 @@ class LogTest {
 
     @Test
     void log_withNullRequestURI_shouldFailValidation() {
-        Log log = new Log();
         log.setRequestURI(null);
         log.setMethod("POST");
         log.setDateTime(LocalDateTime.now());
@@ -134,7 +131,6 @@ class LogTest {
 
     @Test
     void log_withNullMethod_shouldFailValidation() {
-        Log log = new Log();
         log.setRequestURI("/api/resource");
         log.setMethod(null);
         log.setDateTime(LocalDateTime.now());
