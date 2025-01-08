@@ -10,10 +10,6 @@ public class AuthorityNotFoundException extends RuntimeException {
 
     private final int status;
 
-    public AuthorityNotFoundException() {
-        this.status = 404;
-    }
-
     public AuthorityNotFoundException(String message) {
         super(message);
         this.status = 404;

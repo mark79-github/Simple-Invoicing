@@ -10,10 +10,6 @@ public class CompanyNotFoundException extends RuntimeException {
 
     private final int status;
 
-    public CompanyNotFoundException() {
-        this.status = 404;
-    }
-
     public CompanyNotFoundException(String message) {
         super(message);
         this.status = 404;

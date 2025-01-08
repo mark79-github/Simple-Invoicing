@@ -10,10 +10,6 @@ public class UserNotFoundException extends RuntimeException {
 
     private final int status;
 
-    public UserNotFoundException() {
-        this.status = 404;
-    }
-
     public UserNotFoundException(String message) {
         super(message);
         this.status = 404;

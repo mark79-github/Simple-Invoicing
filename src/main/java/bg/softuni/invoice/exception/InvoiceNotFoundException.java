@@ -10,10 +10,6 @@ public class InvoiceNotFoundException extends RuntimeException {
 
     private final int status;
 
-    public InvoiceNotFoundException() {
-        this.status = 404;
-    }
-
     public InvoiceNotFoundException(String message) {
         super(message);
         this.status = 404;

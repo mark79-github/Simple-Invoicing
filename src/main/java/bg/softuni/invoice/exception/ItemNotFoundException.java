@@ -10,10 +10,6 @@ public class ItemNotFoundException extends RuntimeException {
 
     private final int status;
 
-    public ItemNotFoundException() {
-        this.status = 404;
-    }
-
     public ItemNotFoundException(String message) {
         super(message);
         this.status = 404;
