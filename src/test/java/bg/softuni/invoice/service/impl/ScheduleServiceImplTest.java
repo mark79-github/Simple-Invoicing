@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class ScheduleServiceImplTest {
@@ -35,7 +35,7 @@ class ScheduleServiceImplTest {
 
         scheduleService.deleteLogs();
 
-        verify(logService, Mockito.times(1)).deleteAllLogsByDateTimeIsBefore(captor.capture());
+        verify(logService, times(1)).deleteAllLogsByDateTimeIsBefore(captor.capture());
 
         LocalDateTime capturedDateTime = captor.getValue();
         assertTrue(capturedDateTime.isBefore(LocalDateTime.now().minusMinutes(4))
@@ -54,13 +54,13 @@ class ScheduleServiceImplTest {
 
         List<InvoiceServiceModel> mockInvoices = List.of(invoice1, invoice2);
 
-        Mockito.when(invoiceService.getAllInvoicesStatus(StatusType.AWAIT)).thenReturn(mockInvoices);
+        when(invoiceService.getAllInvoicesStatus(StatusType.AWAIT)).thenReturn(mockInvoices);
 
         scheduleService.changeStatus();
 
-        Mockito.verify(invoiceService, Mockito.times(1)).getAllInvoicesStatus(StatusType.AWAIT);
-        Mockito.verify(invoiceService, Mockito.times(2)).changeStatus(Mockito.anyString());
-        Mockito.verify(invoiceService).changeStatus("1");
-        Mockito.verify(invoiceService).changeStatus("2");
+        verify(invoiceService, times(1)).getAllInvoicesStatus(StatusType.AWAIT);
+        verify(invoiceService, times(2)).changeStatus(Mockito.anyString());
+        verify(invoiceService).changeStatus("1");
+        verify(invoiceService).changeStatus("2");
     }
 }
