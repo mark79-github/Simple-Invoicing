@@ -26,15 +26,19 @@ class InvoiceRepositoryTest {
     private Company sender;
     private Company receiver;
 
-    @Autowired
-    private InvoiceRepository invoiceRepository;
+    private final InvoiceRepository invoiceRepository;
+
+    private final EntityManager entityManager;
 
     @Autowired
-    private EntityManager entityManager;
+    public InvoiceRepositoryTest(InvoiceRepository invoiceRepository, EntityManager entityManager) {
+        this.invoiceRepository = invoiceRepository;
+        this.entityManager = entityManager;
+    }
 
     @BeforeEach
     void setup() {
-        user = persistUser("testuser@example.com", "securepassword", "Test", "User", true);
+        user = persistUser("testuser@example.com", "securepassword", "Test", "User");
 
         sender = persistCompany(
                 "Sender Company",
@@ -49,7 +53,6 @@ class InvoiceRepositoryTest {
                 "987654321",
                 false
         );
-
     }
 
     @Test
@@ -73,8 +76,8 @@ class InvoiceRepositoryTest {
 
     @Test
     void testGetAllByUser_withDifferentUser_returnsOnlyRelevantInvoices() {
-        User user1 = persistUser("user1@example.com", "password1", "UserOne", "Test", true);
-        User user2 = persistUser("user2@example.com", "password2", "UserTwo", "Test", true);
+        User user1 = persistUser("user1@example.com", "password1", "UserOne", "Test");
+        User user2 = persistUser("user2@example.com", "password2", "UserTwo", "Test");
         persistInvoice(user1, sender, receiver, LocalDate.now(), new BigDecimal("200.00"), PaymentType.TRANSFER, StatusType.COMPLETE, 3);
 
         List<Invoice> resultForUser1 = invoiceRepository.getAllByUser(user1);
@@ -125,13 +128,13 @@ class InvoiceRepositoryTest {
         assertThat(result).isNotPresent();
     }
 
-    private User persistUser(String username, String password, String firstName, String lastName, boolean enabled) {
+    private User persistUser(String username, String password, String firstName, String lastName) {
         User createdBy = new User();
         createdBy.setUsername(username);
         createdBy.setPassword(password);
         createdBy.setFirstName(firstName);
         createdBy.setLastName(lastName);
-        createdBy.setEnabled(enabled);
+        createdBy.setEnabled(true);
         entityManager.persist(createdBy);
         return createdBy;
     }
