@@ -6,8 +6,8 @@ import bg.softuni.invoice.service.RoleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.never;
@@ -21,10 +21,10 @@ class SeedUserRolesTest {
     @Autowired
     private SeedUserRoles seedUserRoles;
 
-    @MockBean
+    @MockitoBean
     private RoleService roleService;
 
-    @MockBean
+    @MockitoBean
     private ContextRefreshedEvent contextRefreshedEvent;
 
     @Test
