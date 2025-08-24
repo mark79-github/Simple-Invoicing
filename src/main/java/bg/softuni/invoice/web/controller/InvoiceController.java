@@ -20,12 +20,20 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static bg.softuni.invoice.constant.GlobalConstants.CART_ITEMS_COUNT;
@@ -58,6 +66,7 @@ public class InvoiceController {
 
         if (!model.containsAttribute(INVOICE_ADD_BINDING_MODEL)) {
             InvoiceAddBindingModel invoiceAddBindingModel = new InvoiceAddBindingModel();
+            @SuppressWarnings("unchecked")
             Map<String, Integer> cart = (LinkedHashMap<String, Integer>) httpSession.getAttribute("cart");
             if (!cart.isEmpty()) {
                 invoiceAddBindingModel.setTotalValue((BigDecimal) httpSession.getAttribute("totalPrice"));
@@ -113,6 +122,7 @@ public class InvoiceController {
         InvoiceServiceModel invoiceServiceModel = this.modelMapper.map(invoiceAddBindingModel, InvoiceServiceModel.class);
         invoiceServiceModel.setSender(this.companyService.getCompanyById(invoiceAddBindingModel.getSender()));
         invoiceServiceModel.setReceiver(this.companyService.getCompanyById(invoiceAddBindingModel.getReceiver()));
+        @SuppressWarnings("unchecked")
         Map<String, Integer> cart = (LinkedHashMap<String, Integer>) httpSession.getAttribute("cart");
         if (!cart.isEmpty()) {
             Set<SaleServiceModel> saleServiceModels = cart.entrySet()
