@@ -4,14 +4,19 @@ import bg.softuni.invoice.model.service.ItemServiceModel;
 import bg.softuni.invoice.model.view.ItemViewModel;
 import bg.softuni.invoice.service.ItemService;
 import bg.softuni.invoice.web.annotation.PageTitle;
+import jakarta.servlet.http.HttpSession;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import jakarta.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -45,6 +50,7 @@ public class StorageController {
             httpSession.setAttribute("cart", new LinkedHashMap<String, Integer>());
         }
 
+        @SuppressWarnings("unchecked")
         Map<String, Integer> cart = (LinkedHashMap<String, Integer>) httpSession.getAttribute("cart");
 
         ItemServiceModel itemServiceModel = this.itemService.getItemById(id);
@@ -72,6 +78,7 @@ public class StorageController {
             httpSession.setAttribute(CART_TOTAL_PRICE, BigDecimal.ZERO);
         }
 
+        @SuppressWarnings("unchecked")
         LinkedHashMap<String, Integer> items = (LinkedHashMap<String, Integer>) httpSession.getAttribute("cart");
 
         List<ItemViewModel> cart = new LinkedList<>();
@@ -99,6 +106,7 @@ public class StorageController {
                              HttpSession httpSession,
                              Model model) {
 
+        @SuppressWarnings("unchecked")
         LinkedHashMap<String, Integer> cart = (LinkedHashMap<String, Integer>) httpSession.getAttribute("cart");
         cart.remove(id);
 
