@@ -5,16 +5,13 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Set;
 
 import static bg.softuni.invoice.constant.ErrorMsg.NAME_MIN_LENGTH;
-import static bg.softuni.invoice.constant.ErrorMsg.SUPPLIER_NOT_NULL;
 import static bg.softuni.invoice.constant.ErrorMsg.UNIQUE_IDENTIFIER_LENGTH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -116,20 +113,6 @@ class CompanyEditBindingModelTest {
 
         assertTrue(violations.isEmpty());
         assertEquals(supplier, model.isSupplier());
-    }
-
-    @ParameterizedTest
-    @NullSource
-    @Disabled("The 'supplier' field is a primitive boolean and cannot be assigned null.")
-    void testCompany_withNullSupplier_shouldFailValidation(Boolean supplier) {
-        CompanyEditBindingModel model = new CompanyEditBindingModel();
-        model.setSupplier(supplier);
-
-        Set<ConstraintViolation<CompanyEditBindingModel>> violations = validator.validate(model);
-
-        assertFalse(violations.isEmpty());
-        assertEquals(1, violations.size());
-        assertEquals(SUPPLIER_NOT_NULL, violations.iterator().next().getMessage());
     }
 
     @Test
