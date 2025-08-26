@@ -67,7 +67,7 @@ class InvoiceServiceTest {
     private UserService userService;
 
     @BeforeEach
-    public void init() {
+    void init() {
 
         invoice = new Invoice();
         invoice.setDate(LocalDate.now());
