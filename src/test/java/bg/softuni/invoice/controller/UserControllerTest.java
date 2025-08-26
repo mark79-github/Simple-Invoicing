@@ -33,7 +33,7 @@ class UserControllerTest {
     private RoleService roleService;
 
     @AfterEach
-    public void clear() {
+    void clear() {
         this.userRepository.deleteAll();
     }
 

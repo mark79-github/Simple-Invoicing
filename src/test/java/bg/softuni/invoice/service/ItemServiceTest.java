@@ -51,7 +51,7 @@ class ItemServiceTest {
     private ModelMapper modelMapper;
 
     @BeforeEach
-    public void init() {
+    void init() {
 
         item = new Item();
         item.setId(NON_EXISTING_ITEM_ID);
