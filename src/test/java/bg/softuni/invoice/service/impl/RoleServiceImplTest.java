@@ -1,4 +1,3 @@
-
 package bg.softuni.invoice.service.impl;
 
 import bg.softuni.invoice.exception.AuthorityNotFoundException;
