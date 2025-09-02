@@ -2,7 +2,8 @@ FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
-RUN addgroup -g 1001 -S appuser && \
+RUN apk update && apk upgrade && \
+    addgroup -g 1001 -S appuser && \
     adduser -u 1001 -S appuser -G appuser
 
 COPY target/invoice.war invoice.war
