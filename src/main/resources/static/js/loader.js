@@ -34,14 +34,24 @@ $('body').on('click', 'button.invoice-btn', function () {
     fetch('http://localhost:8080/api/invoice/' + invoiceId + '/sales') // Fetch the data (GET request)
         .then((response) => response.json()) // Extract the JSON from the Response
         .then((json) => json.forEach((sale) => { // Render the JSON data to the HTML
-            console.log(sale.name);
+
+            const getVatPercentage = (vatValue) => {
+                switch (vatValue) {
+                    case 'TWENTY':
+                        return '20';
+                    case 'ZERO':
+                        return '9';
+                    default:
+                        return '0';
+                }
+            };
 
             let tableRow =
                 '<tr>' +
                 '<td>' + sale.name + '</td>' +
                 '<td>' + sale.quantity + '</td>' +
                 '<td>' + Number(sale.price).toFixed(2) + '</td>' +
-                '<td>' + (sale.vatValue === 'TWENTY' ? '20' : sale.vatValue === 'ZERO' ? '9' : '0') + '%' + '</td>' +
+                '<td>' + getVatPercentage(sale.vatValue) + '%' + '</td>' +
                 '</tr>';
 
             $('.sales-container').append(tableRow);
