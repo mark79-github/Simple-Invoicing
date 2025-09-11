@@ -22,7 +22,7 @@
                             <h4 class="card-text">vat value: <strong th:text="|${T(bg.softuni.invoice.model.enumerated.VatValue).valueOf(itemViewModel.vatValue).getValue()}%|"></strong></h4>
                             <div class="text-center">
                                 <img class="img-fluid mx-auto d-block" th:src="${itemViewModel.imageUrl}" height="240"
-                                     width="240" alt="No image found">
+                                     alt="No item found" width="240">
                             </div>
                             <div class="text-center">
                                 <form class="mx-auto" th:action="@{/storage/add-item/{id}(id=${itemViewModel.id})}"
