@@ -63,7 +63,11 @@ it's my final project for the [Spring Advanced - June 2020](https://softuni.bg/t
 
 ## Deploy
 
-* a running example of this project can be found [here](https://simple-invoicing.herokuapp.com/)
+* a running example of this project can be found [here](https://web--simple-invoicing--sb2tbz4x9kl8.code.run)
+
+## Code Quality Status
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mark79-github_Simple-Invoicing&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mark79-github_Simple-Invoicing)
 
 
 
