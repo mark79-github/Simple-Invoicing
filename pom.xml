@@ -2,29 +2,42 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.maven.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.5</version>
-        <relativePath/>
-    </parent>
+
     <groupId>bg.softuni</groupId>
     <artifactId>invoice</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
     <name>invoice</name>
-    <description>Final Project - Spring Advanced - May 2020</description>
+    <description>Final Project — Spring Boot Advanced — May 2024</description>
 
     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
+        <spring.boot.version>3.5.5</spring.boot.version>
         <modelmapper.version>3.2.4</modelmapper.version>
         <cloudinary-http45.version>1.39.0</cloudinary-http45.version>
         <mysql-connector-j.version>8.2.0</mysql-connector-j.version>
         <postgresql.version>42.7.7</postgresql.version>
-        <tomcat-embed-core.version>11.0.10</tomcat-embed-core.version>
+        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <jacoco.version>0.8.13</jacoco.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <sonar.organization>mark79-github</sonar.organization>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -64,9 +77,10 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-            <version>${tomcat-embed-core.version}</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${jakarta.servlet-api.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.mysql</groupId>
@@ -142,6 +156,19 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
