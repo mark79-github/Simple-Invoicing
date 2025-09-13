@@ -7,7 +7,7 @@
     <artifactId>invoice</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
-    <name>invoice</name>
+    <name>Simple-Invoicing</name>
     <description>Final Project — Spring Boot Advanced — May 2024</description>
 
     <properties>
@@ -144,7 +144,7 @@
     </profiles>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
