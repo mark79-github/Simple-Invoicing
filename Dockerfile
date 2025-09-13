@@ -6,7 +6,7 @@ RUN apk update && apk upgrade && \
     addgroup -g 1001 -S appuser && \
     adduser -u 1001 -S appuser -G appuser
 
-COPY target/invoice.war invoice.war
+COPY target/Simple-Invoicing.war invoice.war
 
 RUN chown appuser:appuser invoice.war
 
