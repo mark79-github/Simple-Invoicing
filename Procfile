@@ -1,1 +1,1 @@
-web: java -jar target/invoice.war
+web: java -jar target/Simple-Invoicing.war
