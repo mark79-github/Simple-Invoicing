@@ -10,8 +10,7 @@ A Spring Boot invoicing application with role-based access control.
 [![Deployment Status](https://img.shields.io/badge/Deployment-Live-brightgreen?style=flat&logo=northflank&logoColor=white)](https://web--simple-invoicing--sb2tbz4x9kl8.code.run)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-### 🎯 Final project for the *
-*[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)** course.
+### 🎯 Final project for the **[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)** course.
 
 This educational project demonstrates user management, company handling, and automated scheduling features.
 
