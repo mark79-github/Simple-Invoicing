@@ -1,74 +1,132 @@
-# Simple Invoicing
+<div style="text-align: center;">
 
-it's my final project for the [Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal) course
+# 📧 Simple Invoicing
 
-## Built With
+A Spring Boot invoicing application with role-based access control.
 
-* [Spring](https://spring.io/) - The web framework used
-* [Thymeleaf](https://www.thymeleaf.org/) - Java template engine
-* [PostgreSQL](https://www.postgresql.org/) - The World's Most Advanced Open Source Relational Database
-* [Bootstrap](https://getbootstrap.com/) - The world’s most popular framework for building responsive web pages, as they say
-* [jQuery](https://jquery.com/) - JavaScript library
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
+[![Deployment Status](https://img.shields.io/badge/Deployment-Live-brightgreen?style=flat&logo=northflank&logoColor=white)](https://web--simple-invoicing--sb2tbz4x9kl8.code.run)
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Author
+[//]: # ([🚀 Live Demo]&#40;https://web--simple-invoicing--sb2tbz4x9kl8.code.run&#41;)
 
-* **Martin Dimitrov** - [mark79-github](https://github.com/mark79-github/)
+</div>
 
-## Functionality
+---
 
-### Role
+<div style="text-align: center;">
 
-* there are 3 types - ADMIN, ROUTE, USER - which are saved in the database using EventListener, but only when the repository is empty
+### 🎯 Final project for the *
 
-### User
+*[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)
+** course. This educational project demonstrates user management, company handling, and automated scheduling features.
 
-* entity with the following fields -> username, first and last name and password. Username itself is an email. Тhe first registered user takes full rights (all roles), and the next ones get registered with role authority (ROLE_USER). They are not allowed to enter the system before the user with the highest rights allows it. Each user can edit some of their own data. Only the root user (with the highest rights) can change the roles of other users. Users who have admin rights can create companies and products and edit them. Ordinary users can view the lists of companies and items, add them to the storage by entering the appropriate quantity and create an invoice. They can also remove items from the storage. 
+</div>
 
-### Company
+---
 
-* entity with the following fields -> name, address and unique identifier. In order for invoices to be issued, at least two companies must be established. The first introduced becomes the issuer of all invoices, and all others are contractors. 
+## 🏗️ Technology Stack
 
-### Item
+### ⚙️ Backend
 
-* entity with the following fields -> name, price, image url and vat value (percentages). It is enough to have one item for the system to work. If there is a selected photo of the item, it is uploaded to Cloudinary, otherwise a default photo from the system resources folder, is used.
+- ![Java 17](https://img.shields.io/badge/Java-17-007396?style=flat&logo=openjdk&logoColor=white)
+- ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.5-6DB33F?style=flat&logo=spring-boot&logoColor=white)
+- ![Spring MVC](https://img.shields.io/badge/Spring%20MVC-Web-6DB33F?style=flat&logo=spring&logoColor=white)
+- ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-Persistence-6DB33F?style=flat&logo=spring&logoColor=white)
+- ![Spring Security](https://img.shields.io/badge/Spring%20Security-Auth-6DB33F?style=flat&logo=spring&logoColor=white)
+- ![Validation](https://img.shields.io/badge/Spring%20Validation-Bean%20Validation-6DB33F?style=flat&logo=spring&logoColor=white)
 
-### Invoice
+### 🎨 Frontend
 
-* entity with the following fields -> invoice number, date, total value, user (who compiled it), issuer (sender), contractor (receiver), payment type, status type, datetime of creation and the included items. Only some of these parameters have to be entered when creating the invoice. If the user does not have the admin role, then he can see only the invoices created by himself. When an invoice has been created with a type of payment by bank transfer, its status, is set to AWAIT. Only users with an admin role can change the invoice status to COMPLETE.
+- ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-Template%20Engine-005F0F?style=flat&logo=thymeleaf&logoColor=white)
+- ![Thymeleaf Security](https://img.shields.io/badge/Thymeleaf-Spring%20Security%20Extras-005F0F?style=flat&logo=thymeleaf&logoColor=white)
 
-### Sale
+### 🗄️ Database
 
-* entity with the following fields -> name, quantity, price and vat value. A list of them is saved for each invoice. Containing accurate information of the name, price, quantity and vat value (percentages) at the time of creating the invoice.
+- ![MySQL](https://img.shields.io/badge/MySQL-Development-4479A1?style=flat&logo=mysql&logoColor=white) **Primary
+  database (development)**
+- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Production-4169E1?style=flat&logo=postgresql&logoColor=white) *
+  *Production database support**
+- ![H2](https://img.shields.io/badge/H2-In--Memory-5D5D5D?style=flat) **In-memory database (testing)**
 
-### Log
+### 📚 Additional Libraries
 
-* entity with the following fields -> route, method and a date time. Using an interceptor, store information about the made requests, method, route and user.
+- ![ModelMapper](https://img.shields.io/badge/ModelMapper-Object%20Mapping-5D5D5D?style=flat)
+- ![Cloudinary](https://img.shields.io/badge/Cloudinary-Media%20Management-3448C5?style=flat&logo=cloudinary&logoColor=white)
+  **Cloud-based image and video management**
+- ![Apache Commons](https://img.shields.io/badge/Apache%20Commons%20Lang-Utilities-D22128?style=flat&logo=apache&logoColor=white)
 
-### Storage
+### 🛠️ Development & Testing
 
-* session attribute -> it's a map, which contains information about selected items and their quantities.
+- ![Spring Boot DevTools](https://img.shields.io/badge/Spring%20Boot-DevTools-6DB33F?style=flat&logo=spring-boot&logoColor=white)
+- ![JaCoCo](https://img.shields.io/badge/JaCoCo-Code%20Coverage-5D5D5D?style=flat)
+- ![Apache Tomcat](https://img.shields.io/badge/Apache%20Tomcat-Embedded-F8DC75?style=flat&logo=apachetomcat&logoColor=black)
+- ![Maven](https://img.shields.io/badge/Apache%20Maven-Build%20Tool-C71A36?style=flat&logo=apachemaven&logoColor=white)
 
-### Interceptor
+---
 
-* there are also very commonly used interceptors for the fav icon, and the title page
+## ✨ Features
 
-### Scheduler
+### 🔐 **Roles & Users**
 
-* cron task, every five minutes delete logs from the system (in this case -> all older than 5 minutes log records)
-* cron task, every five minutes checks if there are invoices with AWAIT status and changes it
+- 3 role types: `ADMIN`, `ROUTE`, `USER`
+- The first user gets full admin rights
+- New users need admin approval
+- Role-based access control
 
-## License
+### 🏢 **Companies**
 
-* this project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+- Name, address, and unique identifier
+- The first company becomes an invoice issuer
+- All others are contractors
 
-## Deploy
+### 📦 **Items**
 
-* a running example of this project can be found [here](https://web--simple-invoicing--sb2tbz4x9kl8.code.run)
+- Name, price, image, and VAT value
+- Cloudinary image upload with fallback
+- Session-based storage system
 
-## Code Quality Status
+### 🧾 **Invoices**
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mark79-github_Simple-Invoicing&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mark79-github_Simple-Invoicing)
+- Auto-generated numbers and tracking
+- Payment types: cash or bank transfer
+- Status workflow: `AWAIT` → `COMPLETE`
+- Users see only their own invoices (non-admin)
 
+### 📊 **Automation**
 
+- Request logging with interceptors
+- Scheduled log cleanup (every 5 minutes)
+- Automatic invoice status updates
 
+---
 
+## 🚀 Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mark79-github/Simple-Invoicing.git
+   ```
+
+2. **Configure either MySQL or PostgreSQL database connection**
+
+3. **Configure Cloudinary credentials**
+
+4. **Run the application**
+   ```bash
+   mvn spring-boot:run
+   ```
+
+5. **Access at** `http://localhost:8080`
+
+---
+
+<div style="text-align: center;">
+
+### 🌟 **Star this repository if you find it helpful!**
+
+_Made with ❤️ and lots of ☕_
+
+</div>
