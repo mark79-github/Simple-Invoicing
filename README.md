@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div align="center">
 
 # 📧 Simple Invoicing
 
@@ -10,18 +10,10 @@ A Spring Boot invoicing application with role-based access control.
 [![Deployment Status](https://img.shields.io/badge/Deployment-Live-brightgreen?style=flat&logo=northflank&logoColor=white)](https://web--simple-invoicing--sb2tbz4x9kl8.code.run)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[//]: # ([🚀 Live Demo]&#40;https://web--simple-invoicing--sb2tbz4x9kl8.code.run&#41;)
-
-</div>
-
----
-
-<div style="text-align: center;">
-
 ### 🎯 Final project for the *
+*[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)** course.
 
-*[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)
-** course. This educational project demonstrates user management, company handling, and automated scheduling features.
+This educational project demonstrates user management, company handling, and automated scheduling features.
 
 </div>
 
@@ -123,7 +115,7 @@ A Spring Boot invoicing application with role-based access control.
 
 ---
 
-<div style="text-align: center;">
+<div align="center">
 
 ### 🌟 **Star this repository if you find it helpful!**
 
