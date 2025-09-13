@@ -12,9 +12,7 @@ A Spring Boot invoicing application with role-based access control.
 
 ---
 
-### 🎯 Final project for the *
-*[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)** course.
-
+### 🎯 Final project for the **[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)** course. 
 This educational project demonstrates user management, company handling, and automated scheduling features.
 
 </div>
