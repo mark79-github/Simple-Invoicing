@@ -1,4 +1,4 @@
-<div align="center">
+<div style="text-align: center;">
 
 # 📧 Simple Invoicing
 
@@ -10,12 +10,18 @@ A Spring Boot invoicing application with role-based access control.
 [![Deployment Status](https://img.shields.io/badge/Deployment-Live-brightgreen?style=flat&logo=northflank&logoColor=white)](https://web--simple-invoicing--sb2tbz4x9kl8.code.run)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+[//]: # ([🚀 Live Demo]&#40;https://web--simple-invoicing--sb2tbz4x9kl8.code.run&#41;)
+
+</div>
+
 ---
 
-### 🎯 Final project for the *
-*[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)** course.
+<div style="text-align: center;">
 
-This educational project demonstrates user management, company handling, and automated scheduling features.
+### 🎯 Final project for the *
+
+*[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)
+** course. This educational project demonstrates user management, company handling, and automated scheduling features.
 
 </div>
 
@@ -49,6 +55,7 @@ This educational project demonstrates user management, company handling, and aut
 
 - ![ModelMapper](https://img.shields.io/badge/ModelMapper-Object%20Mapping-5D5D5D?style=flat)
 - ![Cloudinary](https://img.shields.io/badge/Cloudinary-Media%20Management-3448C5?style=flat&logo=cloudinary&logoColor=white)
+  **Cloud-based image and video management**
 - ![Apache Commons](https://img.shields.io/badge/Apache%20Commons%20Lang-Utilities-D22128?style=flat&logo=apache&logoColor=white)
 
 ### 🛠️ Development & Testing
@@ -116,7 +123,7 @@ This educational project demonstrates user management, company handling, and aut
 
 ---
 
-<div align="center">
+<div style="text-align: center;">
 
 ### 🌟 **Star this repository if you find it helpful!**
 
