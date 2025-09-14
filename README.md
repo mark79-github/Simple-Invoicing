@@ -7,6 +7,8 @@ A Spring Boot invoicing application with role-based access control.
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
 [![Deployment Status](https://img.shields.io/badge/Deployment-Live-brightgreen?style=flat&logo=northflank&logoColor=white)](https://web--simple-invoicing--sb2tbz4x9kl8.code.run)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -46,7 +48,6 @@ This educational project demonstrates user management, company handling, and aut
 
 - ![ModelMapper](https://img.shields.io/badge/ModelMapper-Object%20Mapping-5D5D5D?style=flat)
 - ![Cloudinary](https://img.shields.io/badge/Cloudinary-Media%20Management-3448C5?style=flat&logo=cloudinary&logoColor=white)
-  **Cloud-based image and video management**
 - ![Apache Commons](https://img.shields.io/badge/Apache%20Commons%20Lang-Utilities-D22128?style=flat&logo=apache&logoColor=white)
 
 ### 🛠️ Development & Testing
