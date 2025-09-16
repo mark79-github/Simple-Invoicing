@@ -1,13 +1,10 @@
 package bg.softuni.invoice.model.view;
 
-import java.math.BigDecimal;
+import bg.softuni.invoice.model.base.SaleBaseModel;
 
-public class SaleViewModel {
+public class SaleViewModel extends SaleBaseModel {
 
     private String id;
-    private String name;
-    private int quantity;
-    private BigDecimal price;
     private int vatValue;
 
     public String getId() {
@@ -16,30 +13,6 @@ public class SaleViewModel {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public int getVatValue() {
