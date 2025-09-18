@@ -6,6 +6,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
@@ -20,6 +22,8 @@ import static bg.softuni.invoice.constant.ErrorMsg.UNIQUE_IDENTIFIER_LENGTH;
 import static bg.softuni.invoice.constant.ErrorMsg.UNIQUE_IDENTIFIER_NOT_EMPTY;
 import static bg.softuni.invoice.constant.ErrorMsg.UNIQUE_IDENTIFIER_REGEX;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "companies")
 public class Company extends BaseEntity implements Serializable {
@@ -43,35 +47,4 @@ public class Company extends BaseEntity implements Serializable {
     @NotNull(message = SUPPLIER_NOT_NULL)
     private boolean supplier;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getUniqueIdentifier() {
-        return uniqueIdentifier;
-    }
-
-    public void setUniqueIdentifier(String uniqueIdentifier) {
-        this.uniqueIdentifier = uniqueIdentifier;
-    }
-
-    public boolean isSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(boolean supplier) {
-        this.supplier = supplier;
-    }
 }
