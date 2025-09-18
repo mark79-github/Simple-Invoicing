@@ -8,6 +8,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +17,8 @@ import static bg.softuni.invoice.constant.ErrorMsg.DATE_PAST;
 import static bg.softuni.invoice.constant.ErrorMsg.METHOD_NOT_EMPTY;
 import static bg.softuni.invoice.constant.ErrorMsg.URI_NOT_EMPTY;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "logs")
 public class Log extends BaseEntity {
@@ -34,35 +38,4 @@ public class Log extends BaseEntity {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private User user;
 
-    public String getRequestURI() {
-        return requestURI;
-    }
-
-    public void setRequestURI(String requestURI) {
-        this.requestURI = requestURI;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
