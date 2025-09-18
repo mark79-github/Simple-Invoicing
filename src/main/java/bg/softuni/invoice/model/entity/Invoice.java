@@ -14,6 +14,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -39,6 +41,8 @@ import static jakarta.persistence.CascadeType.MERGE;
 import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.CascadeType.REFRESH;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "invoices")
 public class Invoice extends BaseEntity implements Serializable {
@@ -94,83 +98,4 @@ public class Invoice extends BaseEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "sale_id"))
     private Set<Sale> sales = new HashSet<>();
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public BigDecimal getTotalValue() {
-        return totalValue;
-    }
-
-    public void setTotalValue(BigDecimal totalValue) {
-        this.totalValue = totalValue;
-    }
-
-    public Company getSender() {
-        return sender;
-    }
-
-    public void setSender(Company sender) {
-        this.sender = sender;
-    }
-
-    public Company getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(Company receiver) {
-        this.receiver = receiver;
-    }
-
-    public PaymentType getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(PaymentType paymentType) {
-        this.paymentType = paymentType;
-    }
-
-    public StatusType getStatusType() {
-        return statusType;
-    }
-
-    public void setStatusType(StatusType statusType) {
-        this.statusType = statusType;
-    }
-
-    public long getInvoiceNumber() {
-        return invoiceNumber;
-    }
-
-    public void setInvoiceNumber(long invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public Set<Sale> getSales() {
-        return sales;
-    }
-
-    public void setSales(Set<Sale> sales) {
-        this.sales = sales;
-    }
 }
