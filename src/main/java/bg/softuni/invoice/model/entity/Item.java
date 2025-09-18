@@ -9,6 +9,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
@@ -20,6 +22,8 @@ import static bg.softuni.invoice.constant.ErrorMsg.PRICE_POSITIVE;
 import static bg.softuni.invoice.constant.ErrorMsg.STRING_MIN_LENGTH;
 import static bg.softuni.invoice.constant.ErrorMsg.VAT_VALUE_NOT_EMPTY;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "items")
 public class Item extends BaseEntity {
@@ -43,35 +47,4 @@ public class Item extends BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     private VatValue vatValue;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public VatValue getVatValue() {
-        return vatValue;
-    }
-
-    public void setVatValue(VatValue vatValue) {
-        this.vatValue = vatValue;
-    }
 }
