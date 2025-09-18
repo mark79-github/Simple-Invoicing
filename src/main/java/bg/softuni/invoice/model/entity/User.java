@@ -12,6 +12,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,6 +30,7 @@ import static bg.softuni.invoice.constant.ErrorMsg.NAME_REGEX;
 import static bg.softuni.invoice.constant.ErrorMsg.PASSWORD_MIN_LENGTH;
 import static bg.softuni.invoice.constant.ErrorMsg.STRING_MIN_LENGTH;
 
+@Setter
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
@@ -37,11 +40,13 @@ public class User extends BaseEntity implements UserDetails {
     @Pattern(regexp = EMAIL_REGEX, message = EMAIL_NOT_CORRECT)
     private String username;
 
+    @Getter
     @Column(name = "first_name", nullable = false)
     @Length(min = STRING_MIN_LENGTH, message = FIRST_NAME_MIN_LENGTH)
     @Pattern(regexp = NAME_REGEX, message = FIRST_NAME_FIRST_LETTER_UPPERCASE)
     private String firstName;
 
+    @Getter
     @Column(name = "last_name", nullable = false)
     @Length(min = STRING_MIN_LENGTH, message = LAST_NAME_MIN_LENGTH)
     @Pattern(regexp = NAME_REGEX, message = LAST_NAME_FIRST_LETTER_UPPERCASE)
@@ -75,10 +80,6 @@ public class User extends BaseEntity implements UserDetails {
         return authorities;
     }
 
-    public void setAuthorities(Set<Role> authorities) {
-        this.authorities = authorities;
-    }
-
     @Override
     public String getUsername() {
         return username;
@@ -109,43 +110,4 @@ public class User extends BaseEntity implements UserDetails {
         return this.enabled;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }
