@@ -9,6 +9,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
@@ -19,6 +21,8 @@ import static bg.softuni.invoice.constant.ErrorMsg.PRICE_NOT_EMPTY;
 import static bg.softuni.invoice.constant.ErrorMsg.PRICE_POSITIVE;
 import static bg.softuni.invoice.constant.ErrorMsg.VAT_VALUE_NOT_EMPTY;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "sales")
 public class Sale extends BaseEntity implements Serializable {
@@ -42,35 +46,4 @@ public class Sale extends BaseEntity implements Serializable {
     @Enumerated(EnumType.ORDINAL)
     private VatValue vatValue;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public VatValue getVatValue() {
-        return vatValue;
-    }
-
-    public void setVatValue(VatValue vatValue) {
-        this.vatValue = vatValue;
-    }
 }
