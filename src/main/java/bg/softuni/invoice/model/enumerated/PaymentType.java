@@ -1,6 +1,10 @@
 package bg.softuni.invoice.model.enumerated;
 
+import lombok.Getter;
+
+@Getter
 public enum PaymentType {
+
     CASH("Cash"),
     TRANSFER("Transfer");
 
@@ -10,7 +14,4 @@ public enum PaymentType {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
 }

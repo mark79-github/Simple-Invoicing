@@ -1,6 +1,10 @@
 package bg.softuni.invoice.model.enumerated;
 
+import lombok.Getter;
+
+@Getter
 public enum VatValue {
+
     ZERO(0),
     NINE(9),
     TWENTY(20);
@@ -11,7 +15,4 @@ public enum VatValue {
         this.value = value;
     }
 
-    public int getValue() {
-        return value;
-    }
 }

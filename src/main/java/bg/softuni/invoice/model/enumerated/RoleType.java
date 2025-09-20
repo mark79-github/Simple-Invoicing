@@ -1,6 +1,10 @@
 package bg.softuni.invoice.model.enumerated;
 
+import lombok.Getter;
+
+@Getter
 public enum RoleType {
+
     ROOT("ROLE_ROOT"),
     ADMIN("ROLE_ADMIN"),
     USER("ROLE_USER");
@@ -11,7 +15,4 @@ public enum RoleType {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
 }

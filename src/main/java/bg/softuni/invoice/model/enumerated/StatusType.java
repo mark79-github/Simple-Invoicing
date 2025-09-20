@@ -1,6 +1,10 @@
 package bg.softuni.invoice.model.enumerated;
 
+import lombok.Getter;
+
+@Getter
 public enum StatusType {
+
     COMPLETE("Complete"),
     AWAIT("Await");
 
@@ -10,7 +14,4 @@ public enum StatusType {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
 }
