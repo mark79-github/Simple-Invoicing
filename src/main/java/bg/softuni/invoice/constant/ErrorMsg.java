@@ -1,7 +1,11 @@
 package bg.softuni.invoice.constant;
 
-import static bg.softuni.invoice.constant.GlobalConstants.CHARACTERS_LONG;
+import lombok.NoArgsConstructor;
 
+import static bg.softuni.invoice.constant.GlobalConstants.CHARACTERS_LONG;
+import static lombok.AccessLevel.PRIVATE;
+
+@NoArgsConstructor(access = PRIVATE)
 public class ErrorMsg {
 
     public static final String USER_NOT_FOUND = "User with id %s not found";
@@ -53,7 +57,4 @@ public class ErrorMsg {
     public static final String USER_NOT_EMPTY = "user must not be empty";
     public static final String INVOICE_NUMBER_POSITIVE = "invoice number must be positive";
 
-
-    private ErrorMsg() {
-    }
 }

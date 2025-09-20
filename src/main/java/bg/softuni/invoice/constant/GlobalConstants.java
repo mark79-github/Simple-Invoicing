@@ -1,5 +1,10 @@
 package bg.softuni.invoice.constant;
 
+import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PRIVATE;
+
+@NoArgsConstructor(access = PRIVATE)
 public class GlobalConstants {
 
     public static final String DEFAULT_ITEM_IMAGE_FILE = "/images/avatar_item_default.png";
@@ -12,6 +17,4 @@ public class GlobalConstants {
     public static final String CART_TOTAL_PRICE = "totalPrice";
     public static final String CART_ITEMS_COUNT = "cartItemsCount";
 
-    private GlobalConstants() {
-    }
 }
