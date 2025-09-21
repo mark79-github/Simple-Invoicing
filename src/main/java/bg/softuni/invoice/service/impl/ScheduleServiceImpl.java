@@ -5,24 +5,21 @@ import bg.softuni.invoice.model.service.InvoiceServiceModel;
 import bg.softuni.invoice.service.InvoiceService;
 import bg.softuni.invoice.service.LogService;
 import bg.softuni.invoice.service.ScheduleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
+@ConditionalOnProperty(name = "scheduler.enabled", havingValue = "true", matchIfMissing = true)
 public class ScheduleServiceImpl implements ScheduleService {
 
     private final LogService logService;
     private final InvoiceService invoiceService;
-
-    @Autowired
-    public ScheduleServiceImpl(LogService logService, InvoiceService invoiceService) {
-        this.logService = logService;
-        this.invoiceService = invoiceService;
-    }
 
     //    <second> <minute> <hour> <day-of-month> <month> <day-of-week> <year> <command>
 
@@ -52,3 +49,4 @@ public class ScheduleServiceImpl implements ScheduleService {
         invoices.forEach(invoiceServiceModel -> invoiceService.changeStatus(invoiceServiceModel.getId()));
     }
 }
+
