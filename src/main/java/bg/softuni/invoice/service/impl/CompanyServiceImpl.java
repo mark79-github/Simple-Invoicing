@@ -5,8 +5,8 @@ import bg.softuni.invoice.model.entity.Company;
 import bg.softuni.invoice.model.service.CompanyServiceModel;
 import bg.softuni.invoice.repository.CompanyRepository;
 import bg.softuni.invoice.service.CompanyService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +14,11 @@ import java.util.List;
 import static bg.softuni.invoice.constant.ErrorMsg.COMPANY_NOT_FOUND;
 
 @Service
+@RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository, ModelMapper modelMapper) {
-        this.companyRepository = companyRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public CompanyServiceModel getCompanyByName(String name) {
