@@ -1,12 +1,20 @@
 package bg.softuni.invoice.model.bind;
 
-import org.hibernate.validator.constraints.Length;
-
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
-import static bg.softuni.invoice.constant.ErrorMsg.*;
+import static bg.softuni.invoice.constant.ErrorMsg.ADDRESS_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.NAME_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.STRING_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.SUPPLIER_NOT_NULL;
+import static bg.softuni.invoice.constant.ErrorMsg.UNIQUE_IDENTIFIER_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.UNIQUE_IDENTIFIER_REGEX;
 
+@Setter
+@Getter
 public class CompanyEditBindingModel {
 
     private String id;
@@ -23,43 +31,4 @@ public class CompanyEditBindingModel {
     @NotNull(message = SUPPLIER_NOT_NULL)
     private boolean supplier;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getUniqueIdentifier() {
-        return uniqueIdentifier;
-    }
-
-    public void setUniqueIdentifier(String uniqueIdentifier) {
-        this.uniqueIdentifier = uniqueIdentifier;
-    }
-
-    public boolean isSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(boolean supplier) {
-        this.supplier = supplier;
-    }
 }
