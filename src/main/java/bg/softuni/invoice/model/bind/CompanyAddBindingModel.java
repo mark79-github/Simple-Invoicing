@@ -1,11 +1,18 @@
 package bg.softuni.invoice.model.bind;
 
+import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import jakarta.validation.constraints.Pattern;
+import static bg.softuni.invoice.constant.ErrorMsg.ADDRESS_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.NAME_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.STRING_MIN_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.UNIQUE_IDENTIFIER_LENGTH;
+import static bg.softuni.invoice.constant.ErrorMsg.UNIQUE_IDENTIFIER_REGEX;
 
-import static bg.softuni.invoice.constant.ErrorMsg.*;
-
+@Setter
+@Getter
 public class CompanyAddBindingModel {
 
     @Length(min = STRING_MIN_LENGTH, message = NAME_MIN_LENGTH)
@@ -17,27 +24,4 @@ public class CompanyAddBindingModel {
     @Pattern(regexp = UNIQUE_IDENTIFIER_REGEX, message = UNIQUE_IDENTIFIER_LENGTH)
     private String uniqueIdentifier;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getUniqueIdentifier() {
-        return uniqueIdentifier;
-    }
-
-    public void setUniqueIdentifier(String uniqueIdentifier) {
-        this.uniqueIdentifier = uniqueIdentifier;
-    }
 }
