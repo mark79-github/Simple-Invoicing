@@ -5,8 +5,8 @@ import bg.softuni.invoice.model.entity.Item;
 import bg.softuni.invoice.model.service.ItemServiceModel;
 import bg.softuni.invoice.repository.ItemRepository;
 import bg.softuni.invoice.service.ItemService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +14,11 @@ import java.util.List;
 import static bg.softuni.invoice.constant.ErrorMsg.ITEM_NOT_FOUND;
 
 @Service
+@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public ItemServiceImpl(ItemRepository itemRepository, ModelMapper modelMapper) {
-        this.itemRepository = itemRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public List<ItemServiceModel> getAllItems() {
