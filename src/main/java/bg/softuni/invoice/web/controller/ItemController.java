@@ -8,13 +8,18 @@ import bg.softuni.invoice.service.CloudinaryService;
 import bg.softuni.invoice.service.ItemService;
 import bg.softuni.invoice.web.annotation.PageTitle;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,6 +31,7 @@ import static bg.softuni.invoice.constant.GlobalConstants.DEFAULT_ITEM_IMAGE_FIL
 
 @Controller
 @RequestMapping("/item")
+@RequiredArgsConstructor
 public class ItemController {
 
     private static final String ITEM_ADD_BINDING_MODEL = "itemAddBindingModel";
@@ -33,13 +39,6 @@ public class ItemController {
     private final ItemService itemService;
     private final ModelMapper modelMapper;
     private final CloudinaryService cloudinaryService;
-
-    @Autowired
-    public ItemController(ItemService itemService, ModelMapper modelMapper, CloudinaryService cloudinaryService) {
-        this.itemService = itemService;
-        this.modelMapper = modelMapper;
-        this.cloudinaryService = cloudinaryService;
-    }
 
     @GetMapping("/add")
     @PageTitle("Item add")
