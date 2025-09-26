@@ -1,16 +1,26 @@
 package bg.softuni.invoice.model.bind;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static bg.softuni.invoice.constant.ErrorMsg.*;
+import static bg.softuni.invoice.constant.ErrorMsg.DATE_FORMAT_PATTERN;
+import static bg.softuni.invoice.constant.ErrorMsg.DATE_NOT_EMPTY;
+import static bg.softuni.invoice.constant.ErrorMsg.DATE_NOW_OR_FUTURE;
+import static bg.softuni.invoice.constant.ErrorMsg.PAYMENT_TYPE_NOT_EMPTY;
+import static bg.softuni.invoice.constant.ErrorMsg.RECEIVER_NOT_EMPTY;
+import static bg.softuni.invoice.constant.ErrorMsg.SENDER_NOT_EMPTY;
+import static bg.softuni.invoice.constant.ErrorMsg.VALUE_POSITIVE;
 
+@Setter
+@Getter
 public class InvoiceAddBindingModel {
 
     @NotBlank(message = SENDER_NOT_EMPTY)
@@ -31,43 +41,4 @@ public class InvoiceAddBindingModel {
     @NotNull(message = DATE_NOT_EMPTY)
     private LocalDate date;
 
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    public String getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
-
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
-    }
-
-    public BigDecimal getTotalValue() {
-        return totalValue;
-    }
-
-    public void setTotalValue(BigDecimal totalValue) {
-        this.totalValue = totalValue;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 }
