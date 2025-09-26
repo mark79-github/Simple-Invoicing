@@ -13,8 +13,8 @@ import bg.softuni.invoice.service.ItemService;
 import bg.softuni.invoice.web.annotation.PageTitle;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -41,22 +41,16 @@ import static bg.softuni.invoice.constant.GlobalConstants.CART_TOTAL_PRICE;
 
 @Controller
 @RequestMapping("/invoice")
+@RequiredArgsConstructor
 public class InvoiceController {
 
     private static final String INVOICE_ADD_BINDING_MODEL = "invoiceAddBindingModel";
     private static final String REDIRECT_INVOICE_ALL = "redirect:/invoice/all";
+
     private final CompanyService companyService;
     private final ModelMapper modelMapper;
     private final InvoiceService invoiceService;
     private final ItemService itemService;
-
-    @Autowired
-    public InvoiceController(CompanyService companyService, ModelMapper modelMapper, InvoiceService invoiceService, ItemService itemService) {
-        this.companyService = companyService;
-        this.modelMapper = modelMapper;
-        this.invoiceService = invoiceService;
-        this.itemService = itemService;
-    }
 
     @GetMapping("/add")
     @PageTitle("Invoice add")
