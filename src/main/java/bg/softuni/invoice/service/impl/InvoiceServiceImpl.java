@@ -12,8 +12,8 @@ import bg.softuni.invoice.model.service.UserServiceModel;
 import bg.softuni.invoice.repository.InvoiceRepository;
 import bg.softuni.invoice.service.InvoiceService;
 import bg.softuni.invoice.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -26,18 +26,12 @@ import static bg.softuni.invoice.constant.ErrorMsg.INVOICE_NOT_FOUND;
 import static bg.softuni.invoice.constant.ErrorMsg.USERNAME_NOT_FOUND;
 
 @Service
+@RequiredArgsConstructor
 public class InvoiceServiceImpl implements InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
     private final ModelMapper modelMapper;
     private final UserService userService;
-
-    @Autowired
-    public InvoiceServiceImpl(InvoiceRepository invoiceRepository, ModelMapper modelMapper, UserService userService) {
-        this.invoiceRepository = invoiceRepository;
-        this.modelMapper = modelMapper;
-        this.userService = userService;
-    }
 
     @Override
     public void addInvoice(InvoiceServiceModel invoiceServiceModel, String username) {
