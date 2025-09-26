@@ -4,11 +4,15 @@ import bg.softuni.invoice.model.entity.Invoice;
 import bg.softuni.invoice.model.entity.Sale;
 import bg.softuni.invoice.model.entity.User;
 import bg.softuni.invoice.repository.InvoiceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,14 +21,10 @@ import java.util.Set;
 @CrossOrigin("http://localhost")
 @RestController
 @RequestMapping("/api/invoice")
+@RequiredArgsConstructor
 public class InvoiceRestController {
 
     private final InvoiceRepository invoiceRepository;
-
-    @Autowired
-    public InvoiceRestController(InvoiceRepository invoiceRepository) {
-        this.invoiceRepository = invoiceRepository;
-    }
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
