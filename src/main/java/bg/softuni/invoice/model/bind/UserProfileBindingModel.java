@@ -2,6 +2,8 @@ package bg.softuni.invoice.model.bind;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import static bg.softuni.invoice.constant.ErrorMsg.EMAIL_NOT_CORRECT;
@@ -14,6 +16,8 @@ import static bg.softuni.invoice.constant.ErrorMsg.LAST_NAME_MIN_LENGTH;
 import static bg.softuni.invoice.constant.ErrorMsg.NAME_REGEX;
 import static bg.softuni.invoice.constant.ErrorMsg.STRING_MIN_LENGTH;
 
+@Setter
+@Getter
 public class UserProfileBindingModel {
 
     private String id;
@@ -32,35 +36,4 @@ public class UserProfileBindingModel {
     @Pattern(regexp = NAME_REGEX, message = LAST_NAME_FIRST_LETTER_UPPERCASE)
     private String lastName;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }

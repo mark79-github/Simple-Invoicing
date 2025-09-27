@@ -7,6 +7,7 @@ import bg.softuni.invoice.model.service.UserServiceModel;
 import bg.softuni.invoice.repository.UserRepository;
 import bg.softuni.invoice.service.RoleService;
 import bg.softuni.invoice.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,19 +23,13 @@ import static bg.softuni.invoice.constant.ErrorMsg.USERNAME_NOT_FOUND;
 import static bg.softuni.invoice.constant.ErrorMsg.USER_NOT_FOUND;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final RoleService roleService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
-        this.roleService = roleService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
 
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
