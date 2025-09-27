@@ -9,8 +9,8 @@ import bg.softuni.invoice.model.view.UserViewModel;
 import bg.softuni.invoice.service.UserService;
 import bg.softuni.invoice.web.annotation.PageTitle;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,6 +34,7 @@ import static bg.softuni.invoice.constant.ErrorMsg.USERNAME_NOT_FOUND;
 
 @Controller
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
     private static final String USER_REGISTER_BINDING_MODEL = "userRegisterBindingModel";
@@ -41,14 +42,9 @@ public class UserController {
     private static final String VALIDATION_BINDING_RESULT = "org.springframework.validation.BindingResult.";
     private static final String REDIRECT_USER_ALL = "redirect:/user/all";
     private static final String REDIRECT_REGISTER = "redirect:register";
+
     private final UserService userService;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public UserController(UserService userService, ModelMapper modelMapper) {
-        this.userService = userService;
-        this.modelMapper = modelMapper;
-    }
 
     @GetMapping("/register")
     @PageTitle("User register")
