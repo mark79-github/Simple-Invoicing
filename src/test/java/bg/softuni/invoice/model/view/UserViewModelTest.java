@@ -7,6 +7,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -136,7 +137,7 @@ class UserViewModelTest {
         assertNull(actualLastName);
     }
 
-    // Authorities tests
+    // Authority tests
     @Test
     void authorities_withValidValue_shouldReturnCorrectAuthorities() {
         UserViewModel userViewModel = new UserViewModel();
@@ -152,12 +153,13 @@ class UserViewModelTest {
     }
 
     @Test
-    void authorities_whenNotSet_shouldReturnNull() {
+    void authorities_whenNotSet_shouldReturnEmptyList() {
         UserViewModel userViewModel = new UserViewModel();
 
         Set<String> actualAuthorities = userViewModel.getAuthorities();
 
-        assertNull(actualAuthorities);
+        assertNotNull(actualAuthorities);
+        assertEquals(0, actualAuthorities.size());
     }
 
     @Test
