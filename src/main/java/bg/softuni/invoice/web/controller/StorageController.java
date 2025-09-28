@@ -5,8 +5,8 @@ import bg.softuni.invoice.model.view.ItemViewModel;
 import bg.softuni.invoice.service.ItemService;
 import bg.softuni.invoice.web.annotation.PageTitle;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,16 +29,11 @@ import static bg.softuni.invoice.constant.GlobalConstants.CART_TOTAL_PRICE;
 @Controller
 @RequestMapping("/storage")
 @ControllerAdvice
+@RequiredArgsConstructor
 public class StorageController {
 
     private final ModelMapper modelMapper;
     private final ItemService itemService;
-
-    @Autowired
-    public StorageController(ModelMapper modelMapper, ItemService itemService) {
-        this.modelMapper = modelMapper;
-        this.itemService = itemService;
-    }
 
     @PostMapping("/add-item/{id}")
     @PreAuthorize("isAuthenticated()")
