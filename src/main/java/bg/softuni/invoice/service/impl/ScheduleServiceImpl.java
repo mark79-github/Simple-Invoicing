@@ -6,7 +6,7 @@ import bg.softuni.invoice.service.InvoiceService;
 import bg.softuni.invoice.service.LogService;
 import bg.softuni.invoice.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-@ConditionalOnProperty(name = "scheduler.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnBooleanProperty(name = "scheduler.enabled", matchIfMissing = true)
 public class ScheduleServiceImpl implements ScheduleService {
 
     private final LogService logService;
@@ -49,4 +49,3 @@ public class ScheduleServiceImpl implements ScheduleService {
         invoices.forEach(invoiceServiceModel -> invoiceService.changeStatus(invoiceServiceModel.getId()));
     }
 }
-
