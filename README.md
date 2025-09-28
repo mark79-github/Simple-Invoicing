@@ -9,7 +9,7 @@ A Spring Boot invoicing application with role-based access control.
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Simple-Invoicing&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Simple-Invoicing)
-[![Deployment Status](https://img.shields.io/badge/Deployment-Live-brightgreen?style=flat&logo=northflank&logoColor=white)](https://web--simple-invoicing--sb2tbz4x9kl8.code.run)
+[![Deployment Status](https://img.shields.io/badge/Deployment-Live-brightgreen?style=flat&logo=northflank&logoColor=white)](https://simple-invoicing.martin-bg.com/)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ### 🎯 Final project for the **[Spring Advanced - June 2020](https://softuni.bg/trainings/3026/spring-advanced-june-2020/internal)** course.
