@@ -3,10 +3,10 @@ package bg.softuni.invoice.service.impl;
 import bg.softuni.invoice.service.CloudinaryService;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +21,7 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class CloudinaryServiceImpl implements CloudinaryService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CloudinaryServiceImpl.class);
@@ -29,11 +30,6 @@ public class CloudinaryServiceImpl implements CloudinaryService {
     private static final String TEMP_FOLDER = "/temp";
 
     private final Cloudinary cloudinary;
-
-    @Autowired
-    public CloudinaryServiceImpl(Cloudinary cloudinary) {
-        this.cloudinary = cloudinary;
-    }
 
     @Override
     public String uploadImage(MultipartFile multipartFile) throws IOException {
