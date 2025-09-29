@@ -79,7 +79,7 @@ class UserProfileBindingModelTest {
 
     @ParameterizedTest
     @CsvSource({
-            "' '",
+            "@",
             "plain@",
             "email.com"
     })

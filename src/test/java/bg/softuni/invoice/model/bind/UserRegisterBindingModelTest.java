@@ -67,7 +67,7 @@ class UserRegisterBindingModelTest {
 
     @ParameterizedTest
     @CsvSource({
-            "' '",
+            "@",
             "invalid@",
             "plainaddress"
     })
