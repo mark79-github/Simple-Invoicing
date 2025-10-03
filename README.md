@@ -38,10 +38,8 @@ This educational project demonstrates user management, company handling, and aut
 
 ### 🗄️ Database
 
-- ![MySQL](https://img.shields.io/badge/MySQL-Development-4479A1?style=flat&logo=mysql&logoColor=white) **Primary
-  database (development)**
-- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Production-4169E1?style=flat&logo=postgresql&logoColor=white) *
-  *Production database support**
+- ![MySQL](https://img.shields.io/badge/MySQL-Development-4479A1?style=flat&logo=mysql&logoColor=white) **Primary database (development)**
+- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Production-4169E1?style=flat&logo=postgresql&logoColor=white) **Production database support**
 - ![H2](https://img.shields.io/badge/H2-In--Memory-5D5D5D?style=flat) **In-memory database (testing)**
 
 ### 📚 Additional Libraries
