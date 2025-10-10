@@ -4,9 +4,8 @@ import bg.softuni.invoice.service.CloudinaryService;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.SystemUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,9 +21,9 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CloudinaryServiceImpl implements CloudinaryService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CloudinaryServiceImpl.class);
     private static final String TEMP_FILE_PREFIX = "cloudinary_upload_";
     private static final String POSIX_FILE_PERMISSION = "rw-------";
     private static final String TEMP_FOLDER = "/temp";
@@ -46,7 +45,7 @@ public class CloudinaryServiceImpl implements CloudinaryService {
             try {
                 Files.deleteIfExists(tempFile.toPath());
             } catch (Exception e) {
-                LOGGER.warn("Warning: Could not delete temp file: {}", tempFile.getAbsolutePath(), e);
+                log.error("Warning: Could not delete temp file: {}", tempFile.getAbsolutePath(), e);
             }
         }
     }
