@@ -1,16 +1,16 @@
 version: '3.8'
 services:
   postgresql:
-    image: postgres
-    container_name: pg-docker
+    image: postgres:16.10
+    container_name: postgres-16.10
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
   pgadmin:
-    container_name: pgadmin4_container
-    image: dpage/pgadmin4
+    container_name: pgadmin4-9.8.0
+    image: dpage/pgadmin4:9.8.0
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
