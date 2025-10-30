@@ -15,16 +15,15 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <spring.boot.version>3.5.5</spring.boot.version>
-        <modelmapper.version>3.2.4</modelmapper.version>
-        <cloudinary-http45.version>1.39.0</cloudinary-http45.version>
-        <mysql-connector-j.version>8.2.0</mysql-connector-j.version>
-        <postgresql.version>42.7.7</postgresql.version>
-        <tomcat-embed-core.version>11.0.10</tomcat-embed-core.version>
-        <commons-lang3.version>3.18.0</commons-lang3.version>
-        <jacoco.version>0.8.13</jacoco.version>
-        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
-        <lombok.version>1.18.40</lombok.version>
+        <spring-boot.version>3.5.7</spring-boot.version>
+        <modelmapper.version>3.2.5</modelmapper.version>
+        <cloudinary-http5.version>2.3.2</cloudinary-http5.version>
+        <mysql-connector-j.version>9.5.0</mysql-connector-j.version>
+        <postgresql.version>42.7.8</postgresql.version>
+        <commons-lang3.version>3.19.0</commons-lang3.version>
+        <jacoco.version>0.8.14</jacoco.version>
+        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+        <lombok.version>1.18.42</lombok.version>
         <sonar.organization>mark79-github</sonar.organization>
     </properties>
 
@@ -33,7 +32,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -60,12 +59,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.tomcat.embed</groupId>
-                    <artifactId>tomcat-embed-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
@@ -80,11 +73,6 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-            <version>${tomcat-embed-core.version}</version>
         </dependency>
         <dependency>
             <groupId>com.mysql</groupId>
@@ -115,8 +103,8 @@
         </dependency>
         <dependency>
             <groupId>com.cloudinary</groupId>
-            <artifactId>cloudinary-http45</artifactId>
-            <version>${cloudinary-http45.version}</version>
+            <artifactId>cloudinary-http5</artifactId>
+            <version>${cloudinary-http5.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.commons</groupId>
@@ -166,7 +154,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>${spring-boot.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>
