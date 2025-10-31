@@ -25,7 +25,7 @@ This educational project demonstrates user management, company handling, and aut
 ### ⚙️ Backend
 
 - ![Java 17](https://img.shields.io/badge/Java-17-007396?style=flat&logo=openjdk&logoColor=white)
-- ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.5-6DB33F?style=flat&logo=spring-boot&logoColor=white)
+- ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.7-6DB33F?style=flat&logo=spring-boot&logoColor=white)
 - ![Spring MVC](https://img.shields.io/badge/Spring%20MVC-Web-6DB33F?style=flat&logo=spring&logoColor=white)
 - ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-Persistence-6DB33F?style=flat&logo=spring&logoColor=white)
 - ![Spring Security](https://img.shields.io/badge/Spring%20Security-Auth-6DB33F?style=flat&logo=spring&logoColor=white)
@@ -46,13 +46,11 @@ This educational project demonstrates user management, company handling, and aut
 
 - ![ModelMapper](https://img.shields.io/badge/ModelMapper-Object%20Mapping-5D5D5D?style=flat)
 - ![Cloudinary](https://img.shields.io/badge/Cloudinary-Media%20Management-3448C5?style=flat&logo=cloudinary&logoColor=white)
-- ![Apache Commons](https://img.shields.io/badge/Apache%20Commons%20Lang-Utilities-D22128?style=flat&logo=apache&logoColor=white)
 
 ### 🛠️ Development & Testing
 
 - ![Spring Boot DevTools](https://img.shields.io/badge/Spring%20Boot-DevTools-6DB33F?style=flat&logo=spring-boot&logoColor=white)
 - ![JaCoCo](https://img.shields.io/badge/JaCoCo-Code%20Coverage-5D5D5D?style=flat)
-- ![Apache Tomcat](https://img.shields.io/badge/Apache%20Tomcat-Embedded-F8DC75?style=flat&logo=apachetomcat&logoColor=black)
 - ![Maven](https://img.shields.io/badge/Apache%20Maven-Build%20Tool-C71A36?style=flat&logo=apachemaven&logoColor=white)
 
 ---
