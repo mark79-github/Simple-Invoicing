@@ -16,11 +16,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
         <spring-boot.version>3.5.7</spring-boot.version>
-        <modelmapper.version>3.2.5</modelmapper.version>
+        <modelmapper.version>3.2.6</modelmapper.version>
         <cloudinary-http5.version>2.3.2</cloudinary-http5.version>
         <mysql-connector-j.version>9.5.0</mysql-connector-j.version>
         <postgresql.version>42.7.8</postgresql.version>
-        <commons-lang3.version>3.19.0</commons-lang3.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
         <jacoco.version>0.8.14</jacoco.version>
         <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
         <lombok.version>1.18.42</lombok.version>
