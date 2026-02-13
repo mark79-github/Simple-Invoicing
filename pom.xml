@@ -8,14 +8,14 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
     <name>Simple-Invoicing</name>
-    <description>Final Project — Spring Boot Advanced — May 2024</description>
+    <description>Final Project – Spring Boot Advanced – May 2024</description>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>17</java.version>
-        <spring-boot.version>3.5.7</spring-boot.version>
+        <java.version>21</java.version>
+        <spring-boot.version>4.0.2</spring-boot.version>
         <modelmapper.version>3.2.6</modelmapper.version>
         <cloudinary-http5.version>2.3.2</cloudinary-http5.version>
         <mysql-connector-j.version>9.5.0</mysql-connector-j.version>
@@ -89,6 +89,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
