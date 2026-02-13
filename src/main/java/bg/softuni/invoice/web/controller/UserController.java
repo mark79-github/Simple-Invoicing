@@ -149,7 +149,7 @@ public class UserController {
 
     @GetMapping("/all")
     @PageTitle("User all")
-    @PreAuthorize("hasRole('ROLE_ROOT')")
+    @PreAuthorize("hasRole('ROOT')")
     public String allUsers(Model model) {
 
         List<UserViewModel> users = this.userService.getAllUsers()
@@ -172,7 +172,7 @@ public class UserController {
     }
 
     @PostMapping("/set-admin/{id}")
-    @PreAuthorize("hasRole('ROLE_ROOT')")
+    @PreAuthorize("hasRole('ROOT')")
     public String setAdminRole(@PathVariable String id) {
         this.userService.setAdmin(id);
 
@@ -180,7 +180,7 @@ public class UserController {
     }
 
     @PostMapping("/set-user/{id}")
-    @PreAuthorize("hasRole('ROLE_ROOT')")
+    @PreAuthorize("hasRole('ROOT')")
     public String setUserRole(@PathVariable String id) {
         this.userService.setUser(id);
 
@@ -188,7 +188,7 @@ public class UserController {
     }
 
     @PostMapping("/set-enabled/{id}")
-    @PreAuthorize("hasRole('ROLE_ROOT')")
+    @PreAuthorize("hasRole('ROOT')")
     public String setEnabled(@PathVariable String id) {
         this.userService.setUserEnabled(id);
 
@@ -196,7 +196,7 @@ public class UserController {
     }
 
     @PostMapping("/set-disabled/{id}")
-    @PreAuthorize("hasRole('ROLE_ROOT')")
+    @PreAuthorize("hasRole('ROOT')")
     public String setDisabled(@PathVariable String id) {
         this.userService.setUserDisabled(id);
 
