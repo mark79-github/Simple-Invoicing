@@ -10,18 +10,20 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
-@WebMvcTest(CompanyController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class CompanyControllerTest {
 
     @Autowired
@@ -43,7 +45,6 @@ class CompanyControllerTest {
     private ItemService itemService;
 
     @Test
-    @WithMockUser(roles = {"ADMIN"})
     void testAddConfirm_withValidInput_shouldRedirectToAll() throws Exception {
         CompanyAddBindingModel validModel = new CompanyAddBindingModel();
         validModel.setName("Valid Name");
@@ -59,7 +60,7 @@ class CompanyControllerTest {
         Mockito.when(companyService.getCompanyByUniqueIdentifier(validModel.getUniqueIdentifier())).thenReturn(null);
         Mockito.when(modelMapper.map(validModel, CompanyServiceModel.class)).thenReturn(serviceModel);
 
-        mockMvc.perform(post("/company/add")
+        mockMvc.perform(post("/company/add").with(user("test-admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .with(csrf())
                         .param("name", validModel.getName())
@@ -69,7 +70,6 @@ class CompanyControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = {"ADMIN"})
     void testAddConfirm_withNameConflict_shouldRedirectToAdd() throws Exception {
         CompanyAddBindingModel conflictingModel = new CompanyAddBindingModel();
         conflictingModel.setName("Existing Company");
@@ -81,7 +81,7 @@ class CompanyControllerTest {
 
         Mockito.when(companyService.getCompanyByName(conflictingModel.getName())).thenReturn(conflictingServiceModel);
 
-        mockMvc.perform(post("/company/add")
+        mockMvc.perform(post("/company/add").with(user("test-admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .with(csrf())
                         .param("name", conflictingModel.getName())
@@ -93,7 +93,6 @@ class CompanyControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = {"ADMIN"})
     void testAddConfirm_withUniqueIdentifierConflict_shouldRedirectToAdd() throws Exception {
         CompanyAddBindingModel conflictingModel = new CompanyAddBindingModel();
         conflictingModel.setName("New Company");
@@ -106,7 +105,7 @@ class CompanyControllerTest {
         Mockito.when(companyService.getCompanyByName(conflictingModel.getName())).thenReturn(null);
         Mockito.when(companyService.getCompanyByUniqueIdentifier(conflictingModel.getUniqueIdentifier())).thenReturn(conflictingServiceModel);
 
-        mockMvc.perform(post("/company/add")
+        mockMvc.perform(post("/company/add").with(user("test-admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .with(csrf())
                         .param("name", conflictingModel.getName())
@@ -118,9 +117,8 @@ class CompanyControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = {"ADMIN"})
     void testAddConfirm_withValidationErrors_shouldRedirectToAdd() throws Exception {
-        mockMvc.perform(post("/company/add")
+        mockMvc.perform(post("/company/add").with(user("test-admin").roles("ADMIN"))
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .with(csrf())
                         .param("name", "")
