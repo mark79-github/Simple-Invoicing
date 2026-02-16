@@ -1,4 +1,4 @@
-package bg.softuni.invoice.controller;
+package bg.softuni.invoice.web.controller;
 
 import bg.softuni.invoice.repository.UserRepository;
 import bg.softuni.invoice.service.RoleService;
@@ -6,12 +6,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
@@ -45,10 +45,9 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser
     void login_withLoggedInUserShouldReturnErrorView() throws Exception {
         this.mockMvc
-                .perform(get("/user/login"))
+                .perform(get("/user/login").with(user("test-user").roles("USER")))
                 .andExpect(status().is4xxClientError())
                 .andExpect(forwardedUrl("/error"));
     }
@@ -64,7 +63,8 @@ class UserControllerTest {
     @Test
     void register_registerSuccessfullyRedirect() throws Exception {
         this.mockMvc
-                .perform(post("/user/register").with(csrf())
+                .perform(post("/user/register")
+                        .with(csrf())
                         .param("username", "admin@admin.com")
                         .param("firstName", "Admin")
                         .param("lastName", "Admin")
@@ -80,7 +80,8 @@ class UserControllerTest {
     @Test
     void register_whenBindingResultHasErrorsRedirect() throws Exception {
         this.mockMvc
-                .perform(post("/user/register").with(csrf())
+                .perform(post("/user/register")
+                        .with(csrf())
                         .param("username", "")
                         .param("firstName", "")
                         .param("lastName", "")
@@ -95,7 +96,8 @@ class UserControllerTest {
     void register_whenUsernameAlreadyExistsRedirect() throws Exception {
 
         this.mockMvc
-                .perform(post("/user/register").with(csrf())
+                .perform(post("/user/register")
+                        .with(csrf())
                         .param("username", "admin@admin.com")
                         .param("firstName", "Admin")
                         .param("lastName", "Admin")
@@ -104,7 +106,8 @@ class UserControllerTest {
                 );
 
         this.mockMvc
-                .perform(post("/user/register").with(csrf())
+                .perform(post("/user/register")
+                        .with(csrf())
                         .param("username", "admin@admin.com")
                         .param("firstName", "Test")
                         .param("lastName", "Test")
@@ -116,30 +119,26 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser
     void register_withLoggedInUserShouldReturnErrorView() throws Exception {
         this.mockMvc
-                .perform(get("/user/register").with(csrf()))
+                .perform(get("/user/register").with(user("test-user").roles("USER")))
                 .andExpect(status().is4xxClientError())
                 .andExpect(forwardedUrl("/error"));
     }
 
     @Test
-    @WithMockUser(roles = "ROOT")
     void all_withLoggedInRootUserShouldReturnCorrectView() throws Exception {
         this.mockMvc
-                .perform(get("/user/all").with(csrf()))
+                .perform(get("/user/all").with(user("test-root").roles("ROOT")))
                 .andExpect(model().attributeExists("users"))
                 .andExpect(model().attributeExists("comparator"))
                 .andExpect(view().name("user/all"));
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
     void all_withLoggedInAdminOrUserShouldReturnCorrectViewAdmin() throws Exception {
         this.mockMvc
-                .perform(get("/user/all").with(csrf()))
+                .perform(get("/user/all").with(user("test-admin").roles("ADMIN")))
                 .andExpect(view().name("error"));
     }
-
 }
