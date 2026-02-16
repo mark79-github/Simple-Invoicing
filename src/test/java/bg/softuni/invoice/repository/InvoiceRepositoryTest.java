@@ -84,7 +84,7 @@ class InvoiceRepositoryTest {
         List<Invoice> resultForUser2 = invoiceRepository.getAllByUser(user2);
 
         assertThat(resultForUser1).hasSize(1);
-        assertThat(resultForUser1.get(0).getTotalValue()).isEqualByComparingTo("200.00");
+        assertThat(resultForUser1.getFirst().getTotalValue()).isEqualByComparingTo("200.00");
         assertThat(resultForUser2).isEmpty();
     }
 
