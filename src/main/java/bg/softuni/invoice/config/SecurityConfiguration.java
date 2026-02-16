@@ -27,7 +27,7 @@ public class SecurityConfiguration {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Bean
-    public SecurityFilterChain configureSecurity(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain configureSecurity(HttpSecurity httpSecurity) {
         httpSecurity
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository()))
