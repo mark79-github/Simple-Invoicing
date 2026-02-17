@@ -24,8 +24,8 @@ This educational project demonstrates user management, company handling, and aut
 
 ### ⚙️ Backend
 
-- ![Java 17](https://img.shields.io/badge/Java-17-007396?style=flat&logo=openjdk&logoColor=white)
-- ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.7-6DB33F?style=flat&logo=spring-boot&logoColor=white)
+- ![Java 21](https://img.shields.io/badge/Java-21-007396?style=flat&logo=openjdk&logoColor=white)
+- ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.2-6DB33F?style=flat&logo=spring-boot&logoColor=white)
 - ![Spring MVC](https://img.shields.io/badge/Spring%20MVC-Web-6DB33F?style=flat&logo=spring&logoColor=white)
 - ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-Persistence-6DB33F?style=flat&logo=spring&logoColor=white)
 - ![Spring Security](https://img.shields.io/badge/Spring%20Security-Auth-6DB33F?style=flat&logo=spring&logoColor=white)
