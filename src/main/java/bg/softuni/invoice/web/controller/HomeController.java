@@ -2,19 +2,23 @@ package bg.softuni.invoice.web.controller;
 
 import bg.softuni.invoice.web.annotation.PageTitle;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.security.Principal;
 
 @Controller
 public class HomeController {
 
     @GetMapping("/")
     @PageTitle("invoices")
-    public String index(Principal principal) {
+    public String index(Authentication authentication) {
 
-        if (principal != null) {
+        boolean isLoggedIn = authentication != null
+                && authentication.isAuthenticated()
+                && !(authentication instanceof AnonymousAuthenticationToken);
+
+        if (isLoggedIn) {
             return "home/home";
         }
 

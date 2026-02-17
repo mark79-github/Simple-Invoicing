@@ -9,7 +9,7 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -84,7 +84,7 @@ class InvoiceRepositoryTest {
         List<Invoice> resultForUser2 = invoiceRepository.getAllByUser(user2);
 
         assertThat(resultForUser1).hasSize(1);
-        assertThat(resultForUser1.get(0).getTotalValue()).isEqualByComparingTo("200.00");
+        assertThat(resultForUser1.getFirst().getTotalValue()).isEqualByComparingTo("200.00");
         assertThat(resultForUser2).isEmpty();
     }
 
