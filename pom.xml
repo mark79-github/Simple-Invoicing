@@ -19,7 +19,7 @@
         <modelmapper.version>3.2.6</modelmapper.version>
         <cloudinary-http5.version>2.3.2</cloudinary-http5.version>
         <mysql-connector-j.version>9.6.0</mysql-connector-j.version>
-        <postgresql.version>42.7.10</postgresql.version>
+        <postgresql.version>42.7.11</postgresql.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
         <jacoco.version>0.8.14</jacoco.version>
         <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
